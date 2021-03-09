@@ -1,0 +1,36 @@
+﻿<Properties StartupConfiguration="{FB2C58A1-B8C9-4742-B13A-15FF6FB9CE6A}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GDF-HRMS-v1/appsettings.json">
+    <Files>
+      <File FileName="GDF-HRMS-v1/appsettings.json" Line="1" Column="1" />
+      <File FileName="GDF-HRMS-v1/Startup.cs" Line="1" Column="1" />
+      <File FileName="GDF-HRMS-v1/Controllers/EmployeeInfoController.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="GDF-HRMS-v1" expanded="True">
+            <Node name="GDF-HRMS-v1" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="FrameworkReferences" expanded="True" />
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Data" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Dtos" expanded="True" />
+              </Node>
+              <Node name="appsettings.json" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.GDF-HRMS-v1 PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

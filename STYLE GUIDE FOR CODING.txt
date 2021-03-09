@@ -1,0 +1,13 @@
+FOR NOW CODING STYLE GUIDE IS AS FOLLOWS:
+
+FRONT-END
+The type of components that will be used in this project are function based components and not class based ones.
+Naming the file of a react component should begin with a capital letter for example, if your component is called perosn the name of the file will be Person.js
+
+BACK-END
+1. Model names should not include space or _, -, intead use Capital Letters eg. (CareerHistory
+
+2. Model fields/ attr should begin with Capital Letter and Abbreviated where possible eg. (Fname instead ofFirst Name or RNumber instead of RegimentNumber)
+   If more than one word is in the name follow rule 1. eg. (TinNumber)
+3. If a new project is created use version number, this is version 1, hence, GDF-HRMS-v1 next would be GDF-HRMS-v1.1
+4. Any naming of classes/ methods should follow rule 1.
