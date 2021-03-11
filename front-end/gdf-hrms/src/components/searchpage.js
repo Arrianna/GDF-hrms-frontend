@@ -31,21 +31,37 @@ export default function SearchPage() {
 
   const [searchResults, setsearchResults] = useState([]);
 
-  const getData = data => {
+ 
+  const getDataByRegNum = data => {
   Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
       console.log(response);
-   //   return response.data;
-      //response.data.title + "..." + response.data.fname;
-      // which ever field you need it will be response.data.fieldName
       let resultArray = [];
-    //  let result = Api.getEmployeeByRegNumber(data.regNum);
+      console.log(response.data);
+      resultArray.push(response.data);
+       setsearchResults(resultArray); 
+  });  
+}
+const getDataByFname = data => {
+  Axios.get("https://localhost:5001/api/EmployeeInfo/fname/" + data.fName).then((response) => {
+      console.log(response);
+      let resultArray = [];
       console.log(response.data);
       resultArray.push(response.data);
        setsearchResults(resultArray);
   });
-  
 }
 
+{/*
+const getDataByLname = data => {
+  Axios.get("http://localhost:5001/api/EmployeeInfo/lname/" + data.lName).then((response) => {
+      console.log(response);
+      let resultArray = [];
+      console.log(response.data);
+      resultArray.push(response.data);
+       setsearchResults(resultArray);
+  })
+}
+*/}
 
 
   return (
@@ -54,12 +70,12 @@ export default function SearchPage() {
       <Card>
         <CardContent className={classes.cardcontents}>
           <Typography variant='h5' align='center' gutterBottom >Search by Regiment Number</Typography>        
-          <SearchByRegimentNumberForm onSubmit={data => getData(data)}> </SearchByRegimentNumberForm>
+          <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
         </CardContent>
       
         <CardContent className={classes.cardcontents}>
           <Typography variant='h5' align='center' gutterBottom>Search by Other Criteria</Typography>
-          <SearchByOtherCriteriaForm> </SearchByOtherCriteriaForm>
+          <SearchByOtherCriteriaForm onSubmit={data => getDataByFname(data)}> </SearchByOtherCriteriaForm>
         </CardContent>
       </Card>      
     </div>

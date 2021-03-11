@@ -26,18 +26,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SearchByOtherCriteriaForm() {
+export default function SearchByOtherCriteriaForm(props) {
   const classes = useStyles(); 
 
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+ // const onSubmit = data => console.log(data);
 
   return (
     <React.Fragment>
       <div>
         <Card>        
           <CardContent className={classes.cardcontents}>          
-            <form className={classes.form} align='center' onSubmit={handleSubmit(onSubmit)}>
+            <form className={classes.form} align='center' onSubmit={handleSubmit(props.onSubmit)}>
               <TextField name='fName' label='First Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
               {errors.fName && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters required</p>)}
               <br />
