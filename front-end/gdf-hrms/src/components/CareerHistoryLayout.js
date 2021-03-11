@@ -1,12 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import SimpleSelect from './SimpleSelect';
+//import TextField from '@material-ui/core/TextField';
+//import SimpleSelect from './SimpleSelect';
 import CareerHistoryForm  from './CareerHistoryComponents/CareerHistoryForm';
 import CareerHistoryTable from './CareerHistoryComponents/CareerHistoryTable';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
