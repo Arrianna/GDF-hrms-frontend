@@ -51,8 +51,8 @@ export default function MatPaginationTable(props) {
               <TableCell align="right">Last Name</TableCell>
               <TableCell align="right">Rank</TableCell>
               <TableCell align="right">Regiment Number</TableCell>
-              <TableCell align="right">Date of Employment</TableCell>              
-              <TableCell align="right">Department</TableCell>  
+              <TableCell align="right">Date of Birth</TableCell>              
+              <TableCell align="right">Cell Number</TableCell>  
             </TableRow>
           </TableHead> 
 
@@ -61,12 +61,12 @@ export default function MatPaginationTable(props) {
               return (  
                 <TableRow >  
                   <TableCell component="th" scope="row">{row.id}</TableCell>  
-                  <TableCell align="right">{row.fname}</TableCell>  
-                  <TableCell align="right">{row.lname}</TableCell>  
-                  <TableCell align="right">{row.rank}</TableCell>  
-                  <TableCell align="right">{row.rNumber}</TableCell>  
-                  <TableCell align="right">{row.dob}</TableCell>                    
-                  <TableCell align="right">{row.positionName}</TableCell>  
+                  <TableCell align="right">{row.firstName}</TableCell>  
+                  <TableCell align="right">{row.lastName}</TableCell>  
+                  <TableCell align="right">{row.position}</TableCell>  
+                  <TableCell align="right">{row.regimentNumber}</TableCell>  
+                  <TableCell align="right">{row.dateOfBirth}</TableCell>                    
+                  <TableCell align="right">{row.cellNumber}</TableCell>  
                 </TableRow>  
               );  
             })}  
