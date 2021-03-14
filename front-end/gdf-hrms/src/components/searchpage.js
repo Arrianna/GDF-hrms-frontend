@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentNumberForm';
 import SearchByOtherCriteriaForm from './SearchPageComponents/SearchByOtherCriteriaForm';
 import MatPaginationTable from './SearchPageComponents/SearchResultsTable';
-import Api from './Api';
+//import Api from './Api';
 import Axios from 'axios'; // remember to npm install Axios
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ export default function SearchPage() {
 
  
   const getDataByRegNum = data => {
-  Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
+  Axios.get("http://localhost:5000/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
       console.log(response);
       let resultArray = [];
       console.log(response.data);
@@ -42,7 +42,7 @@ export default function SearchPage() {
   });  
 }
 const getDataByFname = data => {
-  Axios.get("https://localhost:5001/api/EmployeeInfo/fname/" + data.fName).then((response) => {
+  Axios.get("http://localhost:5000/api/EmployeeInfo/fname/" + data.fName).then((response) => {
       console.log(response);
       let resultArray = [];
       console.log(response.data);
@@ -51,9 +51,9 @@ const getDataByFname = data => {
   });
 }
 
-{/*
+/*
 const getDataByLname = data => {
-  Axios.get("http://localhost:5001/api/EmployeeInfo/lname/" + data.lName).then((response) => {
+  Axios.get("http://localhost:5000/api/EmployeeInfo/lname/" + data.lName).then((response) => {
       console.log(response);
       let resultArray = [];
       console.log(response.data);
@@ -61,7 +61,7 @@ const getDataByLname = data => {
        setsearchResults(resultArray);
   })
 }
-*/}
+*/
 
 
   return (

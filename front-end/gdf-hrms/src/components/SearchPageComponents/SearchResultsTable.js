@@ -38,35 +38,39 @@ export default function MatPaginationTable(props) {
   const handleChangeRowsPerPage = event => {  
     setRowsPerPage(+event.target.value);  
     setPage(0);  
-  };  
+  };
 
-  return (  
-    <Paper className={classes.root}>  
-      <TableContainer className={classes.container}>  
-        <Table stickyHeader aria-label="sticky table">  
-          <TableHead>  
-            <TableRow>  
-              <TableCell>Id</TableCell>  
+  const getDate = (date) => {
+    return date.split('T')[0]
+   }
+
+  return (
+    <Paper className={classes.root}>
+      <TableContainer className={classes.container}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Id</TableCell>
               <TableCell align="right">First Name</TableCell>
               <TableCell align="right">Last Name</TableCell>
               <TableCell align="right">Rank</TableCell>
               <TableCell align="right">Regiment Number</TableCell>
-              <TableCell align="right">Date of Birth</TableCell>              
-              <TableCell align="right">Cell Number</TableCell>  
+              <TableCell align="right">Date of Birth</TableCell>
+              <TableCell align="right">Cell Number</TableCell>
             </TableRow>
-          </TableHead> 
+          </TableHead>
 
-          <TableBody>  
-            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {  
+          <TableBody>
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (  
-                <TableRow >  
-                  <TableCell component="th" scope="row">{row.id}</TableCell>  
-                  <TableCell align="right">{row.firstName}</TableCell>  
-                  <TableCell align="right">{row.lastName}</TableCell>  
-                  <TableCell align="right">{row.position}</TableCell>  
-                  <TableCell align="right">{row.regimentNumber}</TableCell>  
-                  <TableCell align="right">{row.dateOfBirth}</TableCell>                    
-                  <TableCell align="right">{row.cellNumber}</TableCell>  
+                <TableRow >
+                  <TableCell component="th" scope="row">{row.Id}</TableCell>
+                  <TableCell align="right">{row.firstName}</TableCell>
+                  <TableCell align="right">{row.lastName}</TableCell>
+                  <TableCell align="right">{row.position}</TableCell>
+                  <TableCell align="right">{row.regimentNumber}</TableCell>
+                  <TableCell align="right">{getDate(row.dateOfBirth)}</TableCell>
+                  <TableCell align="right">{row.cellNumber}</TableCell>
                 </TableRow>  
               );  
             })}  
