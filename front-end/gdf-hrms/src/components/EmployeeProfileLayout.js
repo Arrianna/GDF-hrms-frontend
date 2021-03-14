@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import SimpleSelect from './SimpleSelect';
+//import TextField from '@material-ui/core/TextField';
+//import SimpleSelect from './SimpleSelect';
 import PersonalInformationForm from './EmployeeProfileComponents/PersonalInformationForm';
 import AddressForm from './EmployeeProfileComponents/AddressForm';
 import ContactForm from './EmployeeProfileComponents/ContactForm';
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeProfileLayout({employeePIs}) {
   const classes = useStyles();
-  const SexOption = ["Male","Female"];
+  //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
         <div>

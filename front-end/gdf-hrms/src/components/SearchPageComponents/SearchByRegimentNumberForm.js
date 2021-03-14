@@ -6,7 +6,7 @@ import Card from "@material-ui/core/Card";
 import { TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { useForm } from 'react-hook-form';
-import Api from '../Api';
+//import Api from '../Api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +31,7 @@ export default function SearchByRegimentNumberForm(props) {
 
   const classes = useStyles();
 
-  const { register, handleSubmit, errors } = useForm();
-  
+  const { register, handleSubmit, errors } = useForm();  
     
   return (    
     <React.Fragment>
