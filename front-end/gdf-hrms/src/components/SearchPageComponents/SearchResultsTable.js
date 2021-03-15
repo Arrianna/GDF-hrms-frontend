@@ -40,9 +40,9 @@ export default function MatPaginationTable(props) {
     setPage(0);  
   };
 
-  const getDate = (date) => {
+/*  const getDate = (date) => {
     return date.split('T')[0]
-   }
+   } */
 
   return (
     <Paper className={classes.root}>
@@ -69,7 +69,8 @@ export default function MatPaginationTable(props) {
                   <TableCell align="right">{row.lastName}</TableCell>
                   <TableCell align="right">{row.position}</TableCell>
                   <TableCell align="right">{row.regimentNumber}</TableCell>
-                  <TableCell align="right">{getDate(row.dateOfBirth)}</TableCell>
+                 {/* <TableCell align="right">{getDate(row.dateOfBirth)}</TableCell> */}
+                 <TableCell align="right">{row.dateOfBirth}</TableCell> 
                   <TableCell align="right">{row.cellNumber}</TableCell>
                 </TableRow>  
               );  

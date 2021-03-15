@@ -44,7 +44,7 @@ export default function SearchByOtherCriteriaForm(props) {
               <TextField name='lName' label='Last Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
               {errors.lName && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters required</p>)}
               <br />
-              <TextField name='rank' label='Rank' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
+              <TextField name='position' label='Rank' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
               {errors.rank && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters required</p>)}
               <br />
               <Button type='submit' color='primary' variant='contained'>Search<SearchIcon /></Button>
