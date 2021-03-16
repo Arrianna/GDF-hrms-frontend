@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { useState, useEffect } from 'react';
+import Moment from 'react-moment';
 
 const useStyles = makeStyles({
   root: {
@@ -72,7 +72,7 @@ export default function MatPaginationTable(props) {
                   <TableCell align="right">{row.lastName}</TableCell>
                   <TableCell align="right">{row.position}</TableCell>
                   <TableCell align="right">{row.regimentNumber}</TableCell>
-                  <TableCell align="right">{row.dateOfBirth}</TableCell>
+                  <TableCell align="right"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></TableCell>
                   <TableCell align="right">{row.cellNumber}</TableCell>
                 </TableRow>
               );
