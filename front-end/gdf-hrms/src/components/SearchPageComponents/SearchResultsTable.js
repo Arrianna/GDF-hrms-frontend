@@ -49,10 +49,16 @@ export default function MatPaginationTable(props) {
     }
   }*/
 
+  const rowEvents = {
+    onClick: (e, row) => {
+      console.log(row);
+    },
+  };
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label="sticky table" rowEvents={rowEvents}>
           <TableHead>
             <TableRow>
               <TableCell align="right">First Name</TableCell>
@@ -67,7 +73,7 @@ export default function MatPaginationTable(props) {
           <TableBody>
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (
-                <TableRow >
+                <TableRow>
                   <TableCell align="right">{row.firstName}</TableCell>
                   <TableCell align="right">{row.lastName}</TableCell>
                   <TableCell align="right">{row.position}</TableCell>
