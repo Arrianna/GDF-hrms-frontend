@@ -44,10 +44,7 @@ export default function SearchPage() {
 const getDataByOtherCriteria= data => {
   Axios.get("https://localhost:5001/api/EmployeeInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
       console.log(response);
-      let resultArray = [];
-      console.log(response.data);
-      resultArray.push(response.data);
-       setsearchResults(resultArray);
+      setsearchResults(response.data);
   });
 }
 

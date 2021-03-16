@@ -30,7 +30,7 @@ export default function SearchByOtherCriteriaForm(props) {
   const classes = useStyles(); 
 
   const { register, handleSubmit, errors } = useForm();
- // const onSubmit = data => console.log(data);
+ 
 
   return (
     <React.Fragment>
