@@ -40,17 +40,21 @@ export default function MatPaginationTable(props) {
     setPage(0);  
   };
 
-  const getDate = (date) => {
-    return date.split('T')[0]
-   }
+  /*const getDate = (date) => {
+    if(date != null){
+      return date.split('T')[0]
+    }
+    else{
+      return date;
+    }
+  }*/
 
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
-              <TableCell align="right">Id</TableCell>
+            <TableRow>              
               <TableCell align="right">First Name</TableCell>
               <TableCell align="right">Last Name</TableCell>
               <TableCell align="right">Rank</TableCell>
@@ -63,13 +67,12 @@ export default function MatPaginationTable(props) {
           <TableBody>
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (  
-                <TableRow >
-                  <TableCell component="th" scope="row">{row.Id}</TableCell>
+                <TableRow >                  
                   <TableCell align="right">{row.firstName}</TableCell>
                   <TableCell align="right">{row.lastName}</TableCell>
                   <TableCell align="right">{row.position}</TableCell>
                   <TableCell align="right">{row.regimentNumber}</TableCell>
-                  <TableCell align="right">{getDate(row.dateOfBirth)}</TableCell>
+                  <TableCell align="right">{row.dateOfBirth}</TableCell>
                   <TableCell align="right">{row.cellNumber}</TableCell>
                 </TableRow>  
               );  
