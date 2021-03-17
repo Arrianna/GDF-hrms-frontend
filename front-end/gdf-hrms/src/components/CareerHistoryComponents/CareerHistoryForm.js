@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 //import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import SearchIcon from '@material-ui/icons/Search';
 //import SimpleSelect from '../SimpleSelect';
+//import CareerHistory
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,11 +39,12 @@ const useStyles = makeStyles((theme) => ({
           </div>    
 
           <div>
-            <Grid>
-              <Grid item xs={2}>
+            <Grid align='center'>
+              <Grid item xs={2} >
                   <TextField id="StartDate" label="StartDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
                   <TextField id="EndDate" label="EndDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
               </Grid >
+              <Button type='submit' color='primary'  variant='contained'>Add<SearchIcon /></Button>
             </Grid>
          </div> 
          </React.Fragment>
