@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +9,25 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Moment from 'react-moment';
+import Button from '@material-ui/core/Button';
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 const useStyles = makeStyles({
   root: {
@@ -55,32 +74,38 @@ export default function MatPaginationTable(props) {
     },
   };
 
+  const handleOnClick = (data) => {
+    console.log(data);
+  };
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table" rowEvents={rowEvents}>
+        <Table stickyHeader aria-label="customized table" rowEvents={rowEvents}>
           <TableHead>
             <TableRow>
-              <TableCell align="right">First Name</TableCell>
-              <TableCell align="right">Last Name</TableCell>
-              <TableCell align="right">Rank</TableCell>
-              <TableCell align="right">Regiment Number</TableCell>
-              <TableCell align="right">Date of Birth</TableCell>
-              <TableCell align="right">Cell Number</TableCell>
+              <StyledTableCell align="center">First Name</StyledTableCell>
+              <StyledTableCell align="center">Last Name</StyledTableCell>
+              <StyledTableCell align="center">Rank</StyledTableCell>
+              <StyledTableCell align="center">Regiment Number</StyledTableCell>
+              <StyledTableCell align="center">Date of Birth</StyledTableCell>
+              <StyledTableCell align="center">Cell Number</StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (
-                <TableRow>
-                  <TableCell align="right">{row.firstName}</TableCell>
-                  <TableCell align="right">{row.lastName}</TableCell>
-                  <TableCell align="right">{row.position}</TableCell>
-                  <TableCell align="right">{row.regimentNumber}</TableCell>
-                  <TableCell align="right"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></TableCell>
-                  <TableCell align="right">{row.cellNumber}</TableCell>
-                </TableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center">{row.firstName}</StyledTableCell>
+                  <StyledTableCell align="center">{row.lastName}</StyledTableCell>
+                  <StyledTableCell align="center">{row.position}</StyledTableCell>
+                  <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
+                  <StyledTableCell align="center"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></StyledTableCell>
+                  <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
+                  <StyledTableCell align="center"><Button variant="contained" onClick={() => handleOnClick(row)}>View</Button></StyledTableCell>
+                </StyledTableRow>
               );
             })}
           </TableBody>

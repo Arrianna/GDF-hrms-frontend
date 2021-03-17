@@ -29,20 +29,20 @@ export default function PersonalInformationForm({employeePI}) {
       <React.Fragment>
         <div>
             <Grid item xs={2}>
-            <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeePI.fname} />
+            <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeePI.firstName} />
             <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeePI.sex} />
            </Grid>
         </div>    
         <div>
             <Grid item xs={2}>
-                <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeePI.lname}/>
+                <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeePI.lastName}/>
                 <TextField id="Race" label="Race" variant="outlined" size="small" value={employeePI.eId} />
             </Grid >
        </div> 
        <div>
        <Grid item xs={2}>
            <Grid item xs={2}>
-              <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeePI.oname} />
+              <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeePI.otherName} />
               <TextField id="Nationality" label="Nationality" variant="outlined" size="small" value={employeePI.nId} />
             </Grid>
         </Grid >
@@ -67,7 +67,7 @@ export default function PersonalInformationForm({employeePI}) {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Personal Information {employeePI.id}</h4>
+      <h4>Personal Information {employeePI.Id}</h4>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>
