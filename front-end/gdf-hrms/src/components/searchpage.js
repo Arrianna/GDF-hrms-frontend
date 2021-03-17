@@ -32,7 +32,7 @@ export default function SearchPage() {
   const [searchResults, setsearchResults] = useState(null);
 
   const getDataByRegNum = data => {
-    Axios.get("http://localhost:5000/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
+    Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
         console.log(response);
         let resultArray = [];
         console.log(response.data);
@@ -43,7 +43,7 @@ export default function SearchPage() {
     });
   }
   const getDataByFname = data => {
-    Axios.get("http://localhost:5000/api/EmployeeInfo/fname/" + data.fName).then((response) => {
+    Axios.get("https://localhost:5001/api/EmployeeInfo/fname/" + data.fName).then((response) => {
         console.log(response);
         let resultArray = [];
         console.log(response.data);

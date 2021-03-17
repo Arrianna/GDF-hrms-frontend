@@ -104,7 +104,7 @@ export default function MatPaginationTable(props) {
                   <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
                   <StyledTableCell align="center"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></StyledTableCell>
                   <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
-                  <StyledTableCell align="center"><Button variant="contained" onClick={handleOnClick(row)}>View</Button></StyledTableCell>
+                  <StyledTableCell align="center"><Button variant="contained" onClick={() => handleOnClick(row)}>View</Button></StyledTableCell>
                 </StyledTableRow>
               );
             })}

@@ -62,6 +62,7 @@ const App = () => {
           />
           <Route path="/employeehistory" exact component={CareerHistoryLayout} />
           <Route path="/search-page" exact component={SearchPage} />
+          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />
           {/* <EmployeeProfileLayout></EmployeeProfileLayout> */}
           {/* <CareerHistoryLayout></CareerHistoryLayout> */}
       </ResponsiveDrawer>
