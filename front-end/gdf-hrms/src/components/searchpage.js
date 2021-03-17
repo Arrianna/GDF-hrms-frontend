@@ -32,7 +32,7 @@ export default function SearchPage() {
   const [searchResults, setsearchResults] = useState(null);
 
   const getDataByRegNum = data => {
-    Axios.get("http://localhost:5000/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
+    Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {
         console.log(response);
         let resultArray = [];
         console.log(response.data);
@@ -42,13 +42,10 @@ export default function SearchPage() {
         setsearchResults(resultArray);
     });
   }
-  const getDataByFname = data => {
-    Axios.get("http://localhost:5000/api/EmployeeInfo/fname/" + data.fName).then((response) => {
+  const getDataByOtherCriteria = data => {
+    Axios.get("https://localhost:5001/api/EmployeeInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
         console.log(response);
-        let resultArray = [];
-        console.log(response.data);
-        resultArray.push(response.data);
-        setsearchResults(resultArray);
+        setsearchResults(response.data);
     });
   }
 
@@ -80,7 +77,7 @@ export default function SearchPage() {
 
           <CardContent className={classes.cardcontents}>
             <Typography variant='h5' align='center' gutterBottom>Search by Other Criteria</Typography>
-            <SearchByOtherCriteriaForm onSubmit={data => getDataByFname(data)}> </SearchByOtherCriteriaForm>
+            <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)}> </SearchByOtherCriteriaForm>
           </CardContent>
         </Card>
       </div>
