@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import SearchPage from './components/searchpage';
 import EmployeeProfileLayout from './components/EmployeeProfileLayout';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
+import { useHistory } from "react-router-dom";
 
 const App = () => {
   const [employeesPI, setEmployeesPI] = useState([]);
