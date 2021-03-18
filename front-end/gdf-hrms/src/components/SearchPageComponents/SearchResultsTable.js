@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
+import { useHistory } from "react-router";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
 });
 
 export default function MatPaginationTable(props) {
+  const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [data, setData] = useState([]);
@@ -75,7 +77,7 @@ export default function MatPaginationTable(props) {
   };
 
   const handleOnClick = (data) => {
-    console.log(data);
+    history.push("/employee-profile?regNum="+data);
   };
 
   return (
@@ -104,7 +106,7 @@ export default function MatPaginationTable(props) {
                   <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
                   <StyledTableCell align="center"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></StyledTableCell>
                   <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
-                  <StyledTableCell align="center"><Button variant="contained" onClick={() => handleOnClick(row)}>View</Button></StyledTableCell>
+                  <StyledTableCell align="center"><Button variant="contained" onClick={() => handleOnClick(row.regimentNumber)}>View</Button></StyledTableCell>
                 </StyledTableRow>
               );
             })}
