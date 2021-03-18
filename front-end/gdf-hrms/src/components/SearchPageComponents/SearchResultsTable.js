@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +10,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
+import EmployeeProfileLayout from '../EmployeeProfileLayout';
+import { Link } from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -70,12 +73,12 @@ export default function MatPaginationTable(props) {
   const rowEvents = {
     onClick: (e, row) => {
       console.log(row);
+      console.log(row);
+      console.log(row);
     },
   };
 
-  const handleOnClick = (data) => {
-    console.log(data);
-  };
+
 
   return (
     <Paper className={classes.root}>
@@ -103,7 +106,8 @@ export default function MatPaginationTable(props) {
                   <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
                   <StyledTableCell align="center"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></StyledTableCell>
                   <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
-                  <StyledTableCell align="center"><Button variant="contained" onClick={() => handleOnClick(row)}>View</Button></StyledTableCell>
+                  <StyledTableCell align="center"><Button variant="contained"> view
+  </Button></StyledTableCell>
                 </StyledTableRow>
               );
             })}
@@ -116,6 +120,9 @@ export default function MatPaginationTable(props) {
       rowsPerPage={rowsPerPage} page={page}
       onChangePage={handleChangePage}
       onChangeRowsPerPage={handleChangeRowsPerPage} />
+   
+      
+
     </Paper>
   );
 }

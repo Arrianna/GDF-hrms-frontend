@@ -21,21 +21,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersonalInformationForm({employeePI}) {
+export default function PersonalInformationForm(employeePI) {
   const classes = useStyles();
-  //const SexOption = ["Male","Female"];
+ 
+
+
   function FormRow() {
     return (
       <React.Fragment>
         <div>
             <Grid item xs={2}>
-            <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeePI.firstName} />
+            <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeePI.firstName}/>
             <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeePI.sex} />
            </Grid>
-        </div>    
-        <div>
+        </div> 
+       <div>
             <Grid item xs={2}>
-                <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeePI.lastName}/>
+                <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeePI.lName}/>
                 <TextField id="Race" label="Race" variant="outlined" size="small" value={employeePI.eId} />
             </Grid >
        </div> 
@@ -49,7 +51,7 @@ export default function PersonalInformationForm({employeePI}) {
         </div>
         <div>
         <Grid item xs={2}>
-            <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" />
+            <TextField id="MiddleNameTwo" label="Middle Name" variant="outlined" size="small" />
         </Grid >
         <TextField id="Religion" label="Religion" variant="outlined" size="small" value={employeePI.rId} />
         </div>
