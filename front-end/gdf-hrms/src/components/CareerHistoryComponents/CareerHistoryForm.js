@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
           </div>    
 
           <div>
-            <Grid align='center'>
+            <Grid>
               <Grid item xs={2} >
                   <TextField id="StartDate" label="StartDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
                   <TextField id="EndDate" label="EndDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
