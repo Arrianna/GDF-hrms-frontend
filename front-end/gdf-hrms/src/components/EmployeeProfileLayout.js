@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 //import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,7 @@ import AddressForm from './EmployeeProfileComponents/AddressForm';
 import ContactForm from './EmployeeProfileComponents/ContactForm';
 import OfficialInformationForm from './EmployeeProfileComponents/OfficialInformationForm';
 import Button from '@material-ui/core/Button';
-
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,38 +35,43 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
-  const employeePIs = [];
-  const params = useParams();
-  const ul = useLocation();
+  const params = useParams();  
+  const [employeeInfo, setEmployeeInfo] = useState({});
+  //const [mounted, setMounted] = useState(false);
+
+  let regNumber;
+  for(let[key, value] of Object.entries(params)){
+    regNumber = value;
+  }
+  
   useEffect(() => {    
-    console.log(params);
-    console.log(ul);
-    let majd = new URLSearchParams(ul.search);
-    console.log(props);
-    console.log (majd);
-    
-  }, [ul]);
+      const getEmpInfo = async () => {
+      const info = await Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + regNumber);      
+      setEmployeeInfo(info.data);
+    };
+    getEmpInfo();
+  }, [regNumber]);
 
   //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
         <div>
           < Grid container spacing={3}>
-
+            
             <Grid item xs={12}>
-               <PersonalInformationForm employeePI={employeePIs}></PersonalInformationForm>
+              <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
             </Grid>
 
             <Grid item xs={12}>
-            <AddressForm employeePI={employeePIs}></AddressForm>
+              <AddressForm employeeInfo={employeeInfo}></AddressForm>
             </Grid>
 
             <Grid item xs={12}>
-            <ContactForm employeePI={employeePIs}></ContactForm>
+              <ContactForm employeeInfo={employeeInfo}></ContactForm>
             </Grid >
 
             <Grid item xs={12}>
-            <OfficialInformationForm employeePI={employeePIs}></OfficialInformationForm>
+              <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
             </Grid >
 
           </Grid>

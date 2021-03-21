@@ -21,34 +21,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContactForm({employeePI}) {
+export default function ContactForm(employeePI) {
   const classes = useStyles();
   //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
       <React.Fragment>
         <div>
-            <Grid item xs={2}>
-            <TextField id="HomeNumber" label="Home Number" variant="outlined" size="small" value={employeePI.cId} />
-            </Grid>
+          <Grid item xs={2}>
+            <TextField id="HomeNumber" label="Home Number" variant="outlined" size="small" value={employeePI.employeeInfo.homeNumber} />
+          </Grid>
         </div>
         <div>
-            <Grid item xs={2}>
-                <TextField id="CellNumber" label="Cell Number" variant="outlined" size="small" />
-            </Grid>
+          <Grid item xs={2}>
+            <TextField id="CellNumber" label="Cell Number" variant="outlined" size="small" value={employeePI.employeeInfo.cellNumber}/>
+          </Grid>
         </div>
         <div>   
-            <Grid item xs={2}>
-            <TextField id="WorkNumber" label="Work Number" variant="outlined" size="small" />
-            </Grid >
-         </div>
-         <div>
-            <Grid item xs={2}>
-            <TextField id="Email" label="Email" variant="outlined" size="small" />
-            </Grid >
+          <Grid item xs={2}>
+            <TextField id="WorkNumber" label="Work Number" variant="outlined" size="small" value={employeePI.employeeInfo.workNumber}/>
+          </Grid >
+        </div>
+        <div>
+          <Grid item xs={2}>
+            <TextField id="Email" label="Email" variant="outlined" size="small" value={employeePI.employeeInfo.email}/>
+          </Grid >
         </div>    
-      </React.Fragment>
-      
+      </React.Fragment>      
     );
   }
 

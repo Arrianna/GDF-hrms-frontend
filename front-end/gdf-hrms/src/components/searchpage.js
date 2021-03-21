@@ -8,7 +8,6 @@ import SearchByOtherCriteriaForm from './SearchPageComponents/SearchByOtherCrite
 import MatPaginationTable from './SearchPageComponents/SearchResultsTable';
 import Axios from 'axios'; // remember to npm install Axios
 
-
 const useStyles = makeStyles((theme) => ({
 
   root: {
@@ -31,24 +30,18 @@ export default function SearchPage() {
   
   const [searchResults, setsearchResults] = useState(null);
 
-  const getDataByRegNum = data => {
- 
-    Axios.get("https://localhost:5001/api/EmployeeInfo/RegimentNumber/" + data.regNum).then((response) => {
-        console.log(response);
-        let resultArray = [];
-        console.log(response.data);
+  const getDataByRegNum = data => { 
+    Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {        
+        let resultArray = [];        
         if(response.data !== ""){
           resultArray.push(response.data);
         }
         setsearchResults(resultArray);
     });
   }
-
   
-   const getDataByOtherCriteria= data => {
+  const getDataByOtherCriteria= data => {
     Axios.get("https://localhost:5001/api/EmployeeInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
-
-        console.log(response);
         setsearchResults(response.data);
     });
   }

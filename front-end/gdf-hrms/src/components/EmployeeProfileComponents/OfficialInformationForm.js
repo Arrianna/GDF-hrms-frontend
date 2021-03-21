@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-//import SimpleSelect from '../SimpleSelect';
+import Moment from 'react-moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,40 +20,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OfficialInformationForm({employeePI}) {
+export default function OfficialInformationForm(employeePI) {
   const classes = useStyles();
   //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
       <React.Fragment>
         <div>
-            <Grid item xs={2}>
-            <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" value={employeePI.rNumber}/>
-            </Grid>
+          <Grid item xs={2}>
+            <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" value={employeePI.employeeInfo.regimentNumber}/>
+          </Grid>
         </div>
         <div>
-            <Grid item xs={2}>
-                <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" value={employeePI.nidNumber}/>
-            </Grid>
+          <Grid item xs={2}>
+            <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" value={employeePI.employeeInfo.nationalIdNumber}/>
+          </Grid>
         </div>
         <div>
-            <Grid item xs={2}>
-            <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" value={employeePI.pNumber}/>
-            </Grid >
+          <Grid item xs={2}>
+            <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" value={employeePI.employeeInfo.passportNumber}/>
+          </Grid >
         </div>
         <div>
-            <Grid item xs={2}>
-            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="text" value={employeePI.pExpirationDate}/>
-            </Grid >
+          <Grid item xs={2}>
+            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="text" value={<Moment format="D MMM YYYY">employeePI.employeeInfo.passportExpirationDate</Moment>}/>
+          </Grid >
         </div>    
         <div>
-        <Grid item xs={2}>
-            <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" value={employeePI.tinNumber}/>
-            </Grid>
+          <Grid item xs={2}>
+            <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" value={employeePI.employeeInfo.tinNumber}/>
+          </Grid>
         </div>
-    
-      </React.Fragment>
-      
+      </React.Fragment>      
     );
   }
 
