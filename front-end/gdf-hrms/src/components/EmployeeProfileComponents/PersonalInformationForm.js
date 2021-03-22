@@ -29,7 +29,7 @@ export default function PersonalInformationForm(employeeInfo) {
         <div>
           <Grid item xs={2}>
             <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.firstName}/>
-            <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeeInfo.employeeInfo.sex} />
+            <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.otherName} />
           </Grid>
         </div>
         <div>
@@ -41,7 +41,7 @@ export default function PersonalInformationForm(employeeInfo) {
         <div>
           <Grid item xs={2}>
             <Grid item xs={2}>
-              <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.otherName} />
+              <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeeInfo.employeeInfo.sex} />              
               <TextField id="Nationality" label="Nationality" variant="outlined" size="small" value={employeeInfo.employeeInfo.nationality} />
             </Grid>
           </Grid >
@@ -54,7 +54,7 @@ export default function PersonalInformationForm(employeeInfo) {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={employeeInfo.employeeInfo.dateOfBirth}/>
+            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" value={employeeInfo.employeeInfo.dateOfBirth}/>
             <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeeInfo.employeeInfo.maritalStatus} />
           </Grid >
         </div>

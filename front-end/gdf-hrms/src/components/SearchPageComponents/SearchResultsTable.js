@@ -47,7 +47,7 @@ export default function MatPaginationTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   useEffect(() => {
-      setData(props.tableData);      
+      setData(props.tableData);
   }, [props.tableData]);
 
   const handleChangePage = (event, newPage) => {

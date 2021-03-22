@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-//import TextField from '@material-ui/core/TextField';
-//import SimpleSelect from './SimpleSelect';
 import PersonalInformationForm from './EmployeeProfileComponents/PersonalInformationForm';
 import AddressForm from './EmployeeProfileComponents/AddressForm';
 import ContactForm from './EmployeeProfileComponents/ContactForm';
@@ -37,8 +34,7 @@ export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
   const params = useParams();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-  //const [mounted, setMounted] = useState(false);
-
+  
   let regNumber;
   for(let[key, value] of Object.entries(params)){
     regNumber = value;
@@ -90,7 +86,7 @@ export default function EmployeeProfileLayout(props) {
         <Grid xs={6}>
           <h1>
             <Button variant="outlined" color="primary">
-            <Link to="/employeehistory">View Career History</Link>
+            <Link to={'/employee-history/' + regNumber}>View Career History</Link>
             </Button>
           </h1>
         </Grid>
