@@ -42,7 +42,7 @@ export default function EmployeeProfileLayout(props) {
   
   useEffect(() => {    
       const getEmpInfo = async () => {
-      const info = await Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + regNumber);      
+      const info = await Axios.get("/regnumber/" + regNumber);      
       setEmployeeInfo(info.data);
     };
     getEmpInfo();

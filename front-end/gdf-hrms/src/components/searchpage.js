@@ -31,7 +31,7 @@ export default function SearchPage() {
   const [searchResults, setsearchResults] = useState(null);
 
   const getDataByRegNum = data => { 
-    Axios.get("https://localhost:5001/api/EmployeeInfo/regnumber/" + data.regNum).then((response) => {        
+    Axios.get("/regnumber/" + data.regNum).then((response) => {        
         let resultArray = [];        
         if(response.data !== ""){
           resultArray.push(response.data);
@@ -41,7 +41,7 @@ export default function SearchPage() {
   }
   
   const getDataByOtherCriteria= data => {
-    Axios.get("https://localhost:5001/api/EmployeeInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
+    Axios.get("/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
         setsearchResults(response.data);
     });
   }
