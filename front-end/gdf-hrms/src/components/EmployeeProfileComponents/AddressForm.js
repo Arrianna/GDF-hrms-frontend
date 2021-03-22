@@ -21,43 +21,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddressForm({employeePI}) {
+export default function AddressForm(employeePI) {  
   const classes = useStyles();
   //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
-    <React.Fragment>
-          <div>
+      <React.Fragment>
+        <div>
           <Grid item xs={2}>
-            <TextField id="Lot" label="Lot" variant="outlined" size="small" value={employeePI.aId}/>
+            <TextField id="Lot" label="Lot" variant="outlined" size="small" value={employeePI.employeeInfo.addressLot}/>
           </Grid>
-          </div>
-          <div>
+        </div>
+        <div>
           <Grid item xs={2}>
-                <TextField id="Street" label="Street" variant="outlined" size="small" />
+            <TextField id="Street" label="Street" variant="outlined" size="small" value={employeePI.employeeInfo.addressStreet}/>
           </Grid>
-          </div>
-          <div>
+        </div>
+        <div>
           <Grid item xs={2}>
-            <TextField id="Area/Section" label="AreaSection" variant="outlined" size="small" />
+            <TextField id="Area/Section" label="AreaSection" variant="outlined" size="small" value={employeePI.employeeInfo.addressArea}/>
           </Grid >
-          </div>
-          <div>
+        </div>
+        <div>
           <Grid item xs={2}>
-            <TextField id="Village" label="Village" variant="outlined" size="small" />
+            <TextField id="Village" label="Village" variant="outlined" size="small" value={employeePI.employeeInfo.addressVillage}/>
           </Grid >
-          </div>
-          <div>
+        </div>
+        <div>
           <Grid item xs={2}>
-                <TextField id="Region" label="Region" variant="outlined"  size="small" />
+            <TextField id="Region" label="Region" variant="outlined"  size="small" />
           </Grid >
-          </div>
-          <div>
+        </div>
+        <div>
           <Grid item xs={2}>
-                <TextField id="Country" label="Country" variant="outlined" size="small" />
+            <TextField id="Country" label="Country" variant="outlined" size="small" value={employeePI.employeeInfo.country}/>
           </Grid >
-          </div>
-          </React.Fragment>
+        </div>
+      </React.Fragment>
     );
   }
 

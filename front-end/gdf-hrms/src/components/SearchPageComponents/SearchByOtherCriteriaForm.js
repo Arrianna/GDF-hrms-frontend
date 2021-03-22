@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchByOtherCriteriaForm(props) {
   const classes = useStyles(); 
 
-  const { register, handleSubmit, errors } = useForm();
- 
+  const { register, handleSubmit, errors } = useForm(); 
 
   return (
     <React.Fragment>

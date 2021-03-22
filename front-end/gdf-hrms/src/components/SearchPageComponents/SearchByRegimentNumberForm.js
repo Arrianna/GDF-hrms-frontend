@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchByRegimentNumberForm(props) {
 
   const classes = useStyles();
-
   const { register, handleSubmit, errors } = useForm();  
     
   return (    

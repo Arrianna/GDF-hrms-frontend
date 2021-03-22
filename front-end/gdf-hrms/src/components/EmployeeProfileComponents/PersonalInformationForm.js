@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-//import SimpleSelect from '../SimpleSelect';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,55 +19,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersonalInformationForm(employeePI) {
+export default function PersonalInformationForm(employeeInfo) {  
   const classes = useStyles();
- 
-
-
+  
   function FormRow() {
     return (
       <React.Fragment>
         <div>
-            <Grid item xs={2}>
-            <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeePI.firstName}/>
-            <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeePI.sex} />
-           </Grid>
+          <Grid item xs={2}>
+            <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.firstName}/>
+            <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.otherName} />
+          </Grid>
+        </div>
+        <div>
+          <Grid item xs={2}>
+            <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.lastName}/>
+            <TextField id="Race" label="Race" variant="outlined" size="small" value={employeeInfo.employeeInfo.ethnicity} />
+          </Grid >
         </div> 
-       <div>
+        <div>
+          <Grid item xs={2}>
             <Grid item xs={2}>
-                <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeePI.lName}/>
-                <TextField id="Race" label="Race" variant="outlined" size="small" value={employeePI.eId} />
-            </Grid >
-       </div> 
-       <div>
-       <Grid item xs={2}>
-           <Grid item xs={2}>
-              <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeePI.otherName} />
-              <TextField id="Nationality" label="Nationality" variant="outlined" size="small" value={employeePI.nId} />
+              <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeeInfo.employeeInfo.sex} />              
+              <TextField id="Nationality" label="Nationality" variant="outlined" size="small" value={employeeInfo.employeeInfo.nationality} />
             </Grid>
-        </Grid >
+          </Grid >
         </div>
         <div>
-        <Grid item xs={2}>
+          <Grid item xs={2}>
             <TextField id="MiddleNameTwo" label="Middle Name" variant="outlined" size="small" />
-        </Grid >
-        <TextField id="Religion" label="Religion" variant="outlined" size="small" value={employeePI.rId} />
+          </Grid >
+            <TextField id="Religion" label="Religion" variant="outlined" size="small" value={employeeInfo.employeeInfo.religion} />
         </div>
         <div>
-        <Grid item xs={2}>
-             <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={employeePI.dob}/>
-             <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeePI.mId} />
-        </Grid >
+          <Grid item xs={2}>
+            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={employeeInfo.employeeInfo.dateOfBirth}/>
+            <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeeInfo.employeeInfo.maritalStatus} />
+          </Grid >
         </div>
-      </React.Fragment>
-      
+      </React.Fragment>      
     );
   }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Personal Information {employeePI.Id}</h4>
+      <h4>Personal Information</h4>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>

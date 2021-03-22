@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-//import TextField from '@material-ui/core/TextField';
-//import SimpleSelect from './SimpleSelect';
+import { Link, useParams } from 'react-router-dom';
 import CareerHistoryForm  from './CareerHistoryComponents/CareerHistoryForm';
 import CareerHistoryTable from './CareerHistoryComponents/CareerHistoryTable';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,35 +22,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CareerHistoryLayout() {
+export default function CareerHistoryLayout(props) {
   const classes = useStyles();
+  const params = useParams();  
+  const [empData, setEmpData] = useState([]);
+  
+  let regNumber;
+  for(let[key, value] of Object.entries(params)){
+    regNumber = value;
+  }
+  
+  useEffect(() => {    
+      const getEmpInfo = async () => {
+      const info = await Axios.get("/regnumber/" + regNumber);      
+      setEmpData(info.data);
+    };
+    getEmpInfo();
+  }, [regNumber]);
+  
   function FormRow() {
     return (
       <React.Fragment>
         <div>
-         < Grid container spacing={3}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
-            <CareerHistoryForm></CareerHistoryForm>
+              <CareerHistoryForm data={empData}></CareerHistoryForm>
             </Grid>
         
-        <Grid item xs={12}>
-            <CareerHistoryTable></CareerHistoryTable>
-        </Grid>
-        </Grid>
-    
-      </div>
-    
-      </React.Fragment>
-      
+            <Grid item xs={12}>
+              <CareerHistoryTable data={empData}></CareerHistoryTable>
+            </Grid>
+          </Grid>    
+        </div>    
+      </React.Fragment>      
     );
   }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <Grid xs={6}>
-      <h1>Career History Page</h1>
-      </Grid>
+        <Grid xs={6}>
+          <h1>Career History Page</h1>
+        </Grid>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>
