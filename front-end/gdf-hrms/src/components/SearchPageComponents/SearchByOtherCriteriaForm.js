@@ -37,14 +37,17 @@ export default function SearchByOtherCriteriaForm(props) {
         <Card>        
           <CardContent className={classes.cardcontents}>          
             <form className={classes.form} align='center' onSubmit={handleSubmit(props.onSubmit)}>
-              <TextField name='fName' label='First Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
-              {errors.fName && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters required</p>)}
+              <TextField name='fName' label='First Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
+              {errors.fName && errors.fName.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
+              {errors.fName && errors.fName.type === 'required' && (<p className={classes.paragraphColor}>First name is required!</p>)}
               <br />
-              <TextField name='lName' label='Last Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
-              {errors.lName && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters required</p>)}
+              <TextField name='lName' label='Last Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
+              {errors.lName && errors.lName.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
+              {errors.lName && errors.lName.type === 'required' && (<p className={classes.paragraphColor}>Last name is required!</p>)}
               <br />
-              <TextField name='position' label='Rank' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ maxLength: 25 })}/>
-              {errors.rank && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters required</p>)}
+              <TextField name='position' label='Rank' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
+              {errors.position && errors.position.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
+              {errors.position && errors.position.type === 'required' && (<p className={classes.paragraphColor}>First name is required!</p>)}
               <br />
               <Button type='submit' color='primary' variant='contained'>Search<SearchIcon /></Button>
             </form>
