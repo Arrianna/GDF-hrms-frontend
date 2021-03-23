@@ -43,8 +43,8 @@ export default function EmployeeProfileLayout(props) {
   useEffect(() => {
       const getEmpInfo = async () => {
       if(regNumber){
-      const info = await Axios.get("/regnumber/" + regNumber);    
-      setEmployeeInfo(info.data);
+        const info = await Axios.get("/regnumber/" + regNumber);    
+        setEmployeeInfo(info.data);
       }
     };
     getEmpInfo();
@@ -53,39 +53,37 @@ export default function EmployeeProfileLayout(props) {
   //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
-        <div>
-          < Grid container spacing={3}>
-            
-            <Grid item xs={12}>
-              <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
-            </Grid>
-
-            <Grid item xs={12}>
-              <AddressForm employeeInfo={employeeInfo}></AddressForm>
-            </Grid>
-
-            <Grid item xs={12}>
-              <ContactForm employeeInfo={employeeInfo}></ContactForm>
-            </Grid >
-
-            <Grid item xs={12}>
-              <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
-            </Grid >
-
+      <div>
+        < Grid container spacing={3}>
+          
+          <Grid item xs={12}>
+            <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
           </Grid>
-           
-      </div>
-      
+
+          <Grid item xs={12}>
+            <AddressForm employeeInfo={employeeInfo}></AddressForm>
+          </Grid>
+
+          <Grid item xs={12}>
+            <ContactForm employeeInfo={employeeInfo}></ContactForm>
+          </Grid >
+
+          <Grid item xs={12}>
+            <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
+          </Grid >
+
+        </Grid>           
+      </div>      
     );
   }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1} >
-        <Grid xs={6}>
+        <Grid item xs={6}>
          <h1>Employee Profile Page</h1>
         </Grid>
-        <Grid xs={6}>
+        <Grid item xs={6}>
           <h1>
             <Button variant="outlined" color="primary">
             <Link to={'/employee-history/' + regNumber}>View Career History</Link>

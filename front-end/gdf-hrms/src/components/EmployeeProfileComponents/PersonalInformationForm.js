@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Moment from 'react-moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +64,7 @@ export default function PersonalInformationForm(employeeInfo) {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Personal Information</h4>
+        <h4>Personal Information</h4>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>
