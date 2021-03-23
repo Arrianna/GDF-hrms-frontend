@@ -31,7 +31,7 @@ export default function SearchPage() {
   const [searchResults, setsearchResults] = useState(null);
 
   const getDataByRegNum = data => { 
-    Axios.get("/regnumber/" + data.regNum).then((response) => {        
+    Axios.get("/RegimentNumber/" + data.regNum).then((response) => {        
         let resultArray = [];        
         if(response.data !== ""){
           resultArray.push(response.data);

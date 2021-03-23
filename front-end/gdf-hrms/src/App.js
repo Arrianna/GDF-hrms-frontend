@@ -24,7 +24,7 @@ const App = () => {
   //effect for an employee
   useEffect(() => {
     const getEmployeePI = async () => {
-      const employeePIFromServer = await fetchEmployeePI(304050); //Change this to Regiment Number of any employee in the DB
+      const employeePIFromServer = await fetchEmployeePI(123456); //Change this to Regiment Number of any employee in the DB
       setEmployeePI(employeePIFromServer);
     }
     getEmployeePI()
@@ -39,7 +39,7 @@ const App = () => {
 
   // Fetch an employee profile
   const fetchEmployeePI = async (id) => {
-    const res = await fetch(`https://localhost:5001/api/EmployeeInfo/regnumber/${id}`)
+    const res = await fetch(`https://localhost:5001/api/EmployeeInfo/RegimentNumber/${id}`)
     const data = await res.json()
     return data;
   }
