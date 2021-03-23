@@ -42,7 +42,7 @@ export default function OfficialInformationForm(employeePI) {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="text" value={employeePI.employeeInfo.passportExpirationDate}/>
+            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" value={employeePI.employeeInfo.passportExpirationDate}/>
           </Grid >
         </div>    
         <div>

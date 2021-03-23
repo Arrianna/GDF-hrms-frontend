@@ -40,10 +40,12 @@ export default function EmployeeProfileLayout(props) {
     regNumber = value;
   }
   
-  useEffect(() => {    
+  useEffect(() => {
       const getEmpInfo = async () => {
-      const info = await Axios.get("/regnumber/" + regNumber);      
+      if(regNumber){
+      const info = await Axios.get("/regnumber/" + regNumber);    
       setEmployeeInfo(info.data);
+      }
     };
     getEmpInfo();
   }, [regNumber]);

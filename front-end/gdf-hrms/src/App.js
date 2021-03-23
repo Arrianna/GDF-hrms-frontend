@@ -49,12 +49,12 @@ const App = () => {
       <BrowserRouter>
         <ResponsiveDrawer>
           <Route path="/" exact component={EmployeeProfileLayout}/>
-          {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
-          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />
+          <Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>
+          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />          
+          <Route path="/employee-history" exact component={CareerHistoryLayout} />          
+          <Route path="/search-page" exact component={SearchPage} />
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
-          <Route path="/employee-history" exact component={CareerHistoryLayout} />
-          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} />
-          <Route path="/search-page" exact component={SearchPage} />               
+          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} /> 
       </ResponsiveDrawer>
       </BrowserRouter>
     </div>
