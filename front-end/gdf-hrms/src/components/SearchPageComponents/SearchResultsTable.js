@@ -84,7 +84,7 @@ export default function MatPaginationTable(props) {
           <TableBody>
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (
-                <StyledTableRow>
+                <StyledTableRow key={row.regimentNumber}>
                   <StyledTableCell align="center">{row.firstName}</StyledTableCell>
                   <StyledTableCell align="center">{row.lastName}</StyledTableCell>
                   <StyledTableCell align="center">{row.position}</StyledTableCell>

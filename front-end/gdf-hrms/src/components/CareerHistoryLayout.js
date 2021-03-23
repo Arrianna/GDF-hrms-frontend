@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CareerHistoryForm  from './CareerHistoryComponents/CareerHistoryForm';
 import CareerHistoryTable from './CareerHistoryComponents/CareerHistoryTable';
 import Axios from 'axios';
@@ -34,8 +34,10 @@ export default function CareerHistoryLayout(props) {
   
   useEffect(() => {    
       const getEmpInfo = async () => {
-      const info = await Axios.get("/regnumber/" + regNumber);      
-      setEmpData(info.data);
+      if(regNumber){
+        const info = await Axios.get("/regnumber/" + regNumber);      
+        setEmpData(info.data);
+      }
     };
     getEmpInfo();
   }, [regNumber]);
@@ -61,7 +63,7 @@ export default function CareerHistoryLayout(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-        <Grid xs={6}>
+        <Grid item xs={6}>
           <h1>Career History Page</h1>
         </Grid>
         <Grid container item xs={12} spacing={3}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 import ResponsiveDrawer from './components/Layout';
 import React from "react";
 import { Route } from 'react-router';
@@ -9,7 +9,7 @@ import CareerHistoryLayout from './components/CareerHistoryLayout';
 //import { useHistory } from "react-router-dom";
 
 const App = () => {
-  const [employeesPI, setEmployeesPI] = useState([]);
+  {/*const [employeesPI, setEmployeesPI] = useState([]);
   const [employeePI, setEmployeePI] = useState([]);
   
   //effect for all employee
@@ -42,7 +42,7 @@ const App = () => {
     const res = await fetch(`https://localhost:5001/api/EmployeeInfo/RegimentNumber/${id}`)
     const data = await res.json()
     return data;
-  }
+  }*/}
 
   return (
     <div className="App">
@@ -50,11 +50,11 @@ const App = () => {
         <ResponsiveDrawer>
           <Route path="/" exact component={EmployeeProfileLayout}/>
           {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
-          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />
+          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />          
+          <Route path="/employee-history" exact component={CareerHistoryLayout} />          
+          <Route path="/search-page" exact component={SearchPage} />
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
-          <Route path="/employee-history" exact component={CareerHistoryLayout} />
-          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} />
-          <Route path="/search-page" exact component={SearchPage} />               
+          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} /> 
       </ResponsiveDrawer>
       </BrowserRouter>
     </div>

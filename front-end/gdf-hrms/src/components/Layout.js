@@ -117,21 +117,15 @@ function ResponsiveDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar} color='white'>
+      <AppBar position="fixed" className={classes.appBar} color='inherit'>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
+          <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          <Typography>
+          <div>
             <Typography variant="h4" noWrap style={gdfStyle}>GUYANA DEFENCE FORCE</Typography>
             <Typography variant="h5" style = {hrmsHeader} noWrap>Human Resources Management System</Typography>
-          </Typography>
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
