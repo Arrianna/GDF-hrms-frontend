@@ -49,6 +49,7 @@ export default function CareerHistoryTable(props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
+            <StyledTableCell align="center">Regimental Number</StyledTableCell>
             <StyledTableCell align="center">Position</StyledTableCell>
             <StyledTableCell align="center">Department</StyledTableCell>
             <StyledTableCell align="center">Start Date</StyledTableCell>
@@ -59,7 +60,8 @@ export default function CareerHistoryTable(props) {
         <TableBody>
           {data.map((row) => {
             return(
-            <StyledTableRow>
+            <StyledTableRow key={row.regimentNumber}>
+              <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
               <StyledTableCell align="center">{row.position}</StyledTableCell>
               <StyledTableCell align="center">{row.department}</StyledTableCell>
               <StyledTableCell align="center">{row.startDate}</StyledTableCell>
