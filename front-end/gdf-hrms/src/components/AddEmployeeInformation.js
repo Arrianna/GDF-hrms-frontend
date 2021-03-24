@@ -70,12 +70,12 @@ export default function AddEmployeeInformation() {
     <div className={classes.root}>
       <Grid container spacing={1} >
         <Grid item xs={6}>
-         <h1>Employee Profile Page</h1>
+         <h1>Add Employee Profile</h1>
         </Grid>
         <Grid item xs={6}>
           <h1>
             <Button variant="outlined" color="primary">
-            <Link to={'/employee-history/'}>View Career History</Link>
+            <Link to={'/employee-history/'}>Add Career History</Link>
             </Button>
           </h1>
         </Grid>
