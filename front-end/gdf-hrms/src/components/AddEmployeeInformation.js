@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Axios from 'axios';
-
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
@@ -34,10 +33,42 @@ const useStyles = makeStyles((theme) => ({
 export default function AddEmployeeInformation() {
   const classes = useStyles();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-  
+  const regNumber = '123456';
+
+ /* employeeInfo = {
+      nationalityId: 0,
+      religionId: 0,
+      ethnicityId: 0,
+      maritalStatusId: 0,
+      positionId: 0,
+      countryId: 0,
+      regionId: 0,
+      homeNumber: 0,
+      cellNumber: 0,
+      workNumber: 0,
+      email: '',
+      addressLot: '',
+      addressStreet: '',
+      addressArea: "",
+      addressVillage: '',
+      title: '',
+      firstName: '',
+      lastName: '',
+      otherName: '',
+      regimentNumber: 0,
+      dateOfBirth: '',
+      sex: '',
+      nationalIdNumber: 0,
+      passportNumber: '',
+      passportExpirationDate: '',
+      tinNumber: 0
+  }
+  */
   useEffect(() => {
      
   }, []);
+
+
 
   //const SexOption = ["Male","Female"];
   function FormRow() {
@@ -62,15 +93,13 @@ export default function AddEmployeeInformation() {
           </Grid >
 
           <Grid item xs={12}>
-          <Button variant="outlined" color="primary"> Add Employee </Button>
+          <Button type="submit" variant="outlined" color="primary"> Add Employee </Button>
           </Grid >
-
-          
-
         </Grid>           
       </div>      
     );
   }
+
 
   return (
     <div className={classes.root}>
@@ -81,7 +110,7 @@ export default function AddEmployeeInformation() {
         <Grid item xs={6}>
           <h1>
             <Button variant="outlined" color="primary">
-            <Link to={'/employee-history/'}>Add Career History</Link>
+            <Link to={'/employee-history/' + regNumber}>View Career History</Link>
             </Button>
           </h1>
         </Grid>

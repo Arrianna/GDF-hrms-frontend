@@ -29,32 +29,32 @@ export default function AddEmployeeAddressForm() {
       <React.Fragment>
         <div>
           <Grid item xs={2}>
-            <TextField id="Lot" label="Lot" variant="outlined" size="small" />
+            <TextField name="addressLot" label="Lot" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Street" label="Street" variant="outlined" size="small" />
+            <TextField name="addressStreet" label="Street" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Area/Section" label="AreaSection" variant="outlined" size="small" />
+            <TextField name="addressArea" label="AreaSection" variant="outlined" size="small" />
           </Grid >
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Village" label="Village" variant="outlined" size="small" />
+            <TextField name="addressVillage" label="Village" variant="outlined" size="small" />
           </Grid >
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Region" label="Region" variant="outlined"  size="small" />
+            <TextField name="regionId" label="Region" variant="outlined"  size="small" />
           </Grid >
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Country" label="Country" variant="outlined" size="small" />
+            <TextField name="countryId" label="Country" variant="outlined" size="small" />
           </Grid >
         </div>
       </React.Fragment>
