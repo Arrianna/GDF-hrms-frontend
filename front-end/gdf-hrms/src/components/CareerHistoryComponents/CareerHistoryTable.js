@@ -58,10 +58,10 @@ export default function CareerHistoryTable(props) {
         </TableHead>
 
         <TableBody>
-          {data.map((row) => {
+          {data.map((row) => {            
             return(
-            <StyledTableRow key={row.regimentNumber}>
-              <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
+            <StyledTableRow key={row.regimentNumber}>              
+              <StyledTableCell align="center" component="th" scope="row">{row.regimentNumber}</StyledTableCell>
               <StyledTableCell align="center">{row.position}</StyledTableCell>
               <StyledTableCell align="center">{row.department}</StyledTableCell>
               <StyledTableCell align="center">{row.startDate}</StyledTableCell>

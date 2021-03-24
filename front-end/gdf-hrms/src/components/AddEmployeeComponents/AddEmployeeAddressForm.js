@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment';
+//import SimpleSelect from '../SimpleSelect';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,48 +21,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OfficialInformationForm(employeePI) {
+export default function AddEmployeeAddressForm() {  
   const classes = useStyles();
-
-  let date = employeePI.employeeInfo.passportExpirationDate;
-  const formattedDate = moment(date).format('DD-MM-YYYY');
-  
+  //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
       <React.Fragment>
         <div>
           <Grid item xs={2}>
-            <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" value={employeePI.employeeInfo.regimentNumber}/>
+            <TextField id="Lot" label="Lot" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" value={employeePI.employeeInfo.nationalIdNumber}/>
+            <TextField id="Street" label="Street" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" value={employeePI.employeeInfo.passportNumber}/>
+            <TextField id="Area/Section" label="AreaSection" variant="outlined" size="small" />
           </Grid >
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="text" defaultValue={formattedDate}/>
+            <TextField id="Village" label="Village" variant="outlined" size="small" />
           </Grid >
-        </div>    
+        </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" value={employeePI.employeeInfo.tinNumber}/>
-          </Grid>
+            <TextField id="Region" label="Region" variant="outlined"  size="small" />
+          </Grid >
         </div>
-      </React.Fragment>      
+        <div>
+          <Grid item xs={2}>
+            <TextField id="Country" label="Country" variant="outlined" size="small" />
+          </Grid >
+        </div>
+      </React.Fragment>
     );
   }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Official Information</h4>
+      <h4>Address </h4>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>
