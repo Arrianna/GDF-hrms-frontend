@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,38 +20,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OfficialInformationForm(employeePI) {
+export default function AddEmployeeOfficialInfoForm() {
   const classes = useStyles();
-
-  let date = employeePI.employeeInfo.passportExpirationDate;
-  const formattedDate = moment(date).format('DD-MM-YYYY');
-  
+ 
   function FormRow() {
     return (
       <React.Fragment>
         <div>
           <Grid item xs={2}>
-            <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" value={employeePI.employeeInfo.regimentNumber}/>
+            <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" value={employeePI.employeeInfo.nationalIdNumber}/>
+            <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" value={employeePI.employeeInfo.passportNumber}/>
+            <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" />
           </Grid >
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="text" defaultValue={formattedDate}/>
+            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" />
           </Grid >
         </div>    
         <div>
           <Grid item xs={2}>
-            <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" value={employeePI.employeeInfo.tinNumber}/>
+            <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" />
           </Grid>
         </div>
       </React.Fragment>      

@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import SearchPage from './components/searchpage';
 import EmployeeProfileLayout from './components/EmployeeProfileLayout';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
-//import { useHistory } from "react-router-dom";
+import AddEmployeeInformation from './components/AddEmployeeInformation';
 
 const App = () => {
   {/*const [employeesPI, setEmployeesPI] = useState([]);
@@ -50,6 +50,7 @@ const App = () => {
         <ResponsiveDrawer>
           <Route path="/" exact component={EmployeeProfileLayout}/>
           {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
+          <Route path="/add-employee" exact component={AddEmployeeInformation} />
           <Route path="/employee-profile" exact component={EmployeeProfileLayout} />          
           <Route path="/employee-history" exact component={CareerHistoryLayout} />          
           <Route path="/search-page" exact component={SearchPage} />
