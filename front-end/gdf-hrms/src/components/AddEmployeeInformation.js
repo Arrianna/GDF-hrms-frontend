@@ -61,6 +61,12 @@ export default function AddEmployeeInformation() {
             <AddEmployeeOfficialInfoForm employeeInfo={employeeInfo}></AddEmployeeOfficialInfoForm>
           </Grid >
 
+          <Grid item xs={12}>
+          <Button variant="outlined" color="primary"> Add Employee </Button>
+          </Grid >
+
+          
+
         </Grid>           
       </div>      
     );
