@@ -4,7 +4,7 @@ import App from './App';
 import {QueryClient, QueryClientProvider } from 'react-query';
 import Axios from 'axios';
 
-Axios.defaults.baseURL = 'https://localhost:5001/api/EmployeeInfo';
+Axios.defaults.baseURL = 'https://localhost:5001/api/GetInfo';
 
 const client = new QueryClient();
 

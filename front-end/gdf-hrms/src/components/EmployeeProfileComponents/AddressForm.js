@@ -39,7 +39,7 @@ export default function AddressForm(employeePI) {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Area/Section" label="AreaSection" variant="outlined" size="small" value={employeePI.employeeInfo.addressArea}/>
+            <TextField id="Area/Section" label="Area/Section" variant="outlined" size="small" value={employeePI.employeeInfo.addressArea}/>
           </Grid >
         </div>
         <div>

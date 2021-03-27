@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
+
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
@@ -68,9 +68,6 @@ export default function AddEmployeeInformation() {
      
   }, []);
 
-
-
-  //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
       <div>
@@ -95,6 +92,7 @@ export default function AddEmployeeInformation() {
           <Grid item xs={12}>
           <Button type="submit" variant="outlined" color="primary"> Add Employee </Button>
           </Grid >
+
         </Grid>           
       </div>      
     );

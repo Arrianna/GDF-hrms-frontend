@@ -34,16 +34,13 @@ export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
   const params = useParams();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-  console.log(params);
-  let regNumber;
-  for(let[key, value] of Object.entries(params)){
-    regNumber = value;
-  }
-  
+
+  let regNumber = params.regNum;
+ 
   useEffect(() => {
       const getEmpInfo = async () => {
       if(regNumber){
-        const info = await Axios.get("/regimentNumber/" + regNumber);    
+        const info = await Axios.get("/RegimentNumber/" + regNumber);    
         setEmployeeInfo(info.data);
       }
     };
