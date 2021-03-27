@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,10 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersonalInformationForm(employeeInfo) {  
   const classes = useStyles();
-  
-  let date = employeeInfo.employeeInfo.dateOfBirth;
-  const formattedDate = moment(date).format('DD-MM-YYYY');
-  
+   
   function FormRow() {
     return (
       <React.Fragment>
@@ -57,7 +53,7 @@ export default function PersonalInformationForm(employeeInfo) {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" defaultValue={formattedDate}/>            
+            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" size="small" type="text" defaultValue={employeeInfo.employeeInfo.dateOfBirth}/>            
             <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeeInfo.employeeInfo.maritalStatus} />
           </Grid >
         </div>
