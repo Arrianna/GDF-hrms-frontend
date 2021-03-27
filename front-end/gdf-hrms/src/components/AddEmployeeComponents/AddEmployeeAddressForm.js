@@ -65,12 +65,12 @@ export default function AddEmployeeAddressForm() {
       <React.Fragment>
         <div>
           <Grid item xs={2}>
-            <TextField id="Lot" label="Lot" variant="outlined" size="small" />
+            <TextField name="addressLot" label="Lot" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Street" label="Street" variant="outlined" size="small" />
+            <TextField name="addressStreet" label="Street" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
@@ -80,7 +80,7 @@ export default function AddEmployeeAddressForm() {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="Village" label="Village" variant="outlined" size="small" />
+            <TextField name="addressVillage" label="Village" variant="outlined" size="small" />
           </Grid >
         </div>
         <div>

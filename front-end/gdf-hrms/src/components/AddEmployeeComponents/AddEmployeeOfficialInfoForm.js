@@ -28,27 +28,27 @@ export default function AddEmployeeOfficialInfoForm() {
       <React.Fragment>
         <div>
           <Grid item xs={2}>
-            <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" />
+            <TextField id="regimentalNumber" label="RegimentalNumber" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" />
+            <TextField id="identificationNumber" label="IdentificationNumber" variant="outlined" size="small" />
           </Grid>
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" />
+            <TextField id="passportNumber" label="PassportNumber" variant="outlined" size="small" />
           </Grid >
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" />
+            <TextField id="passportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" />
           </Grid >
         </div>    
         <div>
           <Grid item xs={2}>
-            <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" />
+            <TextField id="tinNumber" label="TIN Number" variant="outlined" size="small" />
           </Grid>
         </div>
       </React.Fragment>      

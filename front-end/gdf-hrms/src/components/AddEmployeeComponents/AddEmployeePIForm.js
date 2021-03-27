@@ -57,8 +57,8 @@ export default function AddEmployeePIForm() {
       <React.Fragment>
         <div>
           <Grid item xs={2}>
-            <TextField id="FirstName" label="First Name" variant="outlined" size="small" />
-            <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small"  />
+            <TextField name="FirstName" label="First Name" variant="outlined" size="small" />
+            <TextField name="otherNameTwo" label="Middle Name" variant="outlined" size="small"  />
           </Grid>
         </div>
         <div>
@@ -92,7 +92,7 @@ export default function AddEmployeePIForm() {
         </div>
         <div>
           <Grid item xs={2}>
-          <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="ethnicity-label">Ethnicity</InputLabel>
               <Select
                 labelId="ethnicity-label"

@@ -50,7 +50,8 @@ export default function EmployeeProfileLayout(props) {
   //const SexOption = ["Male","Female"];
   function FormRow() {
     return (
-      <div>
+   
+   <div>
         < Grid container spacing={3}>
           
           <Grid item xs={12}>
@@ -68,12 +69,10 @@ export default function EmployeeProfileLayout(props) {
           <Grid item xs={12}>
             <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
           </Grid >
-
         </Grid>           
       </div>      
     );
-  }
-
+  } 
   return (
     <div className={classes.root}>
       <Grid container spacing={1} >
