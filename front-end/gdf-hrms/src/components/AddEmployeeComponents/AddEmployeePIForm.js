@@ -86,7 +86,7 @@ export default function AddEmployeePIForm() {
                 </Select>
               </FormControl>
 
-              <TextField id="Nationality" label="Nationality" variant="outlined" size="small" />
+              <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
             </Grid>
           </Grid >
         </div>
@@ -130,7 +130,6 @@ export default function AddEmployeePIForm() {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />            
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="marital-status-label">Marital Status</InputLabel>
               <Select
@@ -146,6 +145,7 @@ export default function AddEmployeePIForm() {
                 <MenuItem value={3}>Divorced</MenuItem>
               </Select>
             </FormControl>
+            <TextField id="Nationality" label="Nationality" variant="outlined" size="small" />            
           </Grid >
         </div>
       </React.Fragment>      
