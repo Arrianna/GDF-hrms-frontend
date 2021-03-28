@@ -35,10 +35,9 @@ export default function EmployeeProfileLayout(props) {
   const params = useParams();  
   const [employeeInfo, setEmployeeInfo] = useState({});
   console.log(params);
-  let regNumber;
-  for(let[key, value] of Object.entries(params)){
-    regNumber = value;
-  }
+  let regNumber = params.regNum;
+
+
   
   useEffect(() => {
       const getEmpInfo = async () => {
@@ -47,6 +46,7 @@ export default function EmployeeProfileLayout(props) {
         setEmployeeInfo(info.data);
       }
     };
+    
     getEmpInfo();
   }, [regNumber]);
 
