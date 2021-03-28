@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,10 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersonalInformationForm(employeeInfo) {  
   const classes = useStyles();
-  
-  let date = employeeInfo.employeeInfo.dateOfBirth;
-  const formattedDate = moment(date).format('DD-MM-YYYY');
-  
+   
   function FormRow() {
     return (
       <React.Fragment>

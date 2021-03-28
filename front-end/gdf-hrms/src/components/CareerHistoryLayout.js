@@ -27,15 +27,12 @@ export default function CareerHistoryLayout(props) {
   const params = useParams();  
   const [empData, setEmpData] = useState([]);
   
-  let regNumber;
-  for(let[key, value] of Object.entries(params)){
-    regNumber = value;
-  }
+  let regNumber = params.regNum;
   
   useEffect(() => {    
       const getEmpInfo = async () => {
       if(regNumber){
-        const info = await Axios.get("/regimentNumber/" + regNumber);      
+        const info = await Axios.get("/RegimentNumber/" + regNumber);      
         setEmpData(info.data);
       }
     };

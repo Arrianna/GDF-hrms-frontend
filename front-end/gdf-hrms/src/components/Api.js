@@ -4,7 +4,7 @@ const Api = (function () {
     
    //calling endpoints
     const getEmployeeByRegNumber = (RNumber) => {
-        Axios.get("/regnumber/" + RNumber).then((response) => {
+        Axios.get("/RegimentNumber/" + RNumber).then((response) => {
             console.log(response);
             return response.data;
             //response.data.title + "..." + response.data.fname;
