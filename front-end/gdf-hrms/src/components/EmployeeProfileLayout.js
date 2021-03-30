@@ -44,6 +44,7 @@ export default function EmployeeProfileLayout(props) {
         setEmployeeInfo(info.data);
       }
     };
+    
     getEmpInfo();
   }, [regNumber]);
 
