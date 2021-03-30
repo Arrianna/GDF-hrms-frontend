@@ -35,6 +35,59 @@ export default function AddEmployeeInformation() {
   const [employeeInfo, setEmployeeInfo] = useState({});
   const regNumber = '123456';
 
+  // EmployeePIForm INFORMATION
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [otherName, setOtherName] = useState('');
+  const [otherNameTwo, setOtherNameTwo] = useState('');
+  const [maritalStatus, setMaritalStatus] = useState('');
+  const [religion, setReligion] = useState('');
+  const [ethnicity, setEthnicity] = useState('');
+  const [sex, setSex] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [nationality, setNationality] = useState('');
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleOtherNameChange = (event) => {
+    setOtherName(event.target.value);
+  };
+
+  const handleOtherNameTwoChange = (event) => {
+    setOtherNameTwo(event.target.value);
+  };
+
+  const handleMaritalStatusChange = (event) => {
+    setMaritalStatus(event.target.value);
+  };
+
+  const handleReligionChange = (event) => {
+    setReligion(event.target.value);
+  };
+
+  const handleEthnicityChange = (event) => {
+    setEthnicity(event.target.value);
+  };
+
+  // DON'T LAUGH TOO MUCH, YOU MIGHT POP A VEIN
+  const handleSexChange = (event) => {
+    setSex(event.target.value);
+  }
+
+  const handleDoBChange = (event) => {
+    setDateOfBirth(event.target.value);
+  }
+
+  const handleNationalityChange = (event) => {
+    setNationality(event.target.value);
+  }
+
  /* employeeInfo = {
       nationalityId: 0,
       religionId: 0,
@@ -74,7 +127,27 @@ export default function AddEmployeeInformation() {
         < Grid container spacing={3}>
           
           <Grid item xs={12}>
-            <AddEmployeePIForm employeeInfo={employeeInfo}></AddEmployeePIForm>
+            <AddEmployeePIForm 
+              firstName={firstName}
+              lastName={lastName}
+              otherName={otherName}
+              otherNameTwo={otherNameTwo}
+              maritalStatus={maritalStatus} 
+              religion={religion}
+              ethnicity={ethnicity}
+              sex={sex}
+              dateOfBirth={dateOfBirth}
+              nationality={nationality}
+              handleFirstNameChange={handleFirstNameChange}
+              handleLastNameChange={handleLastNameChange}
+              handleOtherNameChange={handleOtherNameChange}
+              handleOtherNameTwoChange={handleOtherNameTwoChange}
+              handleMaritalStatusChange={handleMaritalStatusChange}
+              handleReligionChange={handleReligionChange}
+              handleEthnicityChange={handleEthnicityChange}
+              handleSexChange={handleSexChange}
+              handleDoBChange={handleDoBChange}
+              handleNationalityChange={handleNationalityChange}></AddEmployeePIForm>
           </Grid>
 
           <Grid item xs={12}>
