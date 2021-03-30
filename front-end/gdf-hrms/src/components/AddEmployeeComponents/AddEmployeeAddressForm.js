@@ -46,115 +46,98 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddEmployeeAddressForm() {  
+export default function AddEmployeeAddressForm(props) {  
   const classes = useStyles();
-  const [region, setRegion] = useState('');
-  const [country, setCountry] = useState('');
-
-  const handleRegionChange = (event) => {
-    setRegion(event.target.value);
-  };
-
-  const handleCountryChange = (event) => {
-    console.log(event.target.value);
-    setCountry(event.target.value);
-  };
-  
-  function FormRow() {
-    return (
-      <React.Fragment>
-        <div>
-          <Grid item xs={2}>
-            <TextField name="addressLot" label="Lot" variant="outlined" size="small" />
-          </Grid>
-        </div>
-        <div>
-          <Grid item xs={2}>
-            <TextField name="addressStreet" label="Street" variant="outlined" size="small" />
-          </Grid>
-        </div>
-        <div>
-          <Grid item xs={2}>
-            <TextField id="Area/Section" label="Area/Section" variant="outlined" size="small" />
-          </Grid >
-        </div>
-        <div>
-          <Grid item xs={2}>
-            <TextField name="addressVillage" label="Village" variant="outlined" size="small" />
-          </Grid >
-        </div>
-        <div>
-          <Grid item xs={2}>
-            <FormControl variant="outlined" size="small" className={classes.formControl}>
-              <InputLabel id="region-label">Region</InputLabel>
-              <Select
-                labelId="region-label"
-                id="region"
-                value={region}
-                onChange={handleRegionChange}
-                label="Region"
-              >
-                <MenuItem value=""><em>Select</em></MenuItem>
-                <MenuItem value={1}>1 (Barima-Waini)</MenuItem>
-                <MenuItem value={2}>2 (Pomeroon-Supenaam)</MenuItem>
-                <MenuItem value={3}>3 (Essequibo Islands-West Demerara)</MenuItem>
-                <MenuItem value={4}>4 (Demerara-Mahaica)</MenuItem>
-                <MenuItem value={5}>5 (Mahaica-Berbice)</MenuItem>
-                <MenuItem value={6}>6 (East Berbice-Corentyne)</MenuItem>
-                <MenuItem value={7}>7 (Cuyuni-Mazaruni)</MenuItem>
-                <MenuItem value={8}>8 (Potaro-Siparuni)</MenuItem>
-                <MenuItem value={9}>9 (Upper Takutu-Upper Essequibo)</MenuItem>
-                <MenuItem value={10}>10 (Upper Demerara-Upper Berbice)</MenuItem>              
-              </Select>
-            </FormControl>
-          </Grid >
-        </div>
-        <div>
-          <Grid item xs={2}>
-            {/* <TextField id="Country" label="Country" variant="outlined" size="small" /> */}
-            {/*<CountryDropdown value={country} onChange={handleCountryChange} />*/}
-            <Autocomplete
-              id="country-select-demo"
-              style={{ width: 300 }}
-              options={countries}
-              classes={{
-                option: classes.option,
-              }}
-              autoHighlight
-              getOptionLabel={(option) => option.label}
-              renderOption={(option) => (
-                <React.Fragment>
-                  <span>{countryToFlag(option.code)}</span>
-                  {option.label} {/*({option.code}) +{option.phone}*/}
-                </React.Fragment>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Country"
-                  variant="outlined"
-                  size="small"
-                  onChange={handleCountryChange}
-                  value={country}
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: 'new-password', // disable autocomplete and autofill
-                  }}
-                />
-              )}
-            />
-          </Grid >
-        </div>
-      </React.Fragment>
-    );
-  }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Address </h4>
+        <h4>Address </h4>
         <Grid container item xs={12} spacing={3}>
-          <FormRow />
+          <React.Fragment>
+            <div>
+              <Grid item xs={2}>
+                <TextField name="addressLot" label="Lot" value={props.lot} onChange={props.handleLotChange} variant="outlined" size="small" />
+              </Grid>
+            </div>
+            <div>
+              <Grid item xs={2}>
+                <TextField name="addressStreet" label="Street" value={props.street} onChange={props.handleStreetChange} variant="outlined" size="small" />
+              </Grid>
+            </div>
+            <div>
+              <Grid item xs={2}>
+                <TextField id="Area/Section" label="Area/Section" value={props.area} onChange={props.handleAreaChange} variant="outlined" size="small" />
+              </Grid >
+            </div>
+            <div>
+              <Grid item xs={2}>
+                <TextField name="addressVillage" label="Village" value={props.village} onChange={props.handleVillageChange} variant="outlined" size="small" />
+              </Grid >
+            </div>
+            <div>
+              <Grid item xs={2}>
+                <FormControl variant="outlined" size="small" className={classes.formControl}>
+                  <InputLabel id="region-label">Region</InputLabel>
+                  <Select
+                    labelId="region-label"
+                    id="region"
+                    value={props.region}
+                    onChange={props.handleRegionChange}
+                    label="Region"
+                  >
+                    <MenuItem value=""><em>Select</em></MenuItem>
+                    <MenuItem value={1}>1 (Barima-Waini)</MenuItem>
+                    <MenuItem value={2}>2 (Pomeroon-Supenaam)</MenuItem>
+                    <MenuItem value={3}>3 (Essequibo Islands-West Demerara)</MenuItem>
+                    <MenuItem value={4}>4 (Demerara-Mahaica)</MenuItem>
+                    <MenuItem value={5}>5 (Mahaica-Berbice)</MenuItem>
+                    <MenuItem value={6}>6 (East Berbice-Corentyne)</MenuItem>
+                    <MenuItem value={7}>7 (Cuyuni-Mazaruni)</MenuItem>
+                    <MenuItem value={8}>8 (Potaro-Siparuni)</MenuItem>
+                    <MenuItem value={9}>9 (Upper Takutu-Upper Essequibo)</MenuItem>
+                    <MenuItem value={10}>10 (Upper Demerara-Upper Berbice)</MenuItem>              
+                  </Select>
+                </FormControl>
+              </Grid >
+            </div>
+            <div>
+              <Grid item xs={2}>
+                {/* <TextField id="Country" label="Country" variant="outlined" size="small" /> */}
+                {/*<CountryDropdown value={country} onChange={handleCountryChange} />*/}
+                <Autocomplete
+                  id="country-select-demo"
+                  style={{ width: 300 }}
+                  options={countries}
+                  classes={{
+                    option: classes.option,
+                  }}
+                  autoHighlight
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(option) => (
+                    <React.Fragment>
+                      <span>{countryToFlag(option.code)}</span>
+                      {option.label} {/*({option.code}) +{option.phone}*/}
+                    </React.Fragment>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Country"
+                      variant="outlined"
+                      size="small"
+                      onChange={props.handleCountryChange}
+                      value={props.country}
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: 'new-password', // disable autocomplete and autofill
+                      }}
+                    />
+                  )}
+                />
+              </Grid >
+            </div>
+          </React.Fragment>
         </Grid>
       </Grid>
     </div>

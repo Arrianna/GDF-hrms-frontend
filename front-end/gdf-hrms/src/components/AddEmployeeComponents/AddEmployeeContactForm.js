@@ -35,23 +35,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddEmployeeContactForm() {
-  const classes = useStyles();
-  const [homeNumber, setHomeNumber] = useState();
-  const [cellNumber, setCellNumber] = useState();
-  const [workNumber, setWorkNumber] = useState();
-
-  const handleHomeNumChange = (event) => {    
-    setHomeNumber(event);
-  }
-
-  const handleCellNumChange = (event) => {    
-    setCellNumber(event);
-  }
-
-  const handleWorkNumChange = (event) => {    
-    setWorkNumber(event); 
-  }
+export default function AddEmployeeContactForm(props) {
+  const classes = useStyles();  
 
   return (
     <div className={classes.root}>
@@ -106,8 +91,8 @@ export default function AddEmployeeContactForm() {
                 />*/}
                 <MuiPhoneNumber 
                   defaultCountry={'gy'} 
-                  onChange={handleHomeNumChange}
-                  value={homeNumber}
+                  onChange={props.handleHomeNumChange}
+                  value={props.homeNumber}
                   variant= 'outlined'
                   size= 'small'
                   regions={['north-america', 'carribean', 'south-america']}
@@ -122,8 +107,8 @@ export default function AddEmployeeContactForm() {
                 <MuiPhoneNumber
                   id='CellNumber'
                   defaultCountry={'gy'} 
-                  onChange={handleCellNumChange}
-                  value={cellNumber}
+                  onChange={props.handleCellNumChange}
+                  value={props.cellNumber}
                   variant= 'outlined'
                   size= 'small'
                   regions={['north-america', 'carribean', 'south-america']}
@@ -140,8 +125,8 @@ export default function AddEmployeeContactForm() {
                   label="Work Number" 
                   variant="outlined" 
                   size="small" 
-                  onChange={handleWorkNumChange}
-                  value={workNumber}                  
+                  onChange={props.handleWorkNumChange}
+                  value={props.workNumber}                  
                   regions={['north-america', 'carribean', 'south-america']}
                   label="Work Number"
                   InputProps={{
@@ -155,6 +140,8 @@ export default function AddEmployeeContactForm() {
                   id="Email" 
                   label="Email" 
                   type="email" 
+                  value={props.email}
+                  onChange={props.handleEmailChange}
                   variant="outlined" 
                   size="small" 
                   InputProps={{
