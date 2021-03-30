@@ -85,7 +85,7 @@ export default function AddEmployeeAddressForm() {
         </div>
         <div>
           <Grid item xs={2}>
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant="outlined" size="small" className={classes.formControl}>
               <InputLabel id="region-label">Region</InputLabel>
               <Select
                 labelId="region-label"
@@ -133,6 +133,7 @@ export default function AddEmployeeAddressForm() {
                   {...params}
                   label="Country"
                   variant="outlined"
+                  size="small"
                   onChange={handleCountryChange}
                   value={country}
                   inputProps={{
