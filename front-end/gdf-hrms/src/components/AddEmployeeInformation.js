@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import axios from './AddEmployeeComponents/axios';
 
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
@@ -35,16 +36,16 @@ export default function AddEmployeeInformation() {
   const [employeeInfo, setEmployeeInfo] = useState({});
   
   // AddEmployeePIForm INFORMATION
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [otherName, setOtherName] = useState('');
-  const [otherNameTwo, setOtherNameTwo] = useState('');
-  const [maritalStatus, setMaritalStatus] = useState('');
-  const [religion, setReligion] = useState('');
-  const [ethnicity, setEthnicity] = useState('');
-  const [sex, setSex] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [nationality, setNationality] = useState('');
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [otherName, setOtherName] = useState();
+  const [otherNameTwo, setOtherNameTwo] = useState();
+  const [maritalStatus, setMaritalStatus] = useState();
+  const [religion, setReligion] = useState();
+  const [ethnicity, setEthnicity] = useState();
+  const [sex, setSex] = useState();
+  const [dateOfBirth, setDateOfBirth] = useState();
+  const [nationality, setNationality] = useState();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -86,7 +87,7 @@ export default function AddEmployeeInformation() {
   const handleNationalityChange = (event) => {
     setNationality(event.target.value);
   }
-
+{/*
   // AddEmployeeAddressForm Information  
   const [lot, setLot] = useState();
   const [street, setStreet] = useState();
@@ -118,7 +119,7 @@ export default function AddEmployeeInformation() {
   const handleCountryChange = (event) => {    
     setCountry(event.target.value);
   };
-
+*/}
   // AddEmployeeContactForm Information
   const [homeNumber, setHomeNumber] = useState();
   const [cellNumber, setCellNumber] = useState();
@@ -138,7 +139,7 @@ export default function AddEmployeeInformation() {
   }
 
   const handleEmailChange = (event) => {
-    setEmail(event);
+    setEmail(event.target.value);
   }
 
   // AddEmployeeOfficialInfoForm Information
@@ -149,54 +150,54 @@ export default function AddEmployeeInformation() {
   const [tinNumber, setTinNumber] = useState();
 
   const handleRegNumChange = (event) => {    
-    setRegimentNumber(event);
+    setRegimentNumber(event.target.value);
   }
 
   const handleNationalIdNumChange = (event) => {    
-    setNationalIdNumber(event);
+    setNationalIdNumber(event.target.value);
   }
 
   const handlePassportNumChange = (event) => {    
-    setPassportNumber(event); 
+    setPassportNumber(event.target.value); 
   }
 
   const handlePassportExpDateChange = (event) => {
-    setPassportExpirationDate(event);
+    setPassportExpirationDate(event.target.value);
   }
 
   const handleTinNumChange = (event) => {
-    setTinNumber(event);
+    setTinNumber(event.target.value);
   }
 
- /* employeeInfo = {
-      nationalityId: 0,
-      religionId: 0,
-      ethnicityId: 0,
-      maritalStatusId: 0,
-      positionId: 0,
-      countryId: 0,
-      regionId: 0,
-      homeNumber: 0,
-      cellNumber: 0,
-      workNumber: 0,
-      email: '',
-      addressLot: '',
-      addressStreet: '',
-      addressArea: "",
-      addressVillage: '',
+  const postDataHandler = () => {
+
+    setEmployeeInfo({
+      nationalityId: nationality,
+      religionId: religion,
+      ethnicityId: ethnicity,
+      maritalStatusId: maritalStatus,      
+      homeNumber: homeNumber,
+      cellNumber: cellNumber,
+      workNumber: workNumber,
+      email: email,      
       title: '',
-      firstName: '',
-      lastName: '',
-      otherName: '',
-      regimentNumber: 0,
-      dateOfBirth: '',
-      sex: '',
-      nationalIdNumber: 0,
-      passportNumber: '',
-      passportExpirationDate: '',
-      tinNumber: 0
+      firstName: firstName,
+      lastName: lastName,
+      otherName: otherName,
+      regimentNumber: regimentNumber,
+      dateOfBirth: dateOfBirth,
+      sex: sex,
+      nationalIdNumber: nationalIdNumber,
+      passportNumber: passportNumber,
+      passportExpirationDate: passportExpirationDate,
+      tinNumber: tinNumber,
+    });
+    //console.log(employeeInfo);
+    axios.post('/AddAnEmployee/', employeeInfo)
+      .then(response => {
+        console.log(response);
+      });
   }
-  */
   
   return (
     <div className={classes.root}>
@@ -238,7 +239,7 @@ export default function AddEmployeeInformation() {
                   handleNationalityChange={handleNationalityChange}></AddEmployeePIForm>
               </Grid>
 
-              <Grid item xs={12}>
+              {/*<Grid item xs={12}>
                 <AddEmployeeAddressForm 
                   lot={lot}
                   street={street}
@@ -252,7 +253,7 @@ export default function AddEmployeeInformation() {
                   handleVillageChange={handleVillageChange}
                   handleRegionChange={handleRegionChange}
                   handleCountryChange={handleCountryChange}></AddEmployeeAddressForm>
-              </Grid>
+              </Grid>*/}
 
               <Grid item xs={12}>
                 <AddEmployeeContactForm 
@@ -281,7 +282,7 @@ export default function AddEmployeeInformation() {
               </Grid >
 
               <Grid item xs={12}>
-                <Button type="submit" variant="outlined" color="primary"> Add Employee </Button>
+                <Button type="submit" onClick={postDataHandler} variant="outlined" color="primary"> Add Employee </Button>
               </Grid >
             </Grid>           
           </div>

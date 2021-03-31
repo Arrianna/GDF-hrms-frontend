@@ -1,4 +1,4 @@
-import React, { useState, useForm } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -127,7 +127,25 @@ export default function AddEmployeePIForm(props) {
                     <MenuItem value={3}>Divorced</MenuItem>
                   </Select>
                 </FormControl>
-                <TextField id="Nationality" label="Nationality" value={props.nationality} onChange={props.handleNationalityChange} variant="outlined" size="small" />            
+                {/*<TextField id="Nationality" label="Nationality" value={props.nationality} onChange={props.handleNationalityChange} variant="outlined" size="small" />*/}
+                <FormControl variant="outlined" size="small" className={classes.formControl}>
+                  <InputLabel id="nationality-label">Nationality</InputLabel>
+                  <Select
+                    labelId="nationality-label"
+                    id="Nationality"
+                    value={props.nationality}
+                    onChange={props.handleNationalityChange}
+                    label="Nationality"
+                  >
+                    <MenuItem value=""><em>Select</em></MenuItem>
+                    <MenuItem value={1}>Guyanese</MenuItem>
+                    <MenuItem value={2}>Surinamese</MenuItem>
+                    <MenuItem value={3}>Brazillian</MenuItem>
+                    <MenuItem value={4}>Venezuelan</MenuItem>
+                    <MenuItem value={5}>Trinidadian</MenuItem>
+                    <MenuItem value={6}>Barbadian</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid >
             </div>
           </React.Fragment>
