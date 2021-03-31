@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -90,6 +90,7 @@ export default function AddEmployeeContactForm(props) {
                   }}                  
                 />*/}
                 <MuiPhoneNumber 
+                  id="HomeNumber"
                   defaultCountry={'gy'} 
                   onChange={props.handleHomeNumChange}
                   value={props.homeNumber}
@@ -122,13 +123,13 @@ export default function AddEmployeeContactForm(props) {
               <Grid item xs={2}>
                 <MuiPhoneNumber
                   id="WorkNumber" 
+                  defaultCountry={'gy'}
                   label="Work Number" 
                   variant="outlined" 
                   size="small" 
                   onChange={props.handleWorkNumChange}
                   value={props.workNumber}                  
-                  regions={['north-america', 'carribean', 'south-america']}
-                  label="Work Number"
+                  regions={['north-america', 'carribean', 'south-america']}                  
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
                 />
@@ -139,7 +140,7 @@ export default function AddEmployeeContactForm(props) {
                 <TextField 
                   id="Email" 
                   label="Email" 
-                  type="email" 
+                  type="text" 
                   value={props.email}
                   onChange={props.handleEmailChange}
                   variant="outlined" 
