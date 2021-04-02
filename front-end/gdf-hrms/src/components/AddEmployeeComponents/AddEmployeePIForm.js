@@ -62,9 +62,9 @@ export default function AddEmployeePIForm(props) {
                       label="Sex"                  
                     >
                       <MenuItem value=""><em>Select</em></MenuItem>
-                      <MenuItem value={1}>Male</MenuItem>
-                      <MenuItem value={2}>Female</MenuItem>
-                      <MenuItem value={3}>Other</MenuItem>
+                      <MenuItem value={"Male"}>Male</MenuItem>
+                      <MenuItem value={"Female"}>Female</MenuItem>
+                      <MenuItem value={"Other"}>Other</MenuItem>
                     </Select>
                   </FormControl>
 
@@ -83,7 +83,7 @@ export default function AddEmployeePIForm(props) {
                     onChange={props.handleEthnicityChange}
                     label="Ethnicity"
                   >
-                    <MenuItem value=""><em>Select</em></MenuItem>
+                    <MenuItem value={0}><em>Select</em></MenuItem>
                     <MenuItem value={1}>African</MenuItem>
                     <MenuItem value={2}>Indian</MenuItem>
                     <MenuItem value={3}>Amerindian</MenuItem>
@@ -91,7 +91,7 @@ export default function AddEmployeePIForm(props) {
                     <MenuItem value={5}>Portuguese</MenuItem>
                     <MenuItem value={6}>Mixed</MenuItem>
                   </Select>
-                </FormControl>            
+                </FormControl>         
               </Grid >            
                 <FormControl variant="outlined" size="small" className={classes.formControl}>
                   <InputLabel id="religion-label">Religion</InputLabel>

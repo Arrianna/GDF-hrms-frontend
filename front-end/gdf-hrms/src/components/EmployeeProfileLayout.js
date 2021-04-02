@@ -34,18 +34,17 @@ export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
   const params = useParams();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-
+  
   let regNumber = params.regNum;
  
   useEffect(() => {
-      const getEmpInfo = async () => {
+    const getEmpInfo = async () => {
       if(regNumber){
-        const info = await Axios.get("/RegimentNumber/" + regNumber);    
-        setEmployeeInfo(info.data);
+        const info = await Axios.get("GetInfo/RegimentNumber/" + regNumber);    
+        setEmployeeInfo(info.data);        
       }
-    };
-    
-    getEmpInfo();
+    };        
+    getEmpInfo();    
   }, [regNumber]);
 
   //const SexOption = ["Male","Female"];

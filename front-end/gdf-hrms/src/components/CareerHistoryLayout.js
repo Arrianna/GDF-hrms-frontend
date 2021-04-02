@@ -32,7 +32,7 @@ export default function CareerHistoryLayout(props) {
   useEffect(() => {    
       const getEmpInfo = async () => {
       if(regNumber){
-        const info = await Axios.get("/RegimentNumber/" + regNumber);      
+        const info = await Axios.get("GetInfo/RegimentNumber/" + regNumber);      
         setEmpData(info.data);
       }
     };

@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from 'react-dom'; 
 import App from './App';
 import {QueryClient, QueryClientProvider } from 'react-query';
-import Axios from 'axios';
+import axios from 'axios';
 
-Axios.defaults.baseURL = 'https://localhost:5001/api/GetInfo';
+axios.defaults.baseURL = 'https://localhost:5001/api/';
+axios.defaults.headers.post['Accept'] = 'application/json'
 
 const client = new QueryClient();
 
