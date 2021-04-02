@@ -99,11 +99,11 @@ export default function MatPaginationTable(props) {
         </Table>
       </TableContainer>
       <TablePagination
-      rowsPerPageOptions={[5, 10, 15]}
-      component="div" count={data.length}
-      rowsPerPage={rowsPerPage} page={page}
-      onChangePage={handleChangePage}
-      onChangeRowsPerPage={handleChangeRowsPerPage} />
+        rowsPerPageOptions={[5, 10, 15]}
+        component="div" count={data.length}
+        rowsPerPage={rowsPerPage} page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage} />
     </Paper>
   );
 }

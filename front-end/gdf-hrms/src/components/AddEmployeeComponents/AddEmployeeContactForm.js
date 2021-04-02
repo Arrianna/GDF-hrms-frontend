@@ -46,74 +46,29 @@ export default function AddEmployeeContactForm(props) {
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                {/*<TextField 
+                <TextField 
                   id="HomeNumber" 
-                  label="Home Number" 
+                  label="Home Number"  
+                  value={props.homeNumber}
+                  onChange={props.handleHomeNumChange}  
+                  type="tel"                           
                   variant="outlined" 
                   size="small" 
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
-                  />*/}
-                {/*<PhoneInput
-                  id="HomeNumber" 
-                  label="Home Number" 
-                  variant="outlined"              
-                  size="small" 
-                  value={phoneNumber}
-                  onChange={handleOnChange}              
-                  //inputClass={classes.field}
-                  //dropdownClass={classes.countryList}  
-                  InputProps={{
-                    endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}            
-                  inputExtraProps={{
-                    margin: 'normal',
-                    autoComplete: 'phone',
-                    required: 'true',
-                    name: 'custom-username'
-                  }}
-                />*/}
-                {/*<MuiPhoneNumber
-                  value={phoneNumber}
-                  defaultCountry='guy'
-                  variant= 'outlined'
-                  regions={['north-america', 'carribean', 'south-america']}
-                  onChange={handleOnChange}
-                  inputClass={classes.field}
-                  dropdownClass={classes.countryList}
-                  component={TextField}
-                  inputExtraProps={{
-                    margin: 'normal', autoComplete: 'phone', name: 'homeNumber', size: 'small', 
-                    id:"HomeNumber",
-                    label:"Home Number",
-                    variant: 'outlined',
-                    endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>
-                  }}                  
-                />*/}
-                <MuiPhoneNumber 
-                  id="HomeNumber"
-                  defaultCountry={'gy'} 
-                  onChange={props.handleHomeNumChange}
-                  value={props.homeNumber}
-                  variant= 'outlined'
-                  size= 'small'
-                  regions={['north-america', 'carribean', 'south-america']}
-                  label="Home Number"
-                  InputProps={{
-                    endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
-                />
+                />                
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <MuiPhoneNumber
-                  id='CellNumber'
-                  defaultCountry={'gy'} 
-                  onChange={props.handleCellNumChange}
+                <TextField 
+                  id="CellNumber" 
+                  label="Cell Number"  
                   value={props.cellNumber}
-                  variant= 'outlined'
-                  size= 'small'
-                  regions={['north-america', 'carribean', 'south-america']}
-                  label="Cell Number"
+                  onChange={props.handleCellNumChange} 
+                  type="tel"                
+                  variant="outlined" 
+                  size="small" 
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><PhoneAndroidIcon color="primary"/></InputAdornment>,}}
                 />
@@ -121,26 +76,25 @@ export default function AddEmployeeContactForm(props) {
             </div>
             <div>   
               <Grid item xs={2}>
-                <MuiPhoneNumber
+                <TextField 
                   id="WorkNumber" 
-                  defaultCountry={'gy'}
                   label="Work Number" 
+                  value={props.workNumber}
+                  onChange={props.handleWorkNumChange}  
+                  type="tel"                
                   variant="outlined" 
                   size="small" 
-                  onChange={props.handleWorkNumChange}
-                  value={props.workNumber}                  
-                  regions={['north-america', 'carribean', 'south-america']}                  
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
-                />
+                />                
               </Grid >
             </div>
             <div>
               <Grid item xs={2}>
                 <TextField 
                   id="Email" 
-                  label="Email" 
-                  type="text" 
+                  label="Email"
+                  type="email"              
                   value={props.email}
                   onChange={props.handleEmailChange}
                   variant="outlined" 

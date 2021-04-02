@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import axios from './AddEmployeeComponents/axios';
+import axios from 'axios';
 
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
@@ -38,14 +38,14 @@ export default function AddEmployeeInformation() {
   // AddEmployeePIForm INFORMATION
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
-  const [otherName, setOtherName] = useState();
-  const [otherNameTwo, setOtherNameTwo] = useState();
-  const [maritalStatus, setMaritalStatus] = useState();
-  const [religion, setReligion] = useState();
-  const [ethnicity, setEthnicity] = useState();
-  const [sex, setSex] = useState();
+  const [otherName, setOtherName] = useState("");
+  const [otherNameTwo, setOtherNameTwo] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState("");
+  const [religion, setReligion] = useState("");
+  const [ethnicity, setEthnicity] = useState(0);
+  const [sex, setSex] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState();
-  const [nationality, setNationality] = useState();
+  const [nationality, setNationality] = useState("");
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -126,19 +126,19 @@ export default function AddEmployeeInformation() {
   const [workNumber, setWorkNumber] = useState();
   const [email, setEmail] = useState();
 
-  const handleHomeNumChange = (event) => {    
-    setHomeNumber(event);
+  const handleHomeNumChange = (event) => {      
+    setHomeNumber(event.target.value);
   }
 
   const handleCellNumChange = (event) => {    
-    setCellNumber(event);
+    setCellNumber(event.target.value);
   }
 
-  const handleWorkNumChange = (event) => {    
-    setWorkNumber(event); 
+  const handleWorkNumChange = (event) => {       
+    setWorkNumber(event.target.value); 
   }
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event) => {    
     setEmail(event.target.value);
   }
 
@@ -169,34 +169,32 @@ export default function AddEmployeeInformation() {
     setTinNumber(event.target.value);
   }
 
-  const postDataHandler = () => {
-
+  const postDataHandler = () => {    
     setEmployeeInfo({
       nationalityId: nationality,
       religionId: religion,
       ethnicityId: ethnicity,
-      maritalStatusId: maritalStatus,      
-      homeNumber: homeNumber,
-      cellNumber: cellNumber,
-      workNumber: workNumber,
-      email: email,      
+      maritalStatusId: maritalStatus,
+      homeNumber: parseInt(homeNumber, 10),
+      cellNumber: parseInt(cellNumber, 10),
+      workNumber: parseInt(workNumber, 10),
+      email: email,
       title: '',
       firstName: firstName,
       lastName: lastName,
       otherName: otherName,
-      regimentNumber: regimentNumber,
+      regimentNumber: parseInt(regimentNumber, 10),
       dateOfBirth: dateOfBirth,
       sex: sex,
-      nationalIdNumber: nationalIdNumber,
+      nationalIdNumber: parseInt(nationalIdNumber, 10),
       passportNumber: passportNumber,
       passportExpirationDate: passportExpirationDate,
-      tinNumber: tinNumber,
+      tinNumber: parseInt(tinNumber, 10),
     });
-    //console.log(employeeInfo);
-    axios.post('/AddAnEmployee/', employeeInfo)
-      .then(response => {
-        console.log(response);
-      });
+    
+    axios.post('PostInfo/AddAnEmployee', employeeInfo)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
   }
   
   return (
@@ -236,7 +234,8 @@ export default function AddEmployeeInformation() {
                   handleEthnicityChange={handleEthnicityChange}
                   handleSexChange={handleSexChange}
                   handleDoBChange={handleDoBChange}
-                  handleNationalityChange={handleNationalityChange}></AddEmployeePIForm>
+                  handleNationalityChange={handleNationalityChange}>                    
+                </AddEmployeePIForm>
               </Grid>
 
               {/*<Grid item xs={12}>
@@ -264,7 +263,8 @@ export default function AddEmployeeInformation() {
                   handleHomeNumChange={handleHomeNumChange}
                   handleCellNumChange={handleCellNumChange}
                   handleWorkNumChange={handleWorkNumChange}
-                  handleEmailChange={handleEmailChange}></AddEmployeeContactForm>
+                  handleEmailChange={handleEmailChange}>
+                </AddEmployeeContactForm>
               </Grid >
 
               <Grid item xs={12}>
@@ -278,7 +278,8 @@ export default function AddEmployeeInformation() {
                   handleNationalIdNumChange={handleNationalIdNumChange}
                   handlePassportNumChange={handlePassportNumChange}
                   handlePassportExpDateChange={handlePassportExpDateChange}
-                  handleTinNumChange={handleTinNumChange}></AddEmployeeOfficialInfoForm>
+                  handleTinNumChange={handleTinNumChange}>
+                </AddEmployeeOfficialInfoForm>
               </Grid >
 
               <Grid item xs={12}>
