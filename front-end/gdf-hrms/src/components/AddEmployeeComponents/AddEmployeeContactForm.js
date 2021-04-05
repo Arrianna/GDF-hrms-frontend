@@ -6,10 +6,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import CallIcon from '@material-ui/icons/Call';
 import InputAdornment from '@material-ui/core/InputAdornment';
-//import PhoneInput from 'mui-phone-input';
-//import ReactPhoneInput from 'react-phone-input-mui';
-import MuiPhoneNumber from 'material-ui-phone-number';
-
+import { useForm } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddEmployeeContactForm(props) {
-  const classes = useStyles();  
+  const classes = useStyles();
+  const { register, errors } = useForm();
 
   return (
     <div className={classes.root}>
@@ -92,16 +90,28 @@ export default function AddEmployeeContactForm(props) {
             <div>
               <Grid item xs={2}>
                 <TextField 
-                  id="Email" 
-                  label="Email"
+                  id="Email"
+                  name="Email"
+                  label="Email Address"
                   type="email"              
                   value={props.email}
                   onChange={props.handleEmailChange}
                   variant="outlined" 
                   size="small" 
+                  inputRef={register({
+                    required: 'You must provide an email address!',
+                    pattern: {
+                      value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: 'You must provide a valid email address!',
+                    },
+                  })}
+                  autoComplete='email'
+                  error={!!errors.email}
+                  autoFocus
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><MailIcon color="primary"/></InputAdornment>,}}
                 />
+                {errors.email && ( <span className={classes.error}>{errors.email.message}</span> )}
               </Grid >
             </div>    
           </React.Fragment>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
-import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
+//import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
 import AddEmployeeOfficialInfoForm from './AddEmployeeComponents/AddEmployeeOfficialInfoForm';
 
@@ -87,39 +87,7 @@ export default function AddEmployeeInformation() {
   const handleNationalityChange = (event) => {
     setNationality(event.target.value);
   }
-{/*
-  // AddEmployeeAddressForm Information  
-  const [lot, setLot] = useState();
-  const [street, setStreet] = useState();
-  const [area, setArea] = useState();
-  const [village, setVillage] = useState();
-  const [region, setRegion] = useState('');
-  const [country, setCountry] = useState('');
 
-  const handleLotChange = (event) => {
-    setLot(event.target.value);
-  };
-
-  const handleStreetChange = (event) => {
-    setStreet(event.target.value);
-  };
-
-  const handleAreaChange = (event) => {
-    setArea(event.target.value);
-  };
-
-  const handleVillageChange = (event) => {
-    setVillage(event.target.value);
-  };
-
-  const handleRegionChange = (event) => {
-    setRegion(event.target.value);
-  };
-
-  const handleCountryChange = (event) => {    
-    setCountry(event.target.value);
-  };
-*/}
   // AddEmployeeContactForm Information
   const [homeNumber, setHomeNumber] = useState();
   const [cellNumber, setCellNumber] = useState();
@@ -191,10 +159,10 @@ export default function AddEmployeeInformation() {
       passportExpirationDate: passportExpirationDate,
       tinNumber: parseInt(tinNumber, 10),
     });
-    
-    axios.post('PostInfo/AddAnEmployee', employeeInfo)
+    //console.log(employeeInfo);
+    /* axios.post('PostInfo/AddAnEmployee', employeeInfo)
       .then(response => console.log(response))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error)) */
   }
   
   return (
