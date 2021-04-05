@@ -160,9 +160,9 @@ export default function AddEmployeeInformation() {
       tinNumber: parseInt(tinNumber, 10),
     });
     //console.log(employeeInfo);
-    /* axios.post('PostInfo/AddAnEmployee', employeeInfo)
+    axios.post('PostInfo/AddAnEmployee', employeeInfo)
       .then(response => console.log(response))
-      .catch(error => console.log(error)) */
+      .catch(error => console.log(error))
   }
   
   return (
