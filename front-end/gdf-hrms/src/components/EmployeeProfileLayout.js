@@ -32,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
-  const params = useParams();  
+  const params = useParams();
   const [employeeInfo, setEmployeeInfo] = useState({});
+  const [employeeAddress, setEmployeeAddress] = useState({});
   
   let regNumber = params.regNum;
+  let empId;
  
   useEffect(() => {
     const getEmpInfo = async () => {
@@ -43,23 +45,29 @@ export default function EmployeeProfileLayout(props) {
         const info = await Axios.get("GetInfo/RegimentNumber/" + regNumber);    
         setEmployeeInfo(info.data);        
       }
-    };        
-    getEmpInfo();    
+    };
+    const getEmpAddress = async () => {
+      if(regNumber){
+        const addressInfo = await Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=1");
+        setEmployeeAddress(addressInfo.data);
+      }
+    };
+    getEmpInfo();
+    getEmpAddress();
   }, [regNumber]);
 
-  //const SexOption = ["Male","Female"];
+  empId = employeeInfo.id;
+
   function FormRow() {
-    return (
-   
-   <div>
-        < Grid container spacing={3}>
-          
+    return (   
+      <div>
+        < Grid container spacing={3}>          
           <Grid item xs={12}>
             <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
           </Grid>
 
           <Grid item xs={12}>
-            <AddressForm employeeInfo={employeeInfo}></AddressForm>
+            <AddressForm employeeInfo={employeeAddress}></AddressForm>
           </Grid>
 
           <Grid item xs={12}>
@@ -82,7 +90,10 @@ export default function EmployeeProfileLayout(props) {
         <Grid item xs={6}>
           <h1>
             <Button variant="outlined" color="primary">
-            <Link to={'/employee-history/' + regNumber}>View Career History</Link>
+              <Link to={'/add-address/' + empId}>Add Employee Address</Link>
+            </Button>
+            <Button variant="outlined" color="primary">
+              <Link to={'/employee-history/' + regNumber}>View Career History</Link>
             </Button>
           </h1>
         </Grid>

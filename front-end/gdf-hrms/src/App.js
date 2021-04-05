@@ -7,43 +7,10 @@ import SearchPage from './components/searchpage';
 import EmployeeProfileLayout from './components/EmployeeProfileLayout';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
 import AddEmployeeInformation from './components/AddEmployeeInformation';
+import AddEmployeeAddressForm from './components/AddEmployeeComponents/AddEmployeeAddressForm';
 
 const App = () => {
-  {/*const [employeesPI, setEmployeesPI] = useState([]);
-  const [employeePI, setEmployeePI] = useState([]);
   
-  //effect for all employee
-  useEffect(() => {
-    const getEmployeesPI = async () => {
-      const employeesPIFromServer = await fetchEmployeesPI();
-      setEmployeesPI(employeesPIFromServer);
-    }
-    getEmployeesPI()
-  }, [])
-
-  //effect for an employee
-  useEffect(() => {
-    const getEmployeePI = async () => {
-      const employeePIFromServer = await fetchEmployeePI(123456); //Change this to Regiment Number of any employee in the DB
-      setEmployeePI(employeePIFromServer);
-    }
-    getEmployeePI()
-  }, []);
-
-  // Fetch all employee profiles
-  const fetchEmployeesPI = async () => {
-    const res = await fetch('https://localhost:5001/api/EmployeeInfo')
-    const data = await res.json()
-    return data;
-  }
-
-  // Fetch an employee profile
-  const fetchEmployeePI = async (id) => {
-    const res = await fetch(`https://localhost:5001/api/EmployeeInfo/RegimentNumber/${id}`)
-    const data = await res.json()
-    return data;
-  }*/}
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -55,7 +22,8 @@ const App = () => {
           <Route path="/employee-history" exact component={CareerHistoryLayout} />          
           <Route path="/search-page" exact component={SearchPage} />
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
-          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} /> 
+          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} />
+          <Route path="/add-address/:empId" exact component={AddEmployeeAddressForm} />
       </ResponsiveDrawer>
       </BrowserRouter>
     </div>
