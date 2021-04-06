@@ -106,8 +106,7 @@ export default function AddEmployeeContactForm(props) {
                     },
                   })}
                   autoComplete='email'
-                  error={!!errors.email}
-                  autoFocus
+                  error={!!errors.email}                  
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><MailIcon color="primary"/></InputAdornment>,}}
                 />

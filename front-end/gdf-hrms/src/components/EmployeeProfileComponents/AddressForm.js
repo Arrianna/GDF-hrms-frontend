@@ -35,41 +35,42 @@ const useStyles = makeStyles({
 
 export default function AddressForm(props) {
   const classes = useStyles();
-  
-  return (
+  let data = props.employeeInfo;
+   
+  return ( 
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container spacing={1}>        
         <h4>Employee Address</h4>
-          <Grid container item xs={12} spacing={3}></Grid>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align="center">Lot</StyledTableCell>
-                  <StyledTableCell align="center">Street</StyledTableCell>
-                  <StyledTableCell align="center">Area</StyledTableCell>
-                  <StyledTableCell align="center">Village</StyledTableCell>
-                  <StyledTableCell align="center">Region</StyledTableCell>
-                  <StyledTableCell align="center">Country</StyledTableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {props.employeeInfo.map((row) => {            
-                  return(
-                    <StyledTableRow key={row.id}>              
-                      <StyledTableCell align="center">{row.lot}</StyledTableCell>
-                      <StyledTableCell align="center">{row.street}</StyledTableCell>
-                      <StyledTableCell align="center">{row.area}</StyledTableCell>
-                      <StyledTableCell align="center">{row.village}</StyledTableCell>
-                      <StyledTableCell align="center">{row.region}</StyledTableCell>
-                      <StyledTableCell align="center">{row.country}</StyledTableCell>
-                    </StyledTableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>        
+        <Grid container item xs={12} spacing={3}></Grid>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">Lot</StyledTableCell>
+                <StyledTableCell align="center">Street</StyledTableCell>
+                <StyledTableCell align="center">Area</StyledTableCell>
+                <StyledTableCell align="center">Village</StyledTableCell>
+                <StyledTableCell align="center">Region</StyledTableCell>
+                <StyledTableCell align="center">Country</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            
+            <TableBody>
+              {data.map((row) => {            
+                return(
+                  <StyledTableRow key={row.id}>              
+                    <StyledTableCell align="center">{row.lot}</StyledTableCell>
+                    <StyledTableCell align="center">{row.street}</StyledTableCell>
+                    <StyledTableCell align="center">{row.area}</StyledTableCell>
+                    <StyledTableCell align="center">{row.village}</StyledTableCell>
+                    <StyledTableCell align="center">{row.region}</StyledTableCell>
+                    <StyledTableCell align="center">{row.country}</StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>        
       </Grid>
     </div>
   );
