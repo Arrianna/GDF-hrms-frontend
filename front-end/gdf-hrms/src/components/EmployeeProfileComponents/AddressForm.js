@@ -40,7 +40,7 @@ export default function AddressForm(props) {
   return ( 
     <div className={classes.root}>
       <Grid container spacing={1}>        
-        <h4>Employee Address</h4>
+        <h4>Address</h4>
         <Grid container item xs={12} spacing={3}></Grid>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
@@ -56,7 +56,7 @@ export default function AddressForm(props) {
             </TableHead>
             
             <TableBody>
-              {data.map((row) => {            
+              {/* {data.map((row) => {            
                 return(
                   <StyledTableRow key={row.id}>              
                     <StyledTableCell align="center">{row.lot}</StyledTableCell>
@@ -67,7 +67,7 @@ export default function AddressForm(props) {
                     <StyledTableCell align="center">{row.country}</StyledTableCell>
                   </StyledTableRow>
                 );
-              })}
+              })} */}
             </TableBody>
           </Table>
         </TableContainer>        
