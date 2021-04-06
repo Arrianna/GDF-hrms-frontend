@@ -53,7 +53,7 @@ export default function PersonalInformationForm(employeeInfo) {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" defaultValue={employeeInfo.employeeInfo.dateOfBirth}/>            
+            <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={(employeeInfo.employeeInfo.dateOfBirth).split('T')[0]}/>            
             <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeeInfo.employeeInfo.maritalStatus} />
           </Grid >
         </div>

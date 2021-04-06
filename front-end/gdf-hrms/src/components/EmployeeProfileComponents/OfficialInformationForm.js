@@ -42,7 +42,7 @@ export default function OfficialInformationForm(employeePI) {
         </div>
         <div>
           <Grid item xs={2}>
-            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" type="text" defaultValue={employeePI.employeeInfo.passportExpirationDate}/>
+            <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" type="text" value={(employeePI.employeeInfo.passportExpirationDate).split('T')[0]}/>
           </Grid >
         </div>    
         <div>
