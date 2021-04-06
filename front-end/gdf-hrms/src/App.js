@@ -8,6 +8,7 @@ import EmployeeProfileLayout from './components/EmployeeProfileLayout';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
 import AddEmployeeInformation from './components/AddEmployeeInformation';
 import AddEmployeeAddressForm from './components/AddEmployeeComponents/AddEmployeeAddressForm';
+import HomePage from './components/Home';
 
 const App = () => {
   
@@ -15,7 +16,7 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <ResponsiveDrawer>
-          <Route path="/" exact component={EmployeeProfileLayout}/>
+          <Route path="/" exact component={HomePage}/>
           {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
           <Route path="/add-employee" exact component={AddEmployeeInformation} />
           <Route path="/employee-profile" exact component={EmployeeProfileLayout} />          
