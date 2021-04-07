@@ -100,10 +100,10 @@ export default function AddEmployeeContactForm(props) {
                   size="small" 
                   inputRef={register({
                     required: 'You must provide an email address!',
-                    pattern: {
+                    /* pattern: {
                       value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                       message: 'You must provide a valid email address!',
-                    },
+                    }, */
                   })}
                   autoComplete='email'
                   error={!!errors.email}                  
