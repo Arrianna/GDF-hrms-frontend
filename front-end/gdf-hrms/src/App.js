@@ -5,6 +5,7 @@ import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import SearchPage from './components/searchpage';
 import EmployeeProfileLayout from './components/EmployeeProfileLayout';
+import ViewCareerHistory from './components/CareerHistoryComponents/ViewCareerHistory';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
 import AddEmployeeInformation from './components/AddEmployeeInformation';
 import AddEmployeeAddressForm from './components/AddEmployeeComponents/AddEmployeeAddressForm';
@@ -23,7 +24,7 @@ const App = () => {
           <Route path="/employee-history" exact component={CareerHistoryLayout} />          
           <Route path="/search-page" exact component={SearchPage} />
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
-          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} />
+          <Route path="/employee-history-view/:empId" exact component={ViewCareerHistory} />
           <Route path="/add-address/:empId" exact component={AddEmployeeAddressForm} />
       </ResponsiveDrawer>
       </BrowserRouter>
