@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CareerHistoryForm(props) {  
   const classes = useStyles();
+  
   function FormRow() {
     return (
       <React.Fragment>
@@ -43,7 +44,7 @@ export default function CareerHistoryForm(props) {
             </Grid >
             <Button type='submit' color='primary'  variant='contained'>Add<SearchIcon /></Button>
           </Grid>
-        </div> 
+        </div>
       </React.Fragment>
     )
   }

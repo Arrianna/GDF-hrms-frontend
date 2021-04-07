@@ -57,7 +57,7 @@ export default function EmployeeProfileLayout(props) {
   }, [regNumber]);
 
   empId = employeeInfo.id;
-
+  
   function FormRow() {
     return (   
       <div>
@@ -93,7 +93,7 @@ export default function EmployeeProfileLayout(props) {
               <Link to={'/add-address/' + empId}>Add Employee Address</Link>
             </Button>
             <Button variant="outlined" color="primary">
-              <Link to={'/employee-history/' + empId}>Update Employee Record</Link>
+              <Link to={'/employee-history/' + regNumber}>Update Employee Record</Link>
             </Button>
             <Button variant="outlined" color="primary">
               <Link to={'/employee-history/' + regNumber}>View Career History</Link>
