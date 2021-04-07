@@ -93,6 +93,9 @@ export default function EmployeeProfileLayout(props) {
               <Link to={'/add-address/' + empId}>Add Employee Address</Link>
             </Button>
             <Button variant="outlined" color="primary">
+              <Link to={'/employee-history/' + empId}>Update Employee Record</Link>
+            </Button>
+            <Button variant="outlined" color="primary">
               <Link to={'/employee-history/' + regNumber}>View Career History</Link>
             </Button>
           </h1>
