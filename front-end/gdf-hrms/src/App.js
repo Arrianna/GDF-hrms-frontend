@@ -8,6 +8,8 @@ import EmployeeProfileLayout from './components/EmployeeProfileLayout';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
 import AddEmployeeInformation from './components/AddEmployeeInformation';
 import AddEmployeeAddressForm from './components/AddEmployeeComponents/AddEmployeeAddressForm';
+import ViewCareerHistory from './components/CareerHistoryComponents/ViewCareerHistory';
+
 
 const App = () => {
   
@@ -24,6 +26,7 @@ const App = () => {
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
           <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} />
           <Route path="/add-address/:empId" exact component={AddEmployeeAddressForm} />
+          <Route path="/employee-history-view/:empId" exact component={ViewCareerHistory} />
       </ResponsiveDrawer>
       </BrowserRouter>
     </div>

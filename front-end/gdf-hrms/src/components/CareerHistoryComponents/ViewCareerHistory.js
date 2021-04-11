@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { useParams } from 'react-router-dom';
-import CareerHistoryForm  from './CareerHistoryComponents/CareerHistoryForm';
-import CareerHistoryTable from './CareerHistoryComponents/CareerHistoryTable';
+import CareerHistoryTable from './CareerHistoryTable';
 import Axios from 'axios';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CareerHistoryLayout(props) {
+export default function ViewCareerHistory(props) {
   const classes = useStyles();
   const params = useParams();  
   const [empData, setEmpData] = useState();
   
-  let eId = params.employeeId;
-  console.log(params.employeeId);
+  let eId = params.empId;
+  console.log(eId);
   useEffect(() => {    
     const getEmpCH = async () => {
       if(eId){
@@ -44,19 +42,15 @@ export default function CareerHistoryLayout(props) {
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <h1>Career History Page</h1>
+          <h2>Career History</h2>
         </Grid>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
             <div>
-              <Grid container spacing={3}>
+              <Grid container spacing={3}>                
                 <Grid item xs={12}>
-                  {/* <CareerHistoryForm data={empData}></CareerHistoryForm> */}
+                   <CareerHistoryTable data={empData}></CareerHistoryTable> 
                 </Grid>
-            
-               <Grid item xs={12}>
-                  {/* <CareerHistoryTable data={empData}></CareerHistoryTable> */}
-              </Grid>
               </Grid>    
             </div>    
           </React.Fragment>

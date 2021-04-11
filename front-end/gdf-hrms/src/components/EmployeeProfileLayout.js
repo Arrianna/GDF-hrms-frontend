@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PersonalInformationForm from './EmployeeProfileComponents/PersonalInformationForm';
-import AddressForm from './EmployeeProfileComponents/AddressForm';
+//import AddressForm from './EmployeeProfileComponents/AddressForm';
 import ContactForm from './EmployeeProfileComponents/ContactForm';
 import OfficialInformationForm from './EmployeeProfileComponents/OfficialInformationForm';
 import Button from '@material-ui/core/Button';
@@ -38,7 +38,7 @@ export default function EmployeeProfileLayout(props) {
   
   let regNumber = params.regNum;
   let empId;
- 
+
   useEffect(() => {
     const getEmpInfo = async () => {
       if(regNumber){
@@ -48,7 +48,7 @@ export default function EmployeeProfileLayout(props) {
     };
     const getEmpAddress = async () => {
       if(regNumber){
-        const addressInfo = await Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=1");
+        const addressInfo = await Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=3");
         setEmployeeAddress(addressInfo.data);
       }
     };
@@ -57,7 +57,8 @@ export default function EmployeeProfileLayout(props) {
   }, [regNumber]);
 
   empId = employeeInfo.id;
-
+  console.log(empId);
+  console.log(employeeInfo);
   function FormRow() {
     return (   
       <div>
@@ -67,7 +68,7 @@ export default function EmployeeProfileLayout(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <AddressForm employeeInfo={employeeAddress}></AddressForm>
+           {/* <AddressForm employeeInfo={employeeAddress}></AddressForm>*/}
           </Grid>
 
           <Grid item xs={12}>
@@ -93,7 +94,7 @@ export default function EmployeeProfileLayout(props) {
               <Link to={'/add-address/' + empId}>Add Employee Address</Link>
             </Button>
             <Button variant="outlined" color="primary">
-              <Link to={'/employee-history/' + regNumber}>View Career History</Link>
+              <Link to={'/employee-history-view/' + empId}>View Career History</Link>
             </Button>
           </h1>
         </Grid>

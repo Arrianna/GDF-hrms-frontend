@@ -1,9 +1,11 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import SearchIcon from '@material-ui/icons/Search';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +24,48 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CareerHistoryForm(props) {  
-  const classes = useStyles();
+  const classes = useStyles();  
+  const params = useParams();
+  const [EmployeeCareerHistory, setEmployeeCareerHistory]= useState();
+  const [position, setPosition] = useState();
+  const [department, setDepartment] = useState();
+  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState();
+
+  let eId = params.employeeId;
+
+  const handlePositionChange = (event) => {    
+    setPosition(event.target.value);
+  }
+
+  const handleDepartmentChange = (event) => {    
+    setDepartment(event.target.value);
+  }
+
+  const handleStartDateChange = (event) => {    
+    setStartDate(event.target.value);
+  }
+
+  const handleEndDateChange = (event) => {    
+    setEndDate(event.target.value);
+  }
+
+
+
+  const postCareerHistoryHandler = () => {
+    setEmployeeCareerHistory({
+      position: position,
+      department: department,
+      startDate: startDate,
+      endDate: endDate,
+      
+      employeeId: parseInt(eId, 10),
+    });
+    axios.post('PostInfo/AddCareerHistory', EmployeeCareerHistory)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
+  }
+  
   function FormRow() {
     return (
       <React.Fragment>
@@ -43,7 +86,7 @@ export default function CareerHistoryForm(props) {
             </Grid >
             <Button type='submit' color='primary'  variant='contained'>Add<SearchIcon /></Button>
           </Grid>
-        </div> 
+        </div>
       </React.Fragment>
     )
   }

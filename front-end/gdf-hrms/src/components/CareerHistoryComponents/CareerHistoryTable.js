@@ -34,14 +34,14 @@ const useStyles = makeStyles({
 
 export default function CareerHistoryTable(props) {
   const classes = useStyles();
-  const [data, setData] = useState([]);
-  
-  useEffect(() => {
-    let resultArray = [];        
-    if(props.data !== {}){
-      resultArray.push(props.data);
-    }  
-    setData(resultArray);
+  const [data, setData] = useState();
+  console.log (props.data);
+  useEffect(() => {          
+    if(props.data !== null){
+      if(props.data.length > 0) {
+        setData(props.data);
+      }
+    }    
   }, [props.data]);
 
   return (
@@ -59,14 +59,14 @@ export default function CareerHistoryTable(props) {
         <TableBody>
           {data.map((row) => {            
             return(
-            <StyledTableRow key={row.regimentNumber}>              
-              <StyledTableCell align="center">{row.position}</StyledTableCell>
-              <StyledTableCell align="center">{row.department}</StyledTableCell>
-              <StyledTableCell align="center">{row.startDate}</StyledTableCell>
-              <StyledTableCell align="center">{row.endDate}</StyledTableCell>
-            </StyledTableRow>
+              <StyledTableRow key={row.id}>              
+                <StyledTableCell align="center">{row.position}</StyledTableCell>
+                <StyledTableCell align="center">{row.department}</StyledTableCell>
+                <StyledTableCell align="center">{row.startDate}</StyledTableCell>
+                <StyledTableCell align="center">{row.endDate}</StyledTableCell>
+              </StyledTableRow>
             );
-            })}
+          })} 
         </TableBody>
       </Table>
     </TableContainer>
