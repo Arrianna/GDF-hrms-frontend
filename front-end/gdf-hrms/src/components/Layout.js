@@ -13,6 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -94,11 +95,12 @@ function ResponsiveDrawer(props) {
       <img src={gdfLogo} alt="Logo" style = {gdfLogoStyle} />;
       <div className={classes.toolbar} />
       {/*<Divider />*/}
-      <List>        
+      <List>
+        <ListItem button><HomeIcon style={iconMargin}/><Link to="/" color="primary" variant="body2" underline="none"><ListItemText primary='Home'/></Link></ListItem>
         <ListItem button><PersonAddRounded style={iconMargin}/><Link to="/add-employee" color="primary" variant="body2" underline="none"><ListItemText primary='Add Employee'/></Link></ListItem>
         <ListItem button><HourglassEmptyTwoTone style={iconMargin}/><Link to="/employee-history" color="primary" variant="body2" underline="none"><ListItemText primary='Employee History'/></Link></ListItem>
         <ListItem button><SearchIcon style={iconMargin}/><Link to='/search-page' color="primary" variant="body2" underline='none'><ListItemText primary='Employee Search'/></Link></ListItem>
-        <ListItem button><PersonRounded style={iconMargin}/><Link to="/" color="primary" variant="body2" underline='none'><ListItemText primary='Employee Profile'/></Link></ListItem>
+        <ListItem button><PersonRounded style={iconMargin}/><Link to="/employee-profile" color="primary" variant="body2" underline='none'><ListItemText primary='Employee Profile'/></Link></ListItem>
       </List>
       <Divider />
       <List>

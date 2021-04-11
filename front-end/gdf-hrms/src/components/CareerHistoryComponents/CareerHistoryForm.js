@@ -24,47 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CareerHistoryForm(props) {  
-  const classes = useStyles();  
-  const params = useParams();
-  const [EmployeeCareerHistory, setEmployeeCareerHistory]= useState();
-  const [position, setPosition] = useState();
-  const [department, setDepartment] = useState();
-  const [endDate, setEndDate] = useState();
-  const [startDate, setStartDate] = useState();
-
-  let eId = params.employeeId;
-
-  const handlePositionChange = (event) => {    
-    setPosition(event.target.value);
-  }
-
-  const handleDepartmentChange = (event) => {    
-    setDepartment(event.target.value);
-  }
-
-  const handleStartDateChange = (event) => {    
-    setStartDate(event.target.value);
-  }
-
-  const handleEndDateChange = (event) => {    
-    setEndDate(event.target.value);
-  }
-
-
-
-  const postCareerHistoryHandler = () => {
-    setEmployeeCareerHistory({
-      position: position,
-      department: department,
-      startDate: startDate,
-      endDate: endDate,
-      
-      employeeId: parseInt(eId, 10),
-    });
-    axios.post('PostInfo/AddCareerHistory', EmployeeCareerHistory)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
-  }
+  const classes = useStyles();
   
   function FormRow() {
     return (

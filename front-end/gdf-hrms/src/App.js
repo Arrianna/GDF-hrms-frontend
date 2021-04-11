@@ -5,11 +5,12 @@ import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import SearchPage from './components/searchpage';
 import EmployeeProfileLayout from './components/EmployeeProfileLayout';
+import ViewCareerHistory from './components/CareerHistoryComponents/ViewCareerHistory';
 import CareerHistoryLayout from './components/CareerHistoryLayout';
 import AddEmployeeInformation from './components/AddEmployeeInformation';
 import AddEmployeeAddressForm from './components/AddEmployeeComponents/AddEmployeeAddressForm';
-import ViewCareerHistory from './components/CareerHistoryComponents/ViewCareerHistory';
-
+import HomePage from './components/Home';
+import UpdateEmployeeInformation from './components/UpdateEmployeeInformation';
 
 const App = () => {
   
@@ -17,16 +18,16 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <ResponsiveDrawer>
-          <Route path="/" exact component={EmployeeProfileLayout}/>
+          <Route path="/" exact component={HomePage}/>
           {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
           <Route path="/add-employee" exact component={AddEmployeeInformation} />
           <Route path="/employee-profile" exact component={EmployeeProfileLayout} />          
           <Route path="/employee-history" exact component={CareerHistoryLayout} />          
           <Route path="/search-page" exact component={SearchPage} />
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
-          <Route path="/employee-history/:regNum" exact component={CareerHistoryLayout} />
-          <Route path="/add-address/:empId" exact component={AddEmployeeAddressForm} />
           <Route path="/employee-history-view/:empId" exact component={ViewCareerHistory} />
+          <Route path="/add-address/:empId" exact component={AddEmployeeAddressForm} />
+          <Route path="/update-employee" exact component={UpdateEmployeeInformation} />
       </ResponsiveDrawer>
       </BrowserRouter>
     </div>

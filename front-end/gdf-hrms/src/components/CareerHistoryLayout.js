@@ -29,6 +29,8 @@ export default function CareerHistoryLayout(props) {
   const [empData, setEmpData] = useState();
   
   let eId = params.employeeId;
+  
+  let eId = params.employeeId;
   console.log(params.employeeId);
   useEffect(() => {    
     const getEmpCH = async () => {
@@ -39,7 +41,7 @@ export default function CareerHistoryLayout(props) {
     };
     getEmpCH();
   }, [eId]);
-  console.log(empData);
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -51,12 +53,12 @@ export default function CareerHistoryLayout(props) {
             <div>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  {/* <CareerHistoryForm data={empData}></CareerHistoryForm> */}
+                  <CareerHistoryForm data={empData}></CareerHistoryForm>
                 </Grid>
             
-               <Grid item xs={12}>
-                  {/* <CareerHistoryTable data={empData}></CareerHistoryTable> */}
-              </Grid>
+                <Grid item xs={12}>
+                  <CareerHistoryTable data={empData}></CareerHistoryTable>
+                </Grid>
               </Grid>    
             </div>    
           </React.Fragment>

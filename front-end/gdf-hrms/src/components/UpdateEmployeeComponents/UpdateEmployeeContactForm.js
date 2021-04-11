@@ -93,7 +93,7 @@ export default function AddEmployeeContactForm(props) {
                   id="Email"
                   name="Email"
                   label="Email Address"
-                  type="email"
+                  type="email"              
                   value={props.email}
                   onChange={props.handleEmailChange}
                   variant="outlined" 
@@ -106,7 +106,8 @@ export default function AddEmployeeContactForm(props) {
                     }, */
                   })}
                   autoComplete='email'
-                  error={!!errors.email}                  
+                  error={!!errors.email}
+                  autoFocus
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><MailIcon color="primary"/></InputAdornment>,}}
                 />

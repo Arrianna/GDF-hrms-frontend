@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import Axios from 'axios';
+import axios from './UpdateEmployeeComponents/axios'
 
-import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
-import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
-import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
-import AddEmployeeOfficialInfoForm from './AddEmployeeComponents/AddEmployeeOfficialInfoForm';
+import UpdateEmployeePIForm from './UpdateEmployeeComponents/UpdateEmployeePIForm';
+//import UpdateEmployeeAddressForm from './UpdateEmployeeComponents/UpdateEmployeeAddressForm';
+import UpdateEmployeeContactForm from './UpdateEmployeeComponents/UpdateEmployeeContactForm';
+import UpdateEmployeeOfficialInfoForm from './UpdateEmployeeComponents/UpdateEmployeeOfficialInfoForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,11 +32,31 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function AddEmployeeInformation() {
+export default function UpdateEmployeeInformation() {
   const classes = useStyles();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-  const [employeeAddress, setEmployeeAddress] = useState();
-  
+  const [empInfoGet, setEmpInfoGet] = useState({});
+  const [employeeAddress, setEmployeeAddress] = useState({});
+  const regNumber = 123456;
+
+  useEffect(() => {
+    const getEmpInfo = async () => {
+      if(regNumber){
+        const info = await Axios.get("GetInfo/RegimentNumber/" + regNumber);    
+        setEmpInfoGet(info.data);  
+        console.log(info.data);      
+      }
+    };
+    const getEmpAddress = async () => {
+      if(regNumber){
+        const addressInfo = await Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=1");
+        setEmployeeAddress(addressInfo.data);
+      }
+    };
+    getEmpInfo();
+    getEmpAddress();
+  }, [regNumber]);
+
   // AddEmployeePIForm INFORMATION
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -43,10 +64,12 @@ export default function AddEmployeeInformation() {
   const [otherNameTwo, setOtherNameTwo] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
   const [religion, setReligion] = useState("");
-  const [ethnicity, setEthnicity] = useState("");
+  const [ethnicity, setEthnicity] = useState(0);
   const [sex, setSex] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState();
   const [nationality, setNationality] = useState("");
+
+
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -87,38 +110,6 @@ export default function AddEmployeeInformation() {
 
   const handleNationalityChange = (event) => {
     setNationality(event.target.value);
-  }
-
-  // AddEmployeeAddressForm Information
-  const [lot, setLot] = useState();
-  const [street, setStreet] = useState();
-  const [area, setArea] = useState();
-  const [village, setVillage] = useState();
-  const [region, setRegion] = useState("");
-  const [country, setCountry] = useState("");
-
-  const handleLotChange = (event) => {    
-    setLot(event.target.value);
-  }
-
-  const handleStreetChange = (event) => {    
-    setStreet(event.target.value);
-  }
-
-  const handleAreaChange = (event) => {    
-    setArea(event.target.value);
-  }
-
-  const handleVillageChange = (event) => {    
-    setVillage(event.target.value);
-  }
-
-  const handleRegionChange = (event) => {    
-    setRegion(event.target.value);
-  }
-
-  const handleCountryChange = (event) => {    
-    setCountry(event.target.value);
   }
 
   // AddEmployeeContactForm Information
@@ -192,21 +183,8 @@ export default function AddEmployeeInformation() {
       passportExpirationDate: passportExpirationDate,
       tinNumber: parseInt(tinNumber, 10),
     });
-
-    setEmployeeAddress({
-      lot: lot,
-      street: street,
-      area: area,
-      village: village,
-      region: region,
-      country: country,
-    });
     //console.log(employeeInfo);
     axios.post('PostInfo/AddAnEmployee', employeeInfo)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
-
-    axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
       .then(response => console.log(response))
       .catch(error => console.log(error))
   }
@@ -215,12 +193,12 @@ export default function AddEmployeeInformation() {
     <div className={classes.root}>
       <Grid container spacing={1} >
         <Grid item xs={6}>
-         <h1>Add Employee Profile</h1>
+         <h1>Update Employee Profile</h1>
         </Grid>
         <Grid item xs={6}>
           <h1>
             <Button variant="outlined" color="primary">
-            <Link to={'/employee-history/'}>View Career History</Link>
+            <Link to={'/employee-history/'}>Update Career History</Link>
             </Button>
           </h1>
         </Grid>
@@ -228,7 +206,7 @@ export default function AddEmployeeInformation() {
           <div>
             <Grid container spacing={3}>          
               <Grid item xs={12}>
-                <AddEmployeePIForm 
+                <UpdateEmployeePIForm 
                   firstName={firstName}
                   lastName={lastName}
                   otherName={otherName}
@@ -249,10 +227,10 @@ export default function AddEmployeeInformation() {
                   handleSexChange={handleSexChange}
                   handleDoBChange={handleDoBChange}
                   handleNationalityChange={handleNationalityChange}>                    
-                </AddEmployeePIForm>
+                </UpdateEmployeePIForm>
               </Grid>
 
-              <Grid item xs={12}>
+              {/*<Grid item xs={12}>
                 <AddEmployeeAddressForm 
                   lot={lot}
                   street={street}
@@ -266,10 +244,10 @@ export default function AddEmployeeInformation() {
                   handleVillageChange={handleVillageChange}
                   handleRegionChange={handleRegionChange}
                   handleCountryChange={handleCountryChange}></AddEmployeeAddressForm>
-              </Grid>
+              </Grid>*/}
 
               <Grid item xs={12}>
-                <AddEmployeeContactForm 
+                <UpdateEmployeeContactForm 
                   homeNumber={homeNumber}
                   cellNumber={cellNumber}
                   workNumber={workNumber}
@@ -278,11 +256,11 @@ export default function AddEmployeeInformation() {
                   handleCellNumChange={handleCellNumChange}
                   handleWorkNumChange={handleWorkNumChange}
                   handleEmailChange={handleEmailChange}>
-                </AddEmployeeContactForm>
+                </UpdateEmployeeContactForm>
               </Grid >
 
               <Grid item xs={12}>
-                <AddEmployeeOfficialInfoForm 
+                <UpdateEmployeeOfficialInfoForm 
                   regimentNumber={regimentNumber}
                   nationalIdNumber={nationalIdNumber}
                   passportNumber={passportNumber}
@@ -293,7 +271,7 @@ export default function AddEmployeeInformation() {
                   handlePassportNumChange={handlePassportNumChange}
                   handlePassportExpDateChange={handlePassportExpDateChange}
                   handleTinNumChange={handleTinNumChange}>
-                </AddEmployeeOfficialInfoForm>
+                </UpdateEmployeeOfficialInfoForm>
               </Grid >
 
               <Grid item xs={12}>

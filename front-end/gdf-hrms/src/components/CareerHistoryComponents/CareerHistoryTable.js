@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,41 +34,43 @@ const useStyles = makeStyles({
 
 export default function CareerHistoryTable(props) {
   const classes = useStyles();
-  const [data, setData] = useState();
-  console.log (props.data);
-  useEffect(() => {          
-    if(props.data !== null){
-      if(props.data.length > 0) {
-        setData(props.data);
+  let data = props.data;
+  const showResults = () => {
+    if(data!= null) {
+      if(data.length > 0) {  
+        return (
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">Position</StyledTableCell>
+                  <StyledTableCell align="center">Department</StyledTableCell>
+                  <StyledTableCell align="center">Start Date</StyledTableCell>
+                  <StyledTableCell align="center">End Date</StyledTableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {data.map((row) => {            
+                  return(
+                    <StyledTableRow key={row.id}>              
+                      <StyledTableCell align="center">{row.position}</StyledTableCell>
+                      <StyledTableCell align="center">{row.department}</StyledTableCell>
+                      <StyledTableCell align="center">{row.startDate}</StyledTableCell>
+                      <StyledTableCell align="center">{row.endDate}</StyledTableCell>
+                    </StyledTableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        );
       }
-    }    
-  }, [props.data]);
-
+    }
+  }
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">Position</StyledTableCell>
-            <StyledTableCell align="center">Department</StyledTableCell>
-            <StyledTableCell align="center">Start Date</StyledTableCell>
-            <StyledTableCell align="center">End Date</StyledTableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {data.map((row) => {            
-            return(
-              <StyledTableRow key={row.id}>              
-                <StyledTableCell align="center">{row.position}</StyledTableCell>
-                <StyledTableCell align="center">{row.department}</StyledTableCell>
-                <StyledTableCell align="center">{row.startDate}</StyledTableCell>
-                <StyledTableCell align="center">{row.endDate}</StyledTableCell>
-              </StyledTableRow>
-            );
-          })} 
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      {showResults()}
+    </div>
   );
 }
