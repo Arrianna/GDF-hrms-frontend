@@ -51,31 +51,64 @@ export default function EmployeeProfileLayout(props) {
   const params = useParams();
   const [employeeInfo, setEmployeeInfo] = useState({});
   const [employeeAddress, setEmployeeAddress] = useState();
+  const [newAddress, setNewAddress] = useState({});
   const [open, setOpen] = useState(false);
   const [lot, setLot] = useState();
   const [street, setStreet] = useState();
   const [area, setArea] = useState();
   const [village, setVillage] = useState();
-  const [regions, setRegions] = useState("");
-  const [countries, setCountries] = useState("");
+  const [newRegion, setNewRegion] = useState("");
+  const [newCountry, setNewCountry] = useState("");
+  const [regions, setRegions] = useState();
+  const [countries, setCountries] = useState();
+
+  const handleLotChange = (event) => {
+    setLot(event.target.value);
+  }
+
+  const handleStreetChange = (event) => {
+    setStreet(event.target.value);
+  }
+
+  const handleAreaChange = (event) => {
+    setArea(event.target.value);
+  }
+
+  const handleVillageChange = (event) => {
+    setVillage(event.target.value);
+  }
+
+  const handleRegionChange = (event) => {
+    setNewRegion(event.target.value);
+  }
+
+  const handleCountryChange = (event) => {
+    setNewCountry(event.target.value);
+  }
 
   const handleClickOpen = () => {    
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setEmployeeAddress({
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  const handleSave = () => {
+    setNewAddress({
       lot: lot,
       street: street,
       area: area,
       village: village,
-      region: regions,
-      country: countries,
+      reg: regions,
+      ctry: countries,
+      eId: empId,
     });
+    console.log(newAddress);
     setOpen(false);
-    Axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
+    /* Axios.post('PostInfo/AddAnEmployeeAddress', newAddress)
       .then(response => console.log(response))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error)) */      
   };
   
   let regNumber = params.regNum;
@@ -90,8 +123,8 @@ export default function EmployeeProfileLayout(props) {
     };
 
     const getEmpAddress = async () => {
-      if(regNumber){
-        const addressInfo = await Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=1");
+      if(employeeInfo.id){
+        const addressInfo = await Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=" + employeeInfo.id);
         setEmployeeAddress(addressInfo.data);
       }
     };
@@ -118,113 +151,106 @@ export default function EmployeeProfileLayout(props) {
     getEmpAddress();
     getRegions();
     getCountries();
-  }, [regNumber]);
+  }, [regNumber, employeeInfo.id]);
 
   empId = employeeInfo.id;
-  console.log(regions);
-  console.log(countries);
   
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={1} >
-        <Grid item xs={6}>
-         <h1>Employee Profile Page</h1>
-        </Grid>
-        <Grid item xs={6}>
-          <h1>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-              Add Employee Address
-              {/* <Link to={'/add-address/' + empId}>Add Employee Address</Link> */}
-            </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-              <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
-              <DialogContent>
-                {/* <DialogContentText>Add Employee Address</DialogContentText> */}
-                <TextField margin="dense" id="lot" label="Lot" type="text" fullWidth/>
-                <TextField margin="dense" id="street" label="Street" type="text" fullWidth/>
-                <TextField margin="dense" id="area" label="Area" type="text" fullWidth/>
-                <TextField margin="dense" id="village" label="Village" type="text" fullWidth/>
-                {/* <TextField margin="dense" id="region" label="Region" type="text" fullWidth/> */}
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="region-label">Region</InputLabel>
-                  <Select
-                    labelId="region-label"
-                    id="region"
-                    value={props.region}
-                    onChange={props.handleRegionChange}
-                    label="Region"
-                  >
-                    <MenuItem value=""><em>Select</em></MenuItem>
-                    {/* {regions.map((region) =>
-                      <MenuItem value={region.id}>{region.name}</MenuItem>
-                    )} */}
-                    {/* <MenuItem value={1}>1 (Barima-Waini)</MenuItem>
-                    <MenuItem value={2}>2 (Pomeroon-Supenaam)</MenuItem>
-                    <MenuItem value={3}>3 (Essequibo Islands-West Demerara)</MenuItem>
-                    <MenuItem value={4}>4 (Demerara-Mahaica)</MenuItem>
-                    <MenuItem value={5}>5 (Mahaica-Berbice)</MenuItem>
-                    <MenuItem value={6}>6 (East Berbice-Corentyne)</MenuItem>
-                    <MenuItem value={7}>7 (Cuyuni-Mazaruni)</MenuItem>
-                    <MenuItem value={8}>8 (Potaro-Siparuni)</MenuItem>
-                    <MenuItem value={9}>9 (Upper Takutu-Upper Essequibo)</MenuItem>
-                    <MenuItem value={10}>10 (Upper Demerara-Upper Berbice)</MenuItem> */}
-                  </Select>
-                </FormControl>
-                {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="region-label">Country</InputLabel>
-                  <Select
-                    labelId="country-label"
-                    id="country"
-                    value={props.country}
-                    onChange={props.handleCountryChange}
-                    label="Country"
-                  >
-                    <MenuItem value=""><em>Select</em></MenuItem>
-                    {/* {countries.map((country) =>
-                      <MenuItem value={country.id}>{country.name}</MenuItem>
-                    )} */}
-                    {/* <MenuItem value={1}>Guyana</MenuItem>
-                    <MenuItem value={2}>Suriname</MenuItem>
-                    <MenuItem value={3}>Brazil</MenuItem>
-                    <MenuItem value={4}>Venezuela</MenuItem>
-                    <MenuItem value={5}>Trinidad</MenuItem>
-                    <MenuItem value={6}>Barbados</MenuItem> */}
-                  </Select>
-                </FormControl>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} color="primary">Cancel</Button>
-                <Button onClick={handleClose} color="primary">Add Address</Button>
-              </DialogActions>
-            </Dialog>
-            <Button variant="outlined" color="primary">
-              <Link to={'/employee-history/' + regNumber}>Update Employee Record</Link>
-            </Button>
-            <Button variant="outlined" color="primary">
-              <Link to={'/employee-history/' + regNumber}>View Career History</Link>
-            </Button>
-          </h1>
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <div>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
+  const showInfo = () => {
+    if(regions != null && countries != null){
+      if(regions.length > 0 && countries.length > 0){
+        return (
+          <div className={classes.root}>
+            <Grid container spacing={1} >
+              <Grid item xs={6}>
+              <h1>Employee Profile Page</h1>
               </Grid>
-              <Grid item xs={12}>
-                <AddressForm employeeInfo={employeeAddress}></AddressForm>
+              <Grid item xs={6}>
+                <h1>
+                  <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                    Add Employee Address
+                    {/* <Link to={'/add-address/' + empId}>Add Employee Address</Link> */}
+                  </Button>
+                  <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
+                    <DialogContent>
+                      {/* <DialogContentText>Add Employee Address</DialogContentText> */}
+                      <TextField margin="dense" id="lot" label="Lot" type="text" fullWidth value={lot} onChange={handleLotChange}/>
+                      <TextField margin="dense" id="street" label="Street" type="text" fullWidth value={street} onChange={handleStreetChange}/>
+                      <TextField margin="dense" id="area" label="Area" type="text" fullWidth value={area} onChange={handleAreaChange}/>
+                      <TextField margin="dense" id="village" label="Village" type="text" fullWidth value={village} onChange={handleVillageChange}/>
+                      {/* <TextField margin="dense" id="region" label="Region" type="text" fullWidth/> */}
+                      <FormControl className={classes.formControl}>
+                        <InputLabel id="region-label">Region</InputLabel>
+                        <Select
+                          labelId="region-label"
+                          id="region"
+                          value={newRegion}
+                          onChange={handleRegionChange}
+                          label="Region"
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {regions.map((region) =>
+                            <MenuItem value={region.id}>{region.name}</MenuItem>
+                          )}
+                        </Select>
+                      </FormControl>
+                      {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
+                      <FormControl className={classes.formControl}>
+                        <InputLabel id="region-label">Country</InputLabel>
+                        <Select
+                          labelId="country-label"
+                          id="country"
+                          value={newCountry}
+                          onChange={handleCountryChange}
+                          label="Country"
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {countries.map((country) =>
+                            <MenuItem value={country.id}>{country.name}</MenuItem>
+                          )}                          
+                        </Select>
+                      </FormControl>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleCancel} color="primary">Cancel</Button>
+                      <Button onClick={handleSave} color="primary">Add Address</Button>
+                    </DialogActions>
+                  </Dialog>
+                  <Button variant="outlined" color="primary">
+                    <Link to={'/employee-history/' + regNumber}>Update Employee Record</Link>
+                  </Button>
+                  <Button variant="outlined" color="primary">
+                    <Link to={'/employee-history/' + regNumber}>View Career History</Link>
+                  </Button>
+                </h1>
               </Grid>
-              <Grid item xs={12}>
-                <ContactForm employeeInfo={employeeInfo}></ContactForm>
-              </Grid >
-              <Grid item xs={12}>
-                <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
-              </Grid >
-            </Grid>           
-          </div> 
-        </Grid>
-      </Grid>
+              <Grid container item xs={12} spacing={3}>
+                <div>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <AddressForm employeeInfo={employeeAddress}></AddressForm>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ContactForm employeeInfo={employeeInfo}></ContactForm>
+                    </Grid >
+                    <Grid item xs={12}>
+                      <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
+                    </Grid >
+                  </Grid>           
+                </div> 
+              </Grid>
+            </Grid>
+          </div>
+        );
+      }
+    }
+  }
+  return(
+    <div>
+      {showInfo()}
     </div>
   );
 }
