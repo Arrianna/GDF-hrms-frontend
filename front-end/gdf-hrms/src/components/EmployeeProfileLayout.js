@@ -51,8 +51,7 @@ export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
   const params = useParams();
   const [employeeInfo, setEmployeeInfo] = useState({});
-  const [employeeAddress, setEmployeeAddress] = useState();
-  // const [newAddress, setNewAddress] = useState(null);
+  const [employeeAddress, setEmployeeAddress] = useState();  
   const [open, setOpen] = useState(false);
   const [lot, setLot] = useState();
   const [street, setStreet] = useState();
@@ -111,13 +110,6 @@ export default function EmployeeProfileLayout(props) {
       .then(response => console.log(response))
       .catch(error => console.log(error)) */
     }
-    /* setLot();
-    setStreet();
-    setArea();
-    setVillage();
-    setNewRegion();
-    setNewCountry(); */
-
     setOpen(false);    
   };
   

@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import moment from 'moment';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -53,11 +54,11 @@ export default function CareerHistoryTable(props) {
               <TableBody>
                 {data.map((row) => {            
                   return(
-                    <StyledTableRow key={row.id}>              
+                    <StyledTableRow key={row.id}>
                       <StyledTableCell align="center">{row.position}</StyledTableCell>
                       <StyledTableCell align="center">{row.department}</StyledTableCell>
-                      <StyledTableCell align="center">{row.startDate}</StyledTableCell>
-                      <StyledTableCell align="center">{row.endDate}</StyledTableCell>
+                      <StyledTableCell align="center">{moment(row.startDate).format('DD-MM-YYYY')}</StyledTableCell>
+                      <StyledTableCell align="center">{moment(row.endDate).format('DD-MM-YYYY')}</StyledTableCell>
                     </StyledTableRow>
                   );
                 })}
