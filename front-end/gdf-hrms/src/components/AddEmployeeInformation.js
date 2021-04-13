@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -216,14 +215,7 @@ export default function AddEmployeeInformation() {
       <Grid container spacing={1} >
         <Grid item xs={6}>
          <h1>Add Employee Profile</h1>
-        </Grid>
-        <Grid item xs={6}>
-          <h1>
-            <Button variant="outlined" color="primary">
-            <Link to={'/employee-history/'}>View Career History</Link>
-            </Button>
-          </h1>
-        </Grid>
+        </Grid>        
         <Grid container item xs={12} spacing={3}>
           <div>
             <Grid container spacing={3}>          

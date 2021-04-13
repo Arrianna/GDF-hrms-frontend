@@ -93,7 +93,7 @@ export default function AddEmployeePIForm(props) {
                   <div>
                     <Grid item xs={2}>
                       <TextField required id="LastName" name="lastName" label="Last Name" value={props.lastName} onChange={props.handleLastNameChange} variant="outlined" size="small" />
-                      <TextField id="MiddleNameTwo" label="Middle Name" value={props.otherNameTwo} onChange={props.handleOtherNameTwoChange} variant="outlined" size="small" />
+                      <TextField id="MiddleNameTwo" label="Middle Name" value={props.otherNameTwo} onChange={props.handleOtherNameTwoChange} variant="outlined" size="small" />                      
                     </Grid >
                   </div>
                   <div>
@@ -115,7 +115,7 @@ export default function AddEmployeePIForm(props) {
                           </Select>
                         </FormControl>
 
-                        <TextField id="dateOfBirth" label="Date of Birth" value={props.dateOfBirth} onChange={props.handleDoBChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
+                        <TextField id="dateOfBirth" label="Date of Birth" value={props.dateOfBirth} onChange={props.handleDoBChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />                        
                       </Grid>
                     </Grid >
                   </div>
