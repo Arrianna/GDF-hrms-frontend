@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -51,7 +52,7 @@ export default function EmployeeProfileLayout(props) {
   const params = useParams();
   const [employeeInfo, setEmployeeInfo] = useState({});
   const [employeeAddress, setEmployeeAddress] = useState();
-  const [newAddress, setNewAddress] = useState({});
+  // const [newAddress, setNewAddress] = useState(null);
   const [open, setOpen] = useState(false);
   const [lot, setLot] = useState();
   const [street, setStreet] = useState();
@@ -95,20 +96,29 @@ export default function EmployeeProfileLayout(props) {
   };
 
   const handleSave = () => {
-    setNewAddress({
+    let Address = {
       lot: lot,
       street: street,
       area: area,
       village: village,
-      reg: regions,
-      ctry: countries,
+      reg: newRegion,
+      ctry: newCountry,
       eId: empId,
-    });
-    console.log(newAddress);
-    setOpen(false);
-    /* Axios.post('PostInfo/AddAnEmployeeAddress', newAddress)
+    }
+    if(Address){
+      console.log(Address);
+      /* Axios.post('PostInfo/AddAnEmployeeAddress', newAddress)
       .then(response => console.log(response))
-      .catch(error => console.log(error)) */      
+      .catch(error => console.log(error)) */
+    }
+    /* setLot();
+    setStreet();
+    setArea();
+    setVillage();
+    setNewRegion();
+    setNewCountry(); */
+
+    setOpen(false);    
   };
   
   let regNumber = params.regNum;
@@ -190,7 +200,7 @@ export default function EmployeeProfileLayout(props) {
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
                           {regions.map((region) =>
-                            <MenuItem value={region.id}>{region.name}</MenuItem>
+                            <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
                           )}
                         </Select>
                       </FormControl>
@@ -206,21 +216,21 @@ export default function EmployeeProfileLayout(props) {
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
                           {countries.map((country) =>
-                            <MenuItem value={country.id}>{country.name}</MenuItem>
+                            <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
                           )}                          
                         </Select>
                       </FormControl>
                     </DialogContent>
                     <DialogActions>
-                      <Button onClick={handleCancel} color="primary">Cancel</Button>
-                      <Button onClick={handleSave} color="primary">Add Address</Button>
+                      <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
+                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<SaveIcon />}>Save Address</Button>
                     </DialogActions>
                   </Dialog>
                   <Button variant="outlined" color="primary">
                     <Link to={'/employee-history/' + regNumber}>Update Employee Record</Link>
                   </Button>
                   <Button variant="outlined" color="primary">
-                    <Link to={'/employee-history/' + regNumber}>View Career History</Link>
+                    <Link to={'/employee-history-view/' + empId}>View Career History</Link>
                   </Button>
                 </h1>
               </Grid>

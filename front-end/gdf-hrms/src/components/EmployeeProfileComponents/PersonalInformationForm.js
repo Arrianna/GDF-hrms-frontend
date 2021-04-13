@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersonalInformationForm(employeeInfo) {  
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -56,7 +57,7 @@ export default function PersonalInformationForm(employeeInfo) {
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={employeeInfo.employeeInfo.dateOfBirth}/>
+                <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={moment(employeeInfo.employeeInfo.dateOfBirth).format('DD-MM-YYYY')}/>
                 <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeeInfo.employeeInfo.maritalStatus} />
               </Grid >
             </div>
