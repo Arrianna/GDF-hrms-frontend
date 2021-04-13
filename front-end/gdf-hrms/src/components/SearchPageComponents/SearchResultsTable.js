@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Moment from 'react-moment';
+import Moment from 'moment';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
@@ -89,7 +89,7 @@ export default function MatPaginationTable(props) {
                   <StyledTableCell align="center">{row.lastName}</StyledTableCell>
                   <StyledTableCell align="center">{row.position}</StyledTableCell>
                   <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
-                  <StyledTableCell align="center"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></StyledTableCell>
+                  <StyledTableCell align="center">{Moment(row.dateOfBirth).format('DD-MM-YYYY')}</StyledTableCell>
                   <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
                   <StyledTableCell align="center"><Link to={'/employee-profile/' + row.regimentNumber}><Button variant="contained">View</Button></Link></StyledTableCell>
                 </StyledTableRow>
