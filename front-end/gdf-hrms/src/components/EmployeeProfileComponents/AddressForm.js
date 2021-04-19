@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 
 export default function AddressForm(props) {
   const classes = useStyles();
-  let data = props.employeeInfo;
+  const data = props.employeeInfo;
   const showResults = () => {
     if(data != null) {
       if(data.length > 0) {

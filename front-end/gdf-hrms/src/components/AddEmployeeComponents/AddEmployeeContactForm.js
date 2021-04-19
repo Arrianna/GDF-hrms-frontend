@@ -96,8 +96,7 @@ export default function AddEmployeeContactForm(props) {
                   id="Email"
                   name="Email"
                   label="Email Address"
-                  InputLabelProps={{ shrink: true,}}
-                  type="email"              
+                  type="email"
                   value={props.email}
                   onChange={props.handleEmailChange}
                   variant="outlined" 

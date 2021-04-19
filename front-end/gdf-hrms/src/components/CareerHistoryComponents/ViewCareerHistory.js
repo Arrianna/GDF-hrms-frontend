@@ -45,13 +45,24 @@ export default function ViewCareerHistory(props) {
     getEmpCH();
     getEmpInfo();
   }, [eId]);
-  console.log(employeeInfo);
+
+  const showInfo = () => {
+    if(employeeInfo != null) {
+      return(
+        <div>
+          <h2>Career History for {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h2>
+        </div>
+      );
+    }
+  }
+ 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-        <Grid item xs={6}>
-            {/* <h2>Career History for {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h2>   */}
+        <Grid item xs={6}>         
+          {/* <h2>Career History for {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h2> */}
           {/* <h2>Career History</h2> */}
+          {showInfo()}
         </Grid>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
