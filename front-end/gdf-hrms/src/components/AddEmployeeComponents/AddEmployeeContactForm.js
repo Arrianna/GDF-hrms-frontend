@@ -47,6 +47,7 @@ export default function AddEmployeeContactForm(props) {
                 <TextField 
                   id="HomeNumber" 
                   label="Home Number"  
+                  InputLabelProps={{ shrink: true,}}
                   value={props.homeNumber}
                   onChange={props.handleHomeNumChange}  
                   type="tel"                           
@@ -62,6 +63,7 @@ export default function AddEmployeeContactForm(props) {
                 <TextField 
                   id="CellNumber" 
                   label="Cell Number"  
+                  InputLabelProps={{ shrink: true,}}
                   value={props.cellNumber}
                   onChange={props.handleCellNumChange} 
                   type="tel"                
@@ -77,6 +79,7 @@ export default function AddEmployeeContactForm(props) {
                 <TextField 
                   id="WorkNumber" 
                   label="Work Number" 
+                  InputLabelProps={{ shrink: true,}}
                   value={props.workNumber}
                   onChange={props.handleWorkNumChange}  
                   type="tel"                
@@ -93,6 +96,7 @@ export default function AddEmployeeContactForm(props) {
                   id="Email"
                   name="Email"
                   label="Email Address"
+                  InputLabelProps={{ shrink: true,}}
                   type="email"              
                   value={props.email}
                   onChange={props.handleEmailChange}

@@ -28,7 +28,7 @@ export default function ViewCareerHistory(props) {
   const [employeeInfo, setEmployeeInfo] = useState();
   
   let eId = params.empId;
-  
+  console.log(eId);
   useEffect(() => {    
     const getEmpCH = async () => {
       if(eId){
@@ -38,26 +38,27 @@ export default function ViewCareerHistory(props) {
     };
     const getEmpInfo = async () => {
       if(eId){
-        const info = await Axios.get("EmployeeInfo/id/" + eId);
+        const info = await Axios.get("EmployeeInfo/Id/" + eId);
         setEmployeeInfo(info.data);
       }
     };
     getEmpCH();
     getEmpInfo();
   }, [eId]);
-  
+  console.log(employeeInfo);
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <h2>Career History for {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h2>
+            {/* <h2>Career History for {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h2>   */}
+          {/* <h2>Career History</h2> */}
         </Grid>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
             <div>
               <Grid container spacing={3}>                
                 <Grid item xs={12}>
-                  <CareerHistoryTable data={empData}></CareerHistoryTable>
+                   <CareerHistoryTable data={empData}></CareerHistoryTable>  
                 </Grid>
               </Grid>
             </div>

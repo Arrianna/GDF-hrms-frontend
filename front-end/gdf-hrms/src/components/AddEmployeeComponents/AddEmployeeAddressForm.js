@@ -100,22 +100,22 @@ export default function AddEmployeeAddressForm(props) {
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                <TextField name="addressLot" label="Lot" value={lot} onChange={handleLotChange} variant="outlined" size="small" />
+                <TextField name="addressLot" label="Lot" InputLabelProps={{ shrink: true,}} value={lot} onChange={handleLotChange} variant="outlined" size="small" />
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField name="addressStreet" label="Street" value={street} onChange={handleStreetChange} variant="outlined" size="small" />
+                <TextField name="addressStreet" label="Street" InputLabelProps={{ shrink: true,}} value={street} onChange={handleStreetChange} variant="outlined" size="small" />
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField id="Area/Section" label="Area/Section" value={area} onChange={handleAreaChange} variant="outlined" size="small" />
+                <TextField id="Area/Section" label="Area/Section" InputLabelProps={{ shrink: true,}} value={area} onChange={handleAreaChange} variant="outlined" size="small" />
               </Grid >
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField name="addressVillage" label="Village" value={village} onChange={handleVillageChange} variant="outlined" size="small" />
+                <TextField name="addressVillage" label="Village" InputLabelProps={{ shrink: true,}} value={village} onChange={handleVillageChange} variant="outlined" size="small" />
               </Grid >
             </div>
             <div>
@@ -124,6 +124,7 @@ export default function AddEmployeeAddressForm(props) {
                   <InputLabel id="region-label">Region</InputLabel>
                   <Select
                     labelId="region-label"
+                    InputLabelProps={{ shrink: true,}}
                     id="region"
                     value={region}
                     onChange={handleRegionChange}
@@ -150,6 +151,7 @@ export default function AddEmployeeAddressForm(props) {
                   <InputLabel id="region-label">Country</InputLabel>
                   <Select
                     labelId="country-label"
+                    InputLabelProps={{ shrink: true,}}
                     id="country"
                     value={country}
                     onChange={handleCountryChange}
