@@ -28,7 +28,7 @@ export default function ViewCareerHistory(props) {
   const [employeeInfo, setEmployeeInfo] = useState();
   
   let eId = params.empId;
-  
+  console.log(eId);
   useEffect(() => {    
     const getEmpCH = async () => {
       if(eId){
@@ -38,7 +38,7 @@ export default function ViewCareerHistory(props) {
     };
     const getEmpInfo = async () => {
       if(eId){
-        const info = await Axios.get("EmployeeInfo/id/" + eId);
+        const info = await Axios.get("EmployeeInfo/Id/" + eId);
         setEmployeeInfo(info.data);
       }
     };
@@ -69,7 +69,7 @@ export default function ViewCareerHistory(props) {
             <div>
               <Grid container spacing={3}>                
                 <Grid item xs={12}>
-                  <CareerHistoryTable data={empData}></CareerHistoryTable>
+                   <CareerHistoryTable data={empData}></CareerHistoryTable>  
                 </Grid>
               </Grid>
             </div>

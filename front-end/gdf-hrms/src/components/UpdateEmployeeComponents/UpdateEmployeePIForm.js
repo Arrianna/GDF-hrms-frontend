@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddEmployeePIForm(props) {  
+export default function UpdateEmployeePIForm(props) {  
   const classes = useStyles();  
-  
+
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -39,14 +39,14 @@ export default function AddEmployeePIForm(props) {
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                <TextField required name="FirstName" label="First Name" value={props.firstName} onChange={props.handleFirstNameChange} variant="outlined" size="small" />                
-                <TextField name="otherNameTwo" label="Middle Name" value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
+                <TextField required name="FirstName" label="First Name" InputLabelProps={{ shrink: true,}} value={props.firstName} onChange={props.handleFirstNameChange} variant="outlined" size="small" />                
+                <TextField name="otherNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="LastName" name="lastName" label="Last Name" value={props.lastName} onChange={props.handleLastNameChange} variant="outlined" size="small" />
-                <TextField id="MiddleNameTwo" label="Middle Name" value={props.otherNameTwo} onChange={props.handleOtherNameTwoChange} variant="outlined" size="small" />
+                <TextField required id="LastName" name="lastName" label="Last Name" InputLabelProps={{ shrink: true,}} value={props.lastName} onChange={props.handleLastNameChange} variant="outlined" size="small" />
+                <TextField id="MiddleNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} value={props.otherNameTwo} onChange={props.handleOtherNameTwoChange} variant="outlined" size="small" />
               </Grid >
             </div> 
             <div>
@@ -68,7 +68,7 @@ export default function AddEmployeePIForm(props) {
                     </Select>
                   </FormControl>
 
-                  <TextField id="dateOfBirth" label="Date of Birth" value={props.dateOfBirth} onChange={props.handleDoBChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
+                  <TextField id="dateOfBirth" label="Date of Birth" InputLabelProps={{ shrink: true,}} value={props.dateOfBirth} onChange={props.handleDoBChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
                 </Grid>
               </Grid >
             </div>
@@ -83,7 +83,7 @@ export default function AddEmployeePIForm(props) {
                     onChange={props.handleEthnicityChange}
                     label="Ethnicity"
                   >
-                    <MenuItem value={0}><em>Select</em></MenuItem>
+                    <MenuItem value=""><em>Select</em></MenuItem>
                     <MenuItem value={1}>African</MenuItem>
                     <MenuItem value={2}>Indian</MenuItem>
                     <MenuItem value={3}>Amerindian</MenuItem>
@@ -133,6 +133,7 @@ export default function AddEmployeePIForm(props) {
                   <Select
                     labelId="nationality-label"
                     id="Nationality"
+                    InputLabelProps={{ shrink: true,}}
                     value={props.nationality}
                     onChange={props.handleNationalityChange}
                     label="Nationality"
