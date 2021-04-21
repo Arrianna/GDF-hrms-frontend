@@ -16,7 +16,7 @@ import Select from '@material-ui/core/Select';
 import Axios from 'axios';
 
 import PersonalInformationForm from './EmployeeProfileComponents/PersonalInformationForm';
-//import AddressForm from './EmployeeProfileComponents/AddressForm';
+import AddressForm from './EmployeeProfileComponents/AddressForm';
 import ContactForm from './EmployeeProfileComponents/ContactForm';
 import OfficialInformationForm from './EmployeeProfileComponents/OfficialInformationForm';
 

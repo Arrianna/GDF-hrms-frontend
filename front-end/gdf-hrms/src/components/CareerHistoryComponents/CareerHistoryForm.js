@@ -1,3 +1,5 @@
+
+//FIRST SET OF CODE HERE!!
 import React, { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom'
@@ -7,6 +9,11 @@ import Button from "@material-ui/core/Button";
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 
+const defaultValues = {
+  rank: "",
+  department:"",
+  
+};
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -30,22 +37,22 @@ export default function CareerHistoryForm(props) {
     return (
       <React.Fragment>
         <div>
-          <Grid item xs={2}>
             <Grid item xs={2}>
-              <TextField id="Position" label="Position" variant="outlined" size="small" value={props.data.position}/>
-              <TextField id="Department" label="Department" variant="outlined" size="small" value={props.data.department}/>
+            <Grid item xs={2}>
+              <TextField id="Rank" label="Rank" variant="outlined" size="small" />
+              <TextField id="Department" label="Department" variant="outlined" size="small" />
             </Grid >
-          </Grid>
+          </Grid> 
         </div>    
 
         <div>
-          <Grid>
+           <Grid>
             <Grid item xs={2} >
-              <TextField id="StartDate" label="StartDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" value={props.data.startDate}/>
-              <TextField id="EndDate" label="EndDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" value={props.data.endDate}/>
+              <TextField id="StartDate" label="StartDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
+              <TextField id="EndDate" label="EndDate" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
             </Grid >
             <Button type='submit' color='primary'  variant='contained'>Add<SearchIcon /></Button>
-          </Grid>
+          </Grid> 
         </div>
       </React.Fragment>
     )
