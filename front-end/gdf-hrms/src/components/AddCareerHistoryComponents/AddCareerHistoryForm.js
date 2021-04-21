@@ -23,24 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CareerHistoryLayout(props) {
+export default function AddCareerHistoryForm(props) {
   const classes = useStyles();
   const params = useParams();  
   const [empData, setEmpData] = useState();
   
-  let eId = params.employeeId;
-  console.log(params.employeeId);
 
-  useEffect(() => {    
-    const getEmpCH = async () => {
-      if(eId){
-        const info = await Axios.get("EmployeeInfo/GetEmployeeCareerHistoryByTheirId?employeeId=" + eId);
-        setEmpData(info.data);
-      }
-    };
-    getEmpCH();
-  }, [eId]);
-  
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -52,12 +40,12 @@ export default function CareerHistoryLayout(props) {
             <div>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <CareerHistoryForm data={empData}></CareerHistoryForm>
+                  {/* <CareerHistoryForm data={empData}></CareerHistoryForm> */}
                 </Grid>
             
-                <Grid item xs={12}>
-                  <CareerHistoryTable data={empData}></CareerHistoryTable>
-                </Grid>
+               <Grid item xs={12}>
+                  {/* <CareerHistoryTable data={empData}></CareerHistoryTable> */}
+              </Grid>
               </Grid>    
             </div>    
           </React.Fragment>
