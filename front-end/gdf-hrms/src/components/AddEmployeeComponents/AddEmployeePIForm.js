@@ -34,7 +34,7 @@ export default function AddEmployeePIForm(props) {
   const [ethnicities, setEthnicities] = useState();
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
-  // const [nationalities, setNationalities] = useState();
+  const [nationalities, setNationalities] = useState();
 
   useEffect(() => {
     const getEthnicities = async () => {
@@ -61,23 +61,23 @@ export default function AddEmployeePIForm(props) {
         }
       }
     };
-    /* const getNationalitiess = async () => {
-      const info = await Axios.get("GetInfo/GetAllMaritalStaus");
+    const getNationalitiess = async () => {
+      const info = await Axios.get("GetInfo/GetAllNationalities");
       if(info.data != null){
         if(info.data.length > 0){
           setNationalities(info.data);
         }
       }
-    }; */
+    };
     getEthnicities();
     getReligions();
     getMaritalStatuses();
-    // getNationalitiess();
+    getNationalitiess();
   }, []);
 
   const showInfo = () => {
-    if(ethnicities != null && religions != null && maritalStatuses != null){
-      if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0){
+    if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
+      if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0 && nationalities.length > 0){
         return (
           <div className={classes.root}>
             <Grid container spacing={1}>
@@ -181,12 +181,16 @@ export default function AddEmployeePIForm(props) {
                           label="Nationality"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
+                          {nationalities.map((nationality) =>
+                            <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
+                          )}
+                          {/* <MenuItem value=""><em>Select</em></MenuItem>
                           <MenuItem value={1}>Guyanese</MenuItem>
                           <MenuItem value={2}>Surinamese</MenuItem>
                           <MenuItem value={3}>Brazillian</MenuItem>
                           <MenuItem value={4}>Venezuelan</MenuItem>
                           <MenuItem value={5}>Trinidadian</MenuItem>
-                          <MenuItem value={6}>Barbadian</MenuItem>
+                          <MenuItem value={6}>Barbadian</MenuItem> */}
                         </Select>
                       </FormControl>
                     </Grid >
