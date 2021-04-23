@@ -169,7 +169,7 @@ export default function EmployeeProfileLayout(props) {
   
   let regNumber = params.regNum;
   let empId;
- 
+
   useEffect(() => {
     const getEmpInfo = async () => {
       if(regNumber){

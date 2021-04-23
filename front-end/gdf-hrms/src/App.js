@@ -27,7 +27,7 @@ const App = () => {
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
           <Route path="/employee-history-view/:empId" exact component={ViewCareerHistory} />
           <Route path="/add-address/:empId" exact component={AddEmployeeAddressForm} />
-          <Route path="/update-employee" exact component={UpdateEmployeeInformation} />
+          <Route path="/update-employee/:empId" exact component={UpdateEmployeeInformation} />
       </ResponsiveDrawer>
       </BrowserRouter>
     </div>

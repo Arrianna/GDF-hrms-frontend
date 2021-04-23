@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }  
 }));
 
-export default function AddEmployeeOfficialInfoForm(props) {
+export default function UpdateEmployeeOfficialInfoForm(props) {
   const classes = useStyles();
   const { register, errors } = useForm();
  
@@ -36,7 +36,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                <TextField required id="regimentalNumber" label="RegimentalNumber" name="regimentalNumber" value={props.regimentNumber} onChange={props.handleRegNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
+                <TextField required id="regimentalNumber" label="RegimentalNumber" name="regimentalNumber" InputLabelProps={{ shrink: true,}} value={props.regimentNumber} onChange={props.handleRegNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
                 {errors.regimentalNumber && errors.regimentalNumber.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
                 {errors.regimentalNumber && errors.regimentalNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
                 {errors.regimentalNumber && errors.regimentalNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
@@ -45,7 +45,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="identificationNumber" name="identificationNumber" label="IdentificationNumber" value={props.nationalIdNumber} onChange={props.handleNationalIdNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i})}/>
+                <TextField required id="identificationNumber" name="identificationNumber" label="IdentificationNumber" InputLabelProps={{ shrink: true,}} value={props.nationalIdNumber} onChange={props.handleNationalIdNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i})}/>
                 {errors.identificationNumber && errors.identificationNumber.type === 'required' && (<p className={classes.paragraphColor}>National Identification Number is required</p>)}
                 {errors.identificationNumber && errors.identificationNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
                 {errors.identificationNumber && errors.identificationNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
@@ -54,7 +54,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="passportNumber" name="passportNumber" label="PassportNumber" value={props.passportNumber} onChange={props.handlePassportNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 8, maxLength: 8, type: "text"})}/>
+                <TextField required id="passportNumber" name="passportNumber" label="PassportNumber" InputLabelProps={{ shrink: true,}} value={props.passportNumber} onChange={props.handlePassportNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 8, maxLength: 8, type: "text"})}/>
                 {errors.passportNumber && errors.passportNumber.type === 'required' && (<p className={classes.paragraphColor}>Passport Number is required</p>)}
                 {errors.passportNumber && errors.passportNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 8 characters required</p>)}
                 {errors.passportNumber && errors.passportNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 8 characters required</p>)}
@@ -63,13 +63,13 @@ export default function AddEmployeeOfficialInfoForm(props) {
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="passportExpirationDate" name="passportExpirationDate" label="Passport Expiration Date" value={props.passportExpirationDate} onChange={props.handlePassportExpDateChange} variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" inputRef={register({ required: true})}/>
+                <TextField required id="passportExpirationDate" name="passportExpirationDate" label="Passport Expiration Date" InputLabelProps={{ shrink: true,}} value={props.passportExpirationDate} onChange={props.handlePassportExpDateChange} variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" inputRef={register({ required: true})}/>
                 {errors.passportExpirationDate && errors.passportExpirationDate.type === 'required' && (<p className={classes.paragraphColor}>Passport Expiration Date is required</p>)}
               </Grid >
             </div>    
             <div>
               <Grid item xs={2}>
-                <TextField required id="tinNumber" name="tinNumber" label="TIN Number" value={props.tinNumber} onChange={props.handleTinNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i })}/>
+                <TextField required id="tinNumber" name="tinNumber" label="TIN Number" InputLabelProps={{ shrink: true,}} value={props.tinNumber} onChange={props.handleTinNumChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i })}/>
                 {errors.tinNumber && errors.tinNumber.type === 'required' && (<p className={classes.paragraphColor}>Tin Number is required</p>)}
                 {errors.tinNumber && errors.tinNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
                 {errors.tinNumber && errors.tinNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}

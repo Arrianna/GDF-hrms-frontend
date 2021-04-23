@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddEmployeeContactForm(props) {
+export default function UpdateEmployeeContactForm(props) {
   const classes = useStyles();
   const { register, errors } = useForm();
 
@@ -49,6 +49,7 @@ export default function AddEmployeeContactForm(props) {
                   label="Home Number"  
                   value={props.homeNumber}
                   onChange={props.handleHomeNumChange}  
+                  InputLabelProps={{ shrink: true,}}
                   type="tel"                           
                   variant="outlined" 
                   size="small" 
@@ -64,6 +65,7 @@ export default function AddEmployeeContactForm(props) {
                   label="Cell Number"  
                   value={props.cellNumber}
                   onChange={props.handleCellNumChange} 
+                  InputLabelProps={{ shrink: true,}}
                   type="tel"                
                   variant="outlined" 
                   size="small" 
@@ -79,6 +81,7 @@ export default function AddEmployeeContactForm(props) {
                   label="Work Number" 
                   value={props.workNumber}
                   onChange={props.handleWorkNumChange}  
+                  InputLabelProps={{ shrink: true,}}
                   type="tel"                
                   variant="outlined" 
                   size="small" 
@@ -96,6 +99,7 @@ export default function AddEmployeeContactForm(props) {
                   type="email"              
                   value={props.email}
                   onChange={props.handleEmailChange}
+                  InputLabelProps={{ shrink: true,}}
                   variant="outlined" 
                   size="small" 
                   inputRef={register({
