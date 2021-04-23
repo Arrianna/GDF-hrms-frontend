@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentNumberForm';
 import SearchByOtherCriteriaForm from './SearchPageComponents/SearchByOtherCriteriaForm';
 import MatPaginationTable from './SearchPageComponents/SearchResultsTable';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Axios from 'axios'; // remember to npm install Axios
 
 const useStyles = makeStyles((theme) => ({
@@ -27,10 +28,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchPage() {
   const classes = useStyles();
-  
+  const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setsearchResults] = useState(null);
 
-  const getDataByRegNum = data => { 
+  const getDataByRegNum = data => {
+    setIsLoading(true);
     Axios.get("GetInfo/RegimentNumber/" + data.regNum).then((response) => {        
         let resultArray = [];        
         if(response.data !== ""){
@@ -38,12 +40,15 @@ export default function SearchPage() {
         }
         setsearchResults(resultArray);
     });
+    setIsLoading(false);
   }
   
   const getDataByOtherCriteria= data => {
+    setIsLoading(true);
     Axios.get("GetInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
         setsearchResults(response.data);
     });
+    setIsLoading(false);
   }
 
   const showTable = () => {
@@ -78,7 +83,8 @@ export default function SearchPage() {
           </CardContent>
         </Card>
       </div>
-      {showTable()}
+      {!isLoading && showTable()}
+      {isLoading && <CircularProgress />}
     </div>
   );
 }

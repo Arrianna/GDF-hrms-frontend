@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-//import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { TextField, Grid, Button, Modal } from '@material-ui/core';
+import { Save, Cancel } from '@material-ui/icons';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { MenuItem, InputLabel, FormControl, Select } from '@material-ui/core';
 import Axios from 'axios';
 
 import PersonalInformationForm from './EmployeeProfileComponents/PersonalInformationForm';
@@ -43,7 +34,27 @@ const useStyles = makeStyles((theme) => ({
   
    careerButton: {
      marginLeft: '20px,'
-   }
+   },
+
+   modal: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
+
+  icon:{
+    cursor: 'pointer'
+  }, 
+
+  inputMaterial:{
+    width: '100%'
+  }
 
 }));
 
@@ -61,6 +72,46 @@ export default function EmployeeProfileLayout(props) {
   const [newCountry, setNewCountry] = useState("");
   const [regions, setRegions] = useState();
   const [countries, setCountries] = useState();
+
+  const [modalDelete, setModalDelete] = useState(false);
+
+  const [rowSelected, setRowSelected] = useState({
+    lot:'',
+    street: '',
+    area: '',
+    village: '',
+    region: '',
+    country: '',
+    eId: '',
+  })
+
+  const deleteRequest = async() => {
+    await Axios.delete('DeleteInfo/DeleteAddress/' + rowSelected.id)
+    .then(response=>{
+      setEmployeeAddress(employeeAddress.filter(row => row.id !== rowSelected.id));
+      openCloseModalDelete();
+    })
+  }
+ 
+  const openCloseModalDelete = () => {
+    setModalDelete(!modalDelete);
+  }
+
+  const selectRow = (row, option)=>{
+    setRowSelected(row);
+    openCloseModalDelete();
+    // (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
+  }
+  
+  const bodyDelete = (
+    <div className={classes.modal}>
+      <p>Are you sure you want to delete this address?</p>
+      <div align="right">
+        <Button color="secondary" onClick={() => deleteRequest()}>Yes</Button>
+        <Button onClick={() => openCloseModalDelete()}>No</Button>
+      </div>
+    </div>
+  )
 
   const handleLotChange = (event) => {
     setLot(event.target.value);
@@ -93,7 +144,7 @@ export default function EmployeeProfileLayout(props) {
   const handleCancel = () => {
     setOpen(false);
   };
-
+  
   const handleSave = () => {
     let Address = {
       lot: lot,
@@ -105,11 +156,14 @@ export default function EmployeeProfileLayout(props) {
       eId: empId,
     }
     if(Address){
-      console.log(Address);
-      /* Axios.post('PostInfo/AddAnEmployeeAddress', newAddress)
+      Axios.post('PostInfo/AddAnEmployeeAddress', Address)
       .then(response => console.log(response))
-      .catch(error => console.log(error)) */
+      /* .then(response => {
+        setEmployeeAddress(employeeAddress.concat(response.data))
+      }) */
+      .catch(error => console.log(error))
     }
+    setEmployeeAddress([Address, ...employeeAddress]);
     setOpen(false);    
   };
   
@@ -156,7 +210,7 @@ export default function EmployeeProfileLayout(props) {
   }, [regNumber, employeeInfo.id]);
 
   empId = employeeInfo.id;
-  
+
   const showInfo = () => {
     if(regions != null && countries != null){
       if(regions.length > 0 && countries.length > 0){
@@ -168,19 +222,13 @@ export default function EmployeeProfileLayout(props) {
               </Grid>
               <Grid item xs={6}>
                 <h1>
-                  <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Add Employee Address
-                    {/* <Link to={'/add-address/' + empId}>Add Employee Address</Link> */}
-                  </Button>
                   <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
                     <DialogContent>
-                      {/* <DialogContentText>Add Employee Address</DialogContentText> */}
                       <TextField margin="dense" id="lot" label="Lot" type="text" fullWidth value={lot} onChange={handleLotChange}/>
                       <TextField margin="dense" id="street" label="Street" type="text" fullWidth value={street} onChange={handleStreetChange}/>
                       <TextField margin="dense" id="area" label="Area" type="text" fullWidth value={area} onChange={handleAreaChange}/>
                       <TextField margin="dense" id="village" label="Village" type="text" fullWidth value={village} onChange={handleVillageChange}/>
-                      {/* <TextField margin="dense" id="region" label="Region" type="text" fullWidth/> */}
                       <FormControl className={classes.formControl}>
                         <InputLabel id="region-label">Region</InputLabel>
                         <Select
@@ -196,7 +244,7 @@ export default function EmployeeProfileLayout(props) {
                           )}
                         </Select>
                       </FormControl>
-                      {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
+                      <br />
                       <FormControl className={classes.formControl}>
                         <InputLabel id="region-label">Country</InputLabel>
                         <Select
@@ -214,8 +262,8 @@ export default function EmployeeProfileLayout(props) {
                       </FormControl>
                     </DialogContent>
                     <DialogActions>
-                      <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
-                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<SaveIcon />}>Save Address</Button>
+                      <Button onClick={handleCancel} variant="contained" color="primary" startIcon={<Cancel />}>Cancel</Button>
+                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<Save />}>Save Address</Button>
                     </DialogActions>
                   </Dialog>
                   <Button variant="outlined" color="primary">
@@ -233,8 +281,14 @@ export default function EmployeeProfileLayout(props) {
                       <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
                     </Grid>
                     <Grid item xs={12}>
-                      <AddressForm employeeInfo={employeeAddress}></AddressForm>
+                      <AddressForm 
+                        employeeInfo={employeeAddress}
+                        selectRow={selectRow}>
+                      </AddressForm>
                     </Grid>
+                    <Button variant="outlined" color="primary" size="small" onClick={handleClickOpen}>
+                      Add Address
+                    </Button>
                     <Grid item xs={12}>
                       <ContactForm employeeInfo={employeeInfo}></ContactForm>
                     </Grid >
@@ -253,6 +307,9 @@ export default function EmployeeProfileLayout(props) {
   return(
     <div>
       {showInfo()}
+      <Modal open={modalDelete} onClose={openCloseModalDelete}>
+        {bodyDelete}
+      </Modal>
     </div>
   );
 }
