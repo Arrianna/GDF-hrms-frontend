@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 export default function MatPaginationTable(props) {  
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);  
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   useEffect(() => {

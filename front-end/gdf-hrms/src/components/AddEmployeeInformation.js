@@ -8,6 +8,7 @@ import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
 import AddEmployeeOfficialInfoForm from './AddEmployeeComponents/AddEmployeeOfficialInfoForm';
+// import { indigo } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddEmployeeInformation() {
   const classes = useStyles();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-  const [employeeAddress, setEmployeeAddress] = useState();
+  const [employeeAddress, setEmployeeAddress] = useState({});
   
   // AddEmployeePIForm INFORMATION
   const [firstName, setFirstName] = useState();
@@ -192,22 +193,49 @@ export default function AddEmployeeInformation() {
       tinNumber: parseInt(tinNumber, 10),
     });
 
-    setEmployeeAddress({
+    /* setEmployeeAddress({
       lot: lot,
       street: street,
       area: area,
       village: village,
       region: region,
       country: country,
-    });
+    }); */
     //console.log(employeeInfo);
+    const checkResponse = (response) => {
+      console.log(response);
+      if(response.statusText === "OK"){
+        const getEmpInfo = async () => {
+          if(regimentNumber){
+            const info = await axios.get("GetInfo/RegimentNumber/" + regimentNumber);    
+            // setEmployeeInfo(info.data);
+
+            setEmployeeAddress({
+              lot: lot,
+              street: street,
+              area: area,
+              village: village,
+              region: region,
+              country: country,
+              eId: info.data.id,
+            });
+console.log(employeeAddress);
+            axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
+              .then(response => console.log(response))
+              .catch(error => console.log(error))
+          }
+        };
+
+        getEmpInfo();
+      }
+    }
     axios.post('PostInfo/AddAnEmployee', employeeInfo)
-      .then(response => console.log(response))
+      .then(response => checkResponse(response))
       .catch(error => console.log(error))
 
-    axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
+    /* axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
       .then(response => console.log(response))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error)) */
   }
   
   return (
