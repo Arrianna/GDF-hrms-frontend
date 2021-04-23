@@ -31,34 +31,34 @@ export default function PersonalInformationForm(employeeInfo) {
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                <TextField id="FirstName" label="First Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.firstName}/>
-                <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.otherName} />
+                <TextField id="FirstName" label="First Name" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.firstName}/>
+                <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small"  InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.otherName} />
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField id="LastName" label="Last Name" variant="outlined" size="small" value={employeeInfo.employeeInfo.lastName}/>
-                <TextField id="Race" label="Race" variant="outlined" size="small" value={employeeInfo.employeeInfo.ethnicity} />
+                <TextField id="LastName" label="Last Name" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.lastName}/>
+                <TextField id="Race" label="Race" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.ethnicity} />
               </Grid >
             </div> 
             <div>
               <Grid item xs={2}>
                 <Grid item xs={2}>
-                  <TextField id="Sex" label="Sex" variant="outlined" size="small" value={employeeInfo.employeeInfo.sex} />              
-                  <TextField id="Nationality" label="Nationality" variant="outlined" size="small" value={employeeInfo.employeeInfo.nationality} />
+                  <TextField id="Sex" label="Sex" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.sex} />              
+                  <TextField id="Nationality" label="Nationality" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.nationality} />
                 </Grid>
               </Grid >
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField id="MiddleNameTwo" label="Middle Name" variant="outlined" size="small" />
+                <TextField id="MiddleNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} variant="outlined" size="small" />
               </Grid >
-                <TextField id="Religion" label="Religion" variant="outlined" size="small" value={employeeInfo.employeeInfo.religion} />
+                <TextField id="Religion" label="Religion" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.religion} />
             </div>
             <div>
               <Grid item xs={2}>
                 <TextField id="dateOfBirth" label="Date of Birth" variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="text" value={moment(employeeInfo.employeeInfo.dateOfBirth).format('DD-MM-YYYY')}/>
-                <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" value={employeeInfo.employeeInfo.maritalStatus} />
+                <TextField id="Marital Status" label="Marital Status" variant="outlined" size="small" InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.maritalStatus} />
               </Grid >
             </div>
           </React.Fragment>

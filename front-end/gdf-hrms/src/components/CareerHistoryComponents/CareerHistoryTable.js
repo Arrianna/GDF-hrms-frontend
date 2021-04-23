@@ -36,6 +36,7 @@ const useStyles = makeStyles({
 export default function CareerHistoryTable(props) {
   const classes = useStyles();
   let data = props.data;
+  //console.log(data);
   const showResults = () => {
     if(data!= null) {
       if(data.length > 0) {  
