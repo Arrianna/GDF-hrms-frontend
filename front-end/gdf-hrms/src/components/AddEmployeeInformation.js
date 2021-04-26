@@ -203,29 +203,26 @@ export default function AddEmployeeInformation() {
     }); */
     //console.log(employeeInfo);
     const checkResponse = (response) => {
-      console.log(response);
       if(response.statusText === "OK"){
         const getEmpInfo = async () => {
           if(regimentNumber){
-            const info = await axios.get("GetInfo/RegimentNumber/" + regimentNumber);    
-            // setEmployeeInfo(info.data);
+            const info = await axios.get("GetInfo/RegimentNumber/" + regimentNumber);
 
             setEmployeeAddress({
               lot: lot,
               street: street,
               area: area,
               village: village,
-              region: region,
+              region: parseInt(region, 10),
               country: country,
-              eId: info.data.id,
+              eId: parseInt(info.data.id, 10),
             });
-console.log(employeeAddress);
+
             axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
               .then(response => console.log(response))
               .catch(error => console.log(error))
           }
         };
-
         getEmpInfo();
       }
     }

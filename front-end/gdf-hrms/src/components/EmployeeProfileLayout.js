@@ -74,16 +74,26 @@ export default function EmployeeProfileLayout(props) {
   const [countries, setCountries] = useState();
 
   const [modalDelete, setModalDelete] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
   const [rowSelected, setRowSelected] = useState({
+    id: null,
     lot:'',
     street: '',
     area: '',
     village: '',
-    region: '',
-    country: '',
-    eId: '',
+    regionId: null,
+    countryId: null,
+    employeeId: null,
   })
+
+  const handleChange = e => {
+    const {name, value} = e.target;
+    setRowSelected(prevState=>({
+      ...prevState,
+      [name]: value
+    }))
+  }
 
   const deleteRequest = async() => {
     await Axios.delete('DeleteInfo/DeleteAddress/' + rowSelected.id)
@@ -92,15 +102,49 @@ export default function EmployeeProfileLayout(props) {
       openCloseModalDelete();
     })
   }
+
+  const putRequest = async() => {
+    let editedAddress = {
+      id: rowSelected.id,
+      lot: rowSelected.lot,
+      street: rowSelected.street,
+      area: rowSelected.area,
+      village: rowSelected.village,
+      regionId: rowSelected.regionId,
+      countryId: rowSelected.countryId,
+      employeeId: rowSelected.eId,
+    }
+    await Axios.patch('UpdateInfo/update/employeePI/address/' + editedAddress.id, editedAddress)
+    .then(response=>{
+      let newData = employeeAddress;
+      newData.map(row => {        
+        if(rowSelected.id === row.id){
+          row.id = editedAddress.id;
+          row.lot = editedAddress.lot;
+          row.street = editedAddress.street;
+          row.area = editedAddress.area;
+          row.village = editedAddress.village;
+          row.regionId = editedAddress.regionId;
+          row.countryId = editedAddress.countryId;
+          row.employeeId = editedAddress.employeeId;
+        }
+      })
+      setEmployeeAddress(newData);
+      openCloseModalEdit();
+    })
+  }
  
   const openCloseModalDelete = () => {
     setModalDelete(!modalDelete);
   }
 
-  const selectRow = (row, option)=>{
+  const openCloseModalEdit = () => {
+    setModalEdit(!modalEdit);
+  }
+
+  const selectRow = (row, option) => {
     setRowSelected(row);
-    openCloseModalDelete();
-    // (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
+    (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
   }
   
   const bodyDelete = (
@@ -211,6 +255,64 @@ export default function EmployeeProfileLayout(props) {
 
   empId = employeeInfo.id;
 
+  const bodyEdit = () => {
+    if(regions != null && countries != null){
+      if(regions.length > 0 && countries.length > 0){
+        return(
+          <div className={classes.modal}>
+            <h3>Edit Employee Address</h3>
+            <TextField name="lot" className={classes.inputMaterial} label="Lot" onChange={handleChange} value={rowSelected && rowSelected.lot}/>
+            <br />
+            <TextField name="street" className={classes.inputMaterial} label="Street" onChange={handleChange} value={rowSelected && rowSelected.street}/>
+            <br />
+            <TextField name="area" className={classes.inputMaterial} label="Area" onChange={handleChange} value={rowSelected && rowSelected.area}/>
+            <br />
+            <TextField name="village" className={classes.inputMaterial} label="Village" onChange={handleChange} value={rowSelected && rowSelected.village}/>
+            <br />
+            <FormControl className={classes.formControl}>
+              <InputLabel id="region-label">Region</InputLabel>
+              <Select
+                labelId="region-label"
+                id="region"
+                name="regionId"
+                value={rowSelected && rowSelected.regionId}
+                onChange={handleChange}
+                label="Region"
+              >
+                <MenuItem value=""><em>Select</em></MenuItem>
+                {regions.map((region) =>
+                  <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                )}
+              </Select>
+            </FormControl>
+            <br />
+            <FormControl className={classes.formControl}>
+              <InputLabel id="region-label">Country</InputLabel>
+              <Select
+                labelId="country-label"
+                id="country"
+                name="countryId"
+                value={rowSelected && rowSelected.countryId}
+                onChange={handleChange}
+                label="Country"
+              >
+                <MenuItem value=""><em>Select</em></MenuItem>
+                {countries.map((country) =>
+                  <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+                )}                          
+              </Select>
+            </FormControl>
+            <br /><br />
+            <div align="right">
+              <Button color="primary" onClick={()=>putRequest()}>Save</Button>
+              <Button onClick={() => openCloseModalEdit()}>Cancel</Button>
+            </div>
+          </div>
+        );
+      }
+    }
+  }
+
   const showInfo = () => {
     if(regions != null && countries != null){
       if(regions.length > 0 && countries.length > 0){
@@ -309,6 +411,10 @@ export default function EmployeeProfileLayout(props) {
       {showInfo()}
       <Modal open={modalDelete} onClose={openCloseModalDelete}>
         {bodyDelete}
+      </Modal>
+
+      <Modal open={modalEdit} onClose={openCloseModalEdit}>
+        {bodyEdit()}        
       </Modal>
     </div>
   );
