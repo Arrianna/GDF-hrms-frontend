@@ -136,7 +136,7 @@ export default function AddEmployeeAddressForm(props) {
               </Grid>
             </Grid>
           </div>
-        );
+        )
       }
     }
   }

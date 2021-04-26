@@ -332,7 +332,7 @@ export default function EmployeeProfileLayout(props) {
                       <TextField margin="dense" id="area" label="Area" type="text" fullWidth value={area} onChange={handleAreaChange}/>
                       <TextField margin="dense" id="village" label="Village" type="text" fullWidth value={village} onChange={handleVillageChange}/>
                       <FormControl className={classes.formControl}>
-                        <InputLabel id="region-label">Region</InputLabel>
+                        <InputLabel shrink="true" id="region-label">Region</InputLabel>
                         <Select
                           labelId="region-label"
                           id="region"
@@ -348,7 +348,7 @@ export default function EmployeeProfileLayout(props) {
                       </FormControl>
                       <br />
                       <FormControl className={classes.formControl}>
-                        <InputLabel id="region-label">Country</InputLabel>
+                        <InputLabel shrink="true" id="region-label">Country</InputLabel>
                         <Select
                           labelId="country-label"
                           id="country"
@@ -369,7 +369,7 @@ export default function EmployeeProfileLayout(props) {
                     </DialogActions>
                   </Dialog>
                   <Button variant="outlined" color="primary">
-                    <Link to={'/employee-history/' + regNumber}>Update Employee Record</Link>
+                    <Link to={'/update-employee/' + empId}>Update Employee Record</Link>
                   </Button>
                   <Button variant="outlined" color="primary">
                     <Link to={'/employee-history-view/' + empId}>View Career History</Link>
