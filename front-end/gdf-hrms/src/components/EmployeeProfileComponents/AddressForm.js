@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Button, ButtonGroup } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -66,10 +66,14 @@ export default function AddressForm(props) {
                           <StyledTableCell align="center">{row.region}</StyledTableCell>
                           <StyledTableCell align="center">{row.country}</StyledTableCell>
                           <StyledTableCell align="center">
-                            <Edit className={classes.icon} onClick={() => props.selectRow(row, 'Edit')}/>
+                            {/* <Edit className={classes.icon} onClick={() => props.selectRow(row, 'Edit')}/>
                             &nbsp;&nbsp;&nbsp;
-                            <Delete  className={classes.icon} onClick={() => props.selectRow(row, 'Delete')}/>
-                          </StyledTableCell>                          
+                            <Delete  className={classes.icon} onClick={() => props.selectRow(row, 'Delete')}/> */}
+                            <ButtonGroup>
+                              <Button variant="text"><Edit color="primary" className={classes.icon} onClick={() => props.selectRow(row, 'Edit')}/></Button>
+                              <Button variant="text"><Delete color="secondary" className={classes.icon} onClick={() => props.selectRow(row, 'Delete')}/></Button>
+                            </ButtonGroup>
+                          </StyledTableCell>                     
                         </StyledTableRow>
                       );
                     })}
