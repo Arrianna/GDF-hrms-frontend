@@ -76,22 +76,22 @@ export default function AddEmployeeAddressForm(props) {
                 <React.Fragment>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="addressLot" label="Lot" value={props.lot} onChange={props.handleLotChange} variant="outlined" size="small" />
+                      <TextField name="lot" label="Lot" value={props.lot} onChange={props.handleLotChange} variant="outlined" size="small" />
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="addressStreet" label="Street" value={props.street} onChange={props.handleStreetChange} variant="outlined" size="small" />
+                      <TextField name="street" label="Street" value={props.street} onChange={props.handleStreetChange} variant="outlined" size="small" />
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField id="Area/Section" label="Area/Section" value={props.area} onChange={props.handleAreaChange} variant="outlined" size="small" />
+                      <TextField name="area" label="Area/Section" value={props.area} onChange={props.handleAreaChange} variant="outlined" size="small" />
                     </Grid >
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="addressVillage" label="Village" value={props.village} onChange={props.handleVillageChange} variant="outlined" size="small" />
+                      <TextField name="village" label="Village" value={props.village} onChange={props.handleVillageChange} variant="outlined" size="small" />
                     </Grid >
                   </div>
                   <div>
@@ -101,6 +101,7 @@ export default function AddEmployeeAddressForm(props) {
                         <Select
                           labelId="region-label"
                           id="region"
+                          name="reg"
                           value={props.region}
                           onChange={props.handleRegionChange}
                           label="Region"
@@ -120,6 +121,7 @@ export default function AddEmployeeAddressForm(props) {
                         <Select
                           labelId="country-label"
                           id="country"
+                          name="ctry"
                           value={props.country}
                           onChange={props.handleCountryChange}
                           label="Country"

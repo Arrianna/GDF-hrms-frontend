@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 export default function AddEmployeeInformation() {
   const classes = useStyles();  
   const [employeeInfo, setEmployeeInfo] = useState({});
-  const [employeeAddress, setEmployeeAddress] = useState({});
   
   // AddEmployeePIForm INFORMATION
   const [firstName, setFirstName] = useState();
@@ -208,17 +207,16 @@ export default function AddEmployeeInformation() {
           if(regimentNumber){
             const info = await axios.get("GetInfo/RegimentNumber/" + regimentNumber);
 
-            setEmployeeAddress({
+            let Address = {
               lot: lot,
               street: street,
               area: area,
               village: village,
-              region: parseInt(region, 10),
-              country: country,
+              reg: parseInt(region, 10),
+              ctry: parseInt(country, 10),
               eId: parseInt(info.data.id, 10),
-            });
-
-            axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
+            };
+            axios.post('PostInfo/AddAnEmployeeAddress', Address)
               .then(response => console.log(response))
               .catch(error => console.log(error))
           }
