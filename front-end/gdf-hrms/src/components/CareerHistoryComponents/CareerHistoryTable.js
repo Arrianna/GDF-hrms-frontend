@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
+import Edit from '@material-ui/icons/Edit';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,9 +34,15 @@ const useStyles = makeStyles({
   },
 });
 
+const selectRow = (row)=>{
+  console.log("hello");
+}
+
+
 export default function CareerHistoryTable(props) {
   const classes = useStyles();
   let data = props.data;
+  //console.log(data);
   const showResults = () => {
     if(data!= null) {
       if(data.length > 0) {  
@@ -48,6 +55,7 @@ export default function CareerHistoryTable(props) {
                   <StyledTableCell align="center">Department</StyledTableCell>
                   <StyledTableCell align="center">Start Date</StyledTableCell>
                   <StyledTableCell align="center">End Date</StyledTableCell>
+                  <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>
               </TableHead>
 
@@ -59,6 +67,9 @@ export default function CareerHistoryTable(props) {
                       <StyledTableCell align="center">{row.department}</StyledTableCell>
                       <StyledTableCell align="center">{moment(row.startDate).format('DD-MM-YYYY')}</StyledTableCell>
                       <StyledTableCell align="center">{moment(row.endDate).format('DD-MM-YYYY')}</StyledTableCell>
+                      <StyledTableCell align="center">
+                            <Edit className={classes.icon} onClick={() => props.selectRow(row)}/>
+                          </StyledTableCell>   
                     </StyledTableRow>
                   );
                 })}
