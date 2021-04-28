@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { Grid, Button } from '@material-ui/core';
+//import { Dialog, DialogActions, DialogContent, DialogContentText, Slide } from '@material-ui/core';
 import axios from 'axios';
 
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
 import AddEmployeeOfficialInfoForm from './AddEmployeeComponents/AddEmployeeOfficialInfoForm';
-// import { indigo } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,283 +31,101 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddEmployeeInformation() {
-  const classes = useStyles();  
-  const [employeeInfo, setEmployeeInfo] = useState({});
-  
-  // AddEmployeePIForm INFORMATION
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [otherName, setOtherName] = useState("");
-  const [otherNameTwo, setOtherNameTwo] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [religion, setReligion] = useState("");
-  const [ethnicity, setEthnicity] = useState("");
-  const [sex, setSex] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState();
-  const [nationality, setNationality] = useState("");
+  const classes = useStyles();
+  const [employeeInfo, setEmployeeInfo] = useState({
+    nationalityId: '',
+    religionId: '',
+    ethnicityId: '',
+    maritalStatusId: '',
+    homeNumber: '',
+    cellNumber: '',
+    workNumber: '',
+    email: '',
+    title: '',
+    firstName: '',
+    lastName: '',
+    otherName: '',
+    regimentNumber: '',
+    dateOfBirth: '',
+    sex: '',
+    nationalIdNumber: '',
+    passportNumber: '',
+    passportExpirationDate: '',
+    tinNumber: '',
+    lot: '',
+    street: '',
+    area: '',
+    village: '',
+    region: '',
+    country: '',
+  })
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handleOtherNameChange = (event) => {
-    setOtherName(event.target.value);
-  };
-
-  const handleOtherNameTwoChange = (event) => {
-    setOtherNameTwo(event.target.value);
-  };
-
-  const handleMaritalStatusChange = (event) => {
-    setMaritalStatus(event.target.value);
-  };
-
-  const handleReligionChange = (event) => {
-    setReligion(event.target.value);
-  };
-
-  const handleEthnicityChange = (event) => {
-    setEthnicity(event.target.value);
-  };
-
-  // DON'T LAUGH TOO MUCH, YOU MIGHT POP A VEIN
-  const handleSexChange = (event) => {
-    setSex(event.target.value);
-  }
-
-  const handleDoBChange = (event) => {
-    setDateOfBirth(event.target.value);
-  }
-
-  const handleNationalityChange = (event) => {
-    setNationality(event.target.value);
-  }
-
-  // AddEmployeeAddressForm Information
-  const [lot, setLot] = useState();
-  const [street, setStreet] = useState();
-  const [area, setArea] = useState();
-  const [village, setVillage] = useState();
-  const [region, setRegion] = useState("");
-  const [country, setCountry] = useState("");
-
-  const handleLotChange = (event) => {    
-    setLot(event.target.value);
-  }
-
-  const handleStreetChange = (event) => {    
-    setStreet(event.target.value);
-  }
-
-  const handleAreaChange = (event) => {    
-    setArea(event.target.value);
-  }
-
-  const handleVillageChange = (event) => {    
-    setVillage(event.target.value);
-  }
-
-  const handleRegionChange = (event) => {    
-    setRegion(event.target.value);
-  }
-
-  const handleCountryChange = (event) => {    
-    setCountry(event.target.value);
-  }
-
-  // AddEmployeeContactForm Information
-  const [homeNumber, setHomeNumber] = useState();
-  const [cellNumber, setCellNumber] = useState();
-  const [workNumber, setWorkNumber] = useState();
-  const [email, setEmail] = useState();
-
-  const handleHomeNumChange = (event) => {      
-    setHomeNumber(event.target.value);
-  }
-
-  const handleCellNumChange = (event) => {    
-    setCellNumber(event.target.value);
-  }
-
-  const handleWorkNumChange = (event) => {       
-    setWorkNumber(event.target.value); 
-  }
-
-  const handleEmailChange = (event) => {    
-    setEmail(event.target.value);
-  }
-
-  // AddEmployeeOfficialInfoForm Information
-  const [regimentNumber, setRegimentNumber] = useState();
-  const [nationalIdNumber, setNationalIdNumber] = useState();
-  const [passportNumber, setPassportNumber] = useState();
-  const [passportExpirationDate, setPassportExpirationDate] = useState();
-  const [tinNumber, setTinNumber] = useState();
-
-  const handleRegNumChange = (event) => {    
-    setRegimentNumber(event.target.value);
-  }
-
-  const handleNationalIdNumChange = (event) => {    
-    setNationalIdNumber(event.target.value);
-  }
-
-  const handlePassportNumChange = (event) => {    
-    setPassportNumber(event.target.value); 
-  }
-
-  const handlePassportExpDateChange = (event) => {
-    setPassportExpirationDate(event.target.value);
-  }
-
-  const handleTinNumChange = (event) => {
-    setTinNumber(event.target.value);
+  const handleChange = e => {
+    const {name, value} = e.target;
+    setEmployeeInfo(prevState=>({
+      ...prevState,
+      [name]: value
+    }))
   }
 
   const postDataHandler = () => {    
-    setEmployeeInfo({
-      nationalityId: nationality,
-      religionId: religion,
-      ethnicityId: ethnicity,
-      maritalStatusId: maritalStatus,
-      homeNumber: parseInt(homeNumber, 10),
-      cellNumber: parseInt(cellNumber, 10),
-      workNumber: parseInt(workNumber, 10),
-      email: email,
+    let Info = {
+      nationalityId: parseInt(employeeInfo.nationalityId, 10),
+      religionId: parseInt(employeeInfo.religionId, 10),
+      ethnicityId: parseInt(employeeInfo.ethnicityId, 10),
+      maritalStatusId: parseInt(employeeInfo.maritalStatusId, 10),
+      homeNumber: parseInt(employeeInfo.homeNumber, 10),
+      cellNumber: parseInt(employeeInfo.cellNumber, 10),
+      workNumber: parseInt(employeeInfo.workNumber, 10),
+      email: employeeInfo.email,
       title: '',
-      firstName: firstName,
-      lastName: lastName,
-      otherName: otherName,
-      regimentNumber: parseInt(regimentNumber, 10),
-      dateOfBirth: dateOfBirth,
-      sex: sex,
-      nationalIdNumber: parseInt(nationalIdNumber, 10),
-      passportNumber: passportNumber,
-      passportExpirationDate: passportExpirationDate,
-      tinNumber: parseInt(tinNumber, 10),
-    });
-
-    /* setEmployeeAddress({
-      lot: lot,
-      street: street,
-      area: area,
-      village: village,
-      region: region,
-      country: country,
-    }); */
-    //console.log(employeeInfo);
-    const checkResponse = (response) => {
-      if(response.statusText === "OK"){
-        const getEmpInfo = async () => {
-          if(regimentNumber){
-            const info = await axios.get("GetInfo/RegimentNumber/" + regimentNumber);
-
-            let Address = {
-              lot: lot,
-              street: street,
-              area: area,
-              village: village,
-              reg: parseInt(region, 10),
-              ctry: parseInt(country, 10),
-              eId: parseInt(info.data.id, 10),
-            };
-            axios.post('PostInfo/AddAnEmployeeAddress', Address)
-              .then(response => console.log(response))
-              .catch(error => console.log(error))
-          }
-        };
-        getEmpInfo();
-      }
+      firstName: employeeInfo.firstName,
+      lastName: employeeInfo.lastName,
+      otherName: employeeInfo.otherName,
+      regimentNumber: parseInt(employeeInfo.regimentNumber, 10),
+      dateOfBirth: employeeInfo.dateOfBirth,
+      sex: employeeInfo.sex,
+      nationalIdNumber: parseInt(employeeInfo.nationalIdNumber, 10),
+      passportNumber: employeeInfo.passportNumber,
+      passportExpirationDate: employeeInfo.passportExpirationDate,
+      tinNumber: parseInt(employeeInfo.tinNumber, 10),
+      lot: employeeInfo.lot,
+      street: employeeInfo.street,
+      area: employeeInfo.area,
+      village: employeeInfo.village,
+      region: parseInt(employeeInfo.region, 10),
+      country: parseInt(employeeInfo.country, 10),
     }
-    axios.post('PostInfo/AddAnEmployee', employeeInfo)
-      .then(response => checkResponse(response))
-      .catch(error => console.log(error))
-
-    /* axios.post('PostInfo/AddAnEmployeeAddress', employeeAddress)
+    if(Info){
+      axios.post('PostInfo/AddAnEmployee', Info)
       .then(response => console.log(response))
-      .catch(error => console.log(error)) */
+      .catch(error => console.log(error))
+    }    
   }
   
   return (
     <div className={classes.root}>
       <Grid container spacing={1} >
         <Grid item xs={6}>
-         <h1>Add Employee Profile</h1>
+         <h1>Add Employee Information</h1>
         </Grid>        
         <Grid container item xs={12} spacing={3}>
           <div>
             <Grid container spacing={3}>          
               <Grid item xs={12}>
-                <AddEmployeePIForm 
-                  firstName={firstName}
-                  lastName={lastName}
-                  otherName={otherName}
-                  otherNameTwo={otherNameTwo}
-                  maritalStatus={maritalStatus} 
-                  religion={religion}
-                  ethnicity={ethnicity}
-                  sex={sex}
-                  dateOfBirth={dateOfBirth}
-                  nationality={nationality}
-                  handleFirstNameChange={handleFirstNameChange}
-                  handleLastNameChange={handleLastNameChange}
-                  handleOtherNameChange={handleOtherNameChange}
-                  handleOtherNameTwoChange={handleOtherNameTwoChange}
-                  handleMaritalStatusChange={handleMaritalStatusChange}
-                  handleReligionChange={handleReligionChange}
-                  handleEthnicityChange={handleEthnicityChange}
-                  handleSexChange={handleSexChange}
-                  handleDoBChange={handleDoBChange}
-                  handleNationalityChange={handleNationalityChange}>                    
-                </AddEmployeePIForm>
+                <AddEmployeePIForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeePIForm>
               </Grid>
 
               <Grid item xs={12}>
-                <AddEmployeeAddressForm 
-                  lot={lot}
-                  street={street}
-                  area={area}
-                  village={village}
-                  region={region}
-                  country={country}
-                  handleLotChange={handleLotChange}
-                  handleStreetChange={handleStreetChange}
-                  handleAreaChange={handleAreaChange}
-                  handleVillageChange={handleVillageChange}
-                  handleRegionChange={handleRegionChange}
-                  handleCountryChange={handleCountryChange}></AddEmployeeAddressForm>
+                <AddEmployeeAddressForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeAddressForm>
               </Grid>
 
               <Grid item xs={12}>
-                <AddEmployeeContactForm 
-                  homeNumber={homeNumber}
-                  cellNumber={cellNumber}
-                  workNumber={workNumber}
-                  email={email}
-                  handleHomeNumChange={handleHomeNumChange}
-                  handleCellNumChange={handleCellNumChange}
-                  handleWorkNumChange={handleWorkNumChange}
-                  handleEmailChange={handleEmailChange}>
-                </AddEmployeeContactForm>
+                <AddEmployeeContactForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeContactForm>
               </Grid >
 
               <Grid item xs={12}>
-                <AddEmployeeOfficialInfoForm 
-                  regimentNumber={regimentNumber}
-                  nationalIdNumber={nationalIdNumber}
-                  passportNumber={passportNumber}
-                  passportExpirationDate={passportExpirationDate}
-                  tinNumber={tinNumber}
-                  handleRegNumChange={handleRegNumChange}
-                  handleNationalIdNumChange={handleNationalIdNumChange}
-                  handlePassportNumChange={handlePassportNumChange}
-                  handlePassportExpDateChange={handlePassportExpDateChange}
-                  handleTinNumChange={handleTinNumChange}>
-                </AddEmployeeOfficialInfoForm>
+                <AddEmployeeOfficialInfoForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeOfficialInfoForm>
               </Grid >
 
               <Grid item xs={12}>

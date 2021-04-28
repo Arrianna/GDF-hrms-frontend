@@ -86,14 +86,14 @@ export default function AddEmployeePIForm(props) {
                 <React.Fragment>
                   <div>
                     <Grid item xs={2}>
-                      <TextField required name="FirstName" label="First Name" value={props.firstName} onChange={props.handleFirstNameChange} variant="outlined" size="small" />                
-                      <TextField name="otherNameTwo" label="Middle Name" value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
+                      <TextField required name="firstName" label="First Name" value={props.employeeInfo && props.employeeInfo.firstName} onChange={props.handleChange} variant="outlined" size="small" />                
+                      <TextField name="otherName" label="Middle Name" value={props.employeeInfo && props.employeeInfo.otherName} onChange={props.handleChange} variant="outlined" size="small"  />
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField required id="LastName" name="lastName" label="Last Name" value={props.lastName} onChange={props.handleLastNameChange} variant="outlined" size="small" />
-                      <TextField id="MiddleNameTwo" label="Middle Name" value={props.otherNameTwo} onChange={props.handleOtherNameTwoChange} variant="outlined" size="small" />                      
+                      <TextField required id="LastName" name="lastName" label="Last Name" value={props.employeeInfo && props.employeeInfo.lastName} onChange={props.handleChange} variant="outlined" size="small" />
+                      <TextField id="MiddleNameTwo" label="Middle Name" value={props.employeeInfo && props.employeeInfo.otherName} onChange={props.handleChange} variant="outlined" size="small" />                      
                     </Grid >
                   </div>
                   <div>
@@ -104,8 +104,9 @@ export default function AddEmployeePIForm(props) {
                           <Select
                             labelId="sex-label"
                             id="sex"
-                            value={props.sex}
-                            onChange={props.handleSexChange}
+                            name="sex"
+                            value={props.employeeInfo && props.employeeInfo.sex}
+                            onChange={props.handleChange}
                             label="Sex"                  
                           >
                             <MenuItem value=""><em>Select</em></MenuItem>
@@ -115,7 +116,7 @@ export default function AddEmployeePIForm(props) {
                           </Select>
                         </FormControl>
 
-                        <TextField id="dateOfBirth" label="Date of Birth" value={props.dateOfBirth} onChange={props.handleDoBChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />                        
+                        <TextField id="dateOfBirth" name="dateOfBirth" label="Date of Birth" value={props.employeeInfo && props.employeeInfo.dateOfBirth} onChange={props.handleChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />                        
                       </Grid>
                     </Grid >
                   </div>
@@ -126,8 +127,9 @@ export default function AddEmployeePIForm(props) {
                         <Select
                           labelId="ethnicity-label"
                           id="ethnicity"
-                          value={props.ethnicity}
-                          onChange={props.handleEthnicityChange}
+                          name="ethnicityId"
+                          value={props.employeeInfo && props.employeeInfo.ethnicityId}
+                          onChange={props.handleChange}
                           label="Ethnicity"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
@@ -142,8 +144,9 @@ export default function AddEmployeePIForm(props) {
                       <Select
                         labelId="religion-label"
                         id="religion"
-                        value={props.religion}
-                        onChange={props.handleReligionChange}
+                        name="religionId"
+                        value={props.employeeInfo && props.employeeInfo.religionId}
+                        onChange={props.handleChange}
                         label="Religion"
                       >
                         <MenuItem value=""><em>Select</em></MenuItem>
@@ -160,8 +163,9 @@ export default function AddEmployeePIForm(props) {
                         <Select
                           labelId="marital-status-label"
                           id="marital-status"
-                          value={props.maritalStatus}
-                          onChange={props.handleMaritalStatusChange}
+                          name="maritalStatusId"
+                          value={props.employeeInfo && props.employeeInfo.maritalStatusId}
+                          onChange={props.handleChange}
                           label="Marital Status"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
@@ -176,21 +180,15 @@ export default function AddEmployeePIForm(props) {
                         <Select
                           labelId="nationality-label"
                           id="Nationality"
-                          value={props.nationality}
-                          onChange={props.handleNationalityChange}
+                          name="nationalityId"
+                          value={props.employeeInfo && props.employeeInfo.nationalityId}
+                          onChange={props.handleChange}
                           label="Nationality"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
                           {nationalities.map((nationality) =>
                             <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
-                          )}
-                          {/* <MenuItem value=""><em>Select</em></MenuItem>
-                          <MenuItem value={1}>Guyanese</MenuItem>
-                          <MenuItem value={2}>Surinamese</MenuItem>
-                          <MenuItem value={3}>Brazillian</MenuItem>
-                          <MenuItem value={4}>Venezuelan</MenuItem>
-                          <MenuItem value={5}>Trinidadian</MenuItem>
-                          <MenuItem value={6}>Barbadian</MenuItem> */}
+                          )}                          
                         </Select>
                       </FormControl>
                     </Grid >
