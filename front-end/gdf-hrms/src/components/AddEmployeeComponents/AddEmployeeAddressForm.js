@@ -76,22 +76,22 @@ export default function AddEmployeeAddressForm(props) {
                 <React.Fragment>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="lot" label="Lot" value={props.lot} onChange={props.handleLotChange} variant="outlined" size="small" />
+                      <TextField name="lot" label="Lot" value={props.employeeInfo && props.employeeInfo.lot} onChange={props.handleChange} variant="outlined" size="small" />
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="street" label="Street" value={props.street} onChange={props.handleStreetChange} variant="outlined" size="small" />
+                      <TextField name="street" label="Street" value={props.employeeInfo && props.employeeInfo.street} onChange={props.handleChange} variant="outlined" size="small" />
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="area" label="Area/Section" value={props.area} onChange={props.handleAreaChange} variant="outlined" size="small" />
+                      <TextField name="area" label="Area/Section" value={props.employeeInfo && props.employeeInfo.area} onChange={props.handleChange} variant="outlined" size="small" />
                     </Grid >
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="village" label="Village" value={props.village} onChange={props.handleVillageChange} variant="outlined" size="small" />
+                      <TextField name="village" label="Village" value={props.employeeInfo && props.employeeInfo.village} onChange={props.handleChange} variant="outlined" size="small" />
                     </Grid >
                   </div>
                   <div>
@@ -101,9 +101,9 @@ export default function AddEmployeeAddressForm(props) {
                         <Select
                           labelId="region-label"
                           id="region"
-                          name="reg"
-                          value={props.region}
-                          onChange={props.handleRegionChange}
+                          name="region"
+                          value={props.employeeInfo && props.employeeInfo.region}
+                          onChange={props.handleChange}
                           label="Region"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
@@ -121,9 +121,9 @@ export default function AddEmployeeAddressForm(props) {
                         <Select
                           labelId="country-label"
                           id="country"
-                          name="ctry"
-                          value={props.country}
-                          onChange={props.handleCountryChange}
+                          name="country"
+                          value={props.employeeInfo && props.employeeInfo.country}
+                          onChange={props.handleChange}
                           label="Country"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
