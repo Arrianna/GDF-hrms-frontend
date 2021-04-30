@@ -54,7 +54,6 @@ export default function ViewCareerHistory(props) {
   const [departments, setDepartments] = useState();
 
   let eId = params.empId;
-  console.log(eId);
 
   const handleClickOpen = () => {    
     setOpen(true);
@@ -91,14 +90,13 @@ export default function ViewCareerHistory(props) {
     if(careerHistory){
 
       const postRequest = async() => {
-      Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
-      .then(response => setEmpData(empData.concat(response.data)))
-      .catch(error => console.log(error)) 
-    }
+        Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
+        .then(response => setEmpData(empData.concat(response.data)))
+        .catch(error => console.log(error))
+      }
 
-    postRequest();
-  }
-   // setEmpData([careerHistory, ...empData]);
+      postRequest();
+    }
    
     setOpen(false);    
   };
@@ -110,6 +108,7 @@ export default function ViewCareerHistory(props) {
         setEmpData(info.data);
       }
     };
+
     const getEmpInfo = async () => {
       if(eId){
         const info = await Axios.get("EmployeeInfo/Id/" + eId);
@@ -140,8 +139,6 @@ export default function ViewCareerHistory(props) {
     getPosition();
     getDepartment();
   }, [eId]);
-  console.log(positions);
-  console.log(departments);
 
   const showInfo = () => {
     if(employeeInfo != null) {
@@ -232,9 +229,7 @@ export default function ViewCareerHistory(props) {
              </div>  
         )}  
     }
-  }
-
-  
+  }  
 
   return (
     <div className={classes.root}>

@@ -46,10 +46,11 @@ export default function AddEmployeeContactForm(props) {
               <Grid item xs={2}>
                 <TextField 
                   id="HomeNumber" 
+                  name="homeNumber"
                   label="Home Number"  
                   InputLabelProps={{ shrink: true,}}
-                  value={props.homeNumber}
-                  onChange={props.handleHomeNumChange}  
+                  value={props.employeeInfo && props.employeeInfo.homeNumber}
+                  onChange={props.handleChange}  
                   type="tel"                           
                   variant="outlined" 
                   size="small" 
@@ -62,10 +63,11 @@ export default function AddEmployeeContactForm(props) {
               <Grid item xs={2}>
                 <TextField 
                   id="CellNumber" 
+                  name="cellNumber"
                   label="Cell Number"  
                   InputLabelProps={{ shrink: true,}}
-                  value={props.cellNumber}
-                  onChange={props.handleCellNumChange} 
+                  value={props.employeeInfo && props.employeeInfo.cellNumber}
+                  onChange={props.handleChange} 
                   type="tel"                
                   variant="outlined" 
                   size="small" 
@@ -78,10 +80,11 @@ export default function AddEmployeeContactForm(props) {
               <Grid item xs={2}>
                 <TextField 
                   id="WorkNumber" 
+                  name="workNumber"
                   label="Work Number" 
                   InputLabelProps={{ shrink: true,}}
-                  value={props.workNumber}
-                  onChange={props.handleWorkNumChange}  
+                  value={props.employeeInfo && props.employeeInfo.workNumber}
+                  onChange={props.handleChange}  
                   type="tel"                
                   variant="outlined" 
                   size="small" 
@@ -94,11 +97,11 @@ export default function AddEmployeeContactForm(props) {
               <Grid item xs={2}>
                 <TextField 
                   id="Email"
-                  name="Email"
+                  name="email"
                   label="Email Address"
                   type="email"
-                  value={props.email}
-                  onChange={props.handleEmailChange}
+                  value={props.employeeInfo && props.employeeInfo.email}
+                  onChange={props.handleChange}
                   variant="outlined" 
                   size="small" 
                   inputRef={register({
