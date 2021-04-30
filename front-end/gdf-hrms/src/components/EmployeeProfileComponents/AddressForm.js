@@ -56,7 +56,7 @@ export default function AddressForm(props) {
                   </TableHead>
                   
                   <TableBody>
-                    {data.map((row) => {            
+                    {data.map((row) => {
                       return(
                         <StyledTableRow key={row.id}>              
                           <StyledTableCell align="center">{row.lot}</StyledTableCell>
@@ -65,10 +65,7 @@ export default function AddressForm(props) {
                           <StyledTableCell align="center">{row.village}</StyledTableCell>
                           <StyledTableCell align="center">{row.region}</StyledTableCell>
                           <StyledTableCell align="center">{row.country}</StyledTableCell>
-                          <StyledTableCell align="center">
-                            {/* <Edit className={classes.icon} onClick={() => props.selectRow(row, 'Edit')}/>
-                            &nbsp;&nbsp;&nbsp;
-                            <Delete  className={classes.icon} onClick={() => props.selectRow(row, 'Delete')}/> */}
+                          <StyledTableCell align="center">                            
                             <ButtonGroup>
                               <Button variant="text"><Edit color="primary" className={classes.icon} onClick={() => props.selectRow(row, 'Edit')}/></Button>
                               <Button variant="text"><Delete color="secondary" className={classes.icon} onClick={() => props.selectRow(row, 'Delete')}/></Button>

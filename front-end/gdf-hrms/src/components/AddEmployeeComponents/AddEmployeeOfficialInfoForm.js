@@ -66,7 +66,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                 <TextField required id="passportExpirationDate" name="passportExpirationDate" label="Passport Expiration Date" value={props.employeeInfo && props.employeeInfo.passportExpirationDate} onChange={props.handleChange} variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" inputRef={register({ required: true})}/>
                 {errors.passportExpirationDate && errors.passportExpirationDate.type === 'required' && (<p className={classes.paragraphColor}>Passport Expiration Date is required</p>)}
               </Grid >
-            </div>    
+            </div>
             <div>
               <Grid item xs={2}>
                 <TextField required id="tinNumber" name="tinNumber" label="TIN Number" value={props.employeeInfo && props.employeeInfo.tinNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i })}/>
