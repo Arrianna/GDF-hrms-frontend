@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -76,6 +77,7 @@ export default function MatPaginationTable(props) {
 
   const handleOnClick = (data) => {
     console.log(data);
+    <Link to={`/employee-profile/:${data}`}></Link>
   };
 
   return (
