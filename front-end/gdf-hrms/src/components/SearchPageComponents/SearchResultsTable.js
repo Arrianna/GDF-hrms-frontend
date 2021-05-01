@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Moment from 'react-moment';
+import Moment from 'moment';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
@@ -48,7 +48,6 @@ export default function MatPaginationTable(props) {
 
   useEffect(() => {
       setData(props.tableData);
-      console.log(props.tableData);
   }, [props.tableData]);
 
   const handleChangePage = (event, newPage) => {
@@ -60,30 +59,16 @@ export default function MatPaginationTable(props) {
     setPage(0);
   };
 
-  /*const getDate = (date) => {
-    if(date != null){
-      return date.split('T')[0]
-    }
-    else{
-      return date;
-    }
-  }*/
-
-  const rowEvents = {
+  /*const rowEvents = {
     onClick: (e, row) => {
       console.log(row);
     },
-  };
-
-  const handleOnClick = (data) => {
-    console.log(data);
-    <Link to={`/employee-profile/:${data}`}></Link>
-  };
+  };*/
 
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="customized table" rowEvents={rowEvents}>
+        <Table stickyHeader aria-label="customized table" >{/*rowEvents={rowEvents}>*/}
           <TableHead>
             <TableRow>
               <StyledTableCell align="center">First Name</StyledTableCell>
@@ -99,14 +84,14 @@ export default function MatPaginationTable(props) {
           <TableBody>
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (
-                <StyledTableRow>
+                <StyledTableRow key={row.regimentNumber}>
                   <StyledTableCell align="center">{row.firstName}</StyledTableCell>
                   <StyledTableCell align="center">{row.lastName}</StyledTableCell>
                   <StyledTableCell align="center">{row.position}</StyledTableCell>
                   <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
-                  <StyledTableCell align="center"><Moment format="D MMM YYYY">{row.dateOfBirth}</Moment></StyledTableCell>
+                  <StyledTableCell align="center">{Moment(row.dateOfBirth).format('DD-MM-YYYY')}</StyledTableCell>
                   <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
-                  <StyledTableCell align="center"><Button variant="contained" onClick={() => handleOnClick(row)}>View</Button></StyledTableCell>
+                  <StyledTableCell align="center"><Link to={'/employee-profile/' + row.regimentNumber}><Button variant="contained">View</Button></Link></StyledTableCell>
                 </StyledTableRow>
               );
             })}
@@ -114,11 +99,11 @@ export default function MatPaginationTable(props) {
         </Table>
       </TableContainer>
       <TablePagination
-      rowsPerPageOptions={[5, 10, 15]}
-      component="div" count={data.length}
-      rowsPerPage={rowsPerPage} page={page}
-      onChangePage={handleChangePage}
-      onChangeRowsPerPage={handleChangeRowsPerPage} />
+        rowsPerPageOptions={[5, 10, 15]}
+        component="div" count={data.length}
+        rowsPerPage={rowsPerPage} page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage} />
     </Paper>
   );
 }

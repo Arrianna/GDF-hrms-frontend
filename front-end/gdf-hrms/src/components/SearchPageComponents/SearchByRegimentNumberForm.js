@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   cardcontents: {        
     flex: 1,
     float: 'left',
-    margin: theme.spacing(5),        
+    margin: theme.spacing(5),   
   },
 
   paragraphColor: {
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchByRegimentNumberForm(props) {
 
   const classes = useStyles();
-
   const { register, handleSubmit, errors } = useForm();  
     
   return (    
@@ -38,7 +37,7 @@ export default function SearchByRegimentNumberForm(props) {
         <Card>
           <CardContent className={classes.cardcontents}>          
             <form className={classes.form} align='center' onSubmit={handleSubmit(props.onSubmit)}>
-              <TextField name='regNum' label='Regiment Number' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
+              <TextField required name='regNum' label='Regiment Number' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
               {errors.regNum && errors.regNum.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
               {errors.regNum && errors.regNum.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
               {errors.regNum && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}

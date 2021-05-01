@@ -7,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import moment from 'moment';
+import Edit from '@material-ui/icons/Edit';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,49 +28,61 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, department, startDate, endDate) {
-    return { name, department, startDate, endDate };
-  }
-  
-  const rows = [
-    createData('Captain', 'Finance','20th January, 2017', '20th January, 2021'),
-    createData('Corpral', 'Finance', '20th January, 2017', '20th January, 2021'),
-    
-  ];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
 });
 
-export default function CareerHistoryTable() {
-  const classes = useStyles();
+const selectRow = (row)=>{
+  console.log("hello");
+}
 
-  return (
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Position</StyledTableCell>
-                <StyledTableCell align="center">Department</StyledTableCell>
-                <StyledTableCell align="center">Start Date</StyledTableCell>
-                <StyledTableCell align="center">End Date</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{row.department}</StyledTableCell>
-                  <StyledTableCell align="center">{row.startDate}</StyledTableCell>
-                  <StyledTableCell align="center">{row.endDate}</StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      );
+
+export default function CareerHistoryTable(props) {
+  const classes = useStyles();
+  let data = props.data;
+  //console.log(data);
+  const showResults = () => {
+    if(data!= null) {
+      if(data.length > 0) {  
+        return (
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">Position</StyledTableCell>
+                  <StyledTableCell align="center">Department</StyledTableCell>
+                  <StyledTableCell align="center">Start Date</StyledTableCell>
+                  <StyledTableCell align="center">End Date</StyledTableCell>
+                  <StyledTableCell align="center">Action</StyledTableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {data.map((row) => {            
+                  return(
+                    <StyledTableRow key={row.id}>
+                      <StyledTableCell align="center">{row.position}</StyledTableCell>
+                      <StyledTableCell align="center">{row.department}</StyledTableCell>
+                      <StyledTableCell align="center">{moment(row.startDate).format('DD-MM-YYYY')}</StyledTableCell>
+                      <StyledTableCell align="center">{moment(row.endDate).format('DD-MM-YYYY')}</StyledTableCell>
+                      <StyledTableCell align="center">
+                            <Edit className={classes.icon} onClick={() => props.selectRow(row)}/>
+                          </StyledTableCell>   
+                    </StyledTableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        );
+      }
     }
+  }
+  return (
+    <div>
+      {showResults()}
+    </div>
+  );
+}
