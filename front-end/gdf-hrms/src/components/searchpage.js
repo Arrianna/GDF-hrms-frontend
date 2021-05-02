@@ -34,20 +34,25 @@ export default function SearchPage() {
   const getDataByRegNum = data => {
     setIsLoading(true);
     Axios.get("GetInfo/RegimentNumber/" + data.regNum).then((response) => {        
-        let resultArray = [];        
-        if(response.data !== ""){
-          resultArray.push(response.data);
-        }
-        setSearchResults(resultArray);
+      let resultArray = [];        
+      if(response.data !== ""){
+        resultArray.push(response.data);
+      }
+      setSearchResults(resultArray);
     });
     setIsLoading(false);
   }
   
-  const getDataByOtherCriteria= data => {
+  const getDataByOtherCriteria = data => {
     console.log(data);
     setIsLoading(true);
-    Axios.get("GetInfo/OtherCriteria/" + data.fName + '/'+ data.lName +'/'+ parseInt(data.position)).then((response) => {
-        setSearchResults(response.data);
+    let employeePosition = parseInt(data.employeePosition)
+    Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition).then((response) => {
+      let resultArray = [];
+      if(response.data !== ""){
+        resultArray.push(response.data);
+      }
+      setSearchResults(resultArray);
     });
     setIsLoading(false);
   }
