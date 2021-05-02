@@ -46,7 +46,7 @@ export default function SearchPage() {
   const getDataByOtherCriteria= data => {
     console.log(data);
     setIsLoading(true);
-    Axios.get("GetInfo/OtherCriteria/" + data.fName + '/'+ data.lName +'/'+ data.position).then((response) => {
+    Axios.get("GetInfo/OtherCriteria/" + data.fName + '/'+ data.lName +'/'+ parseInt(data.position)).then((response) => {
         setSearchResults(response.data);
     });
     setIsLoading(false);
