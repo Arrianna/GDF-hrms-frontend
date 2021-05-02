@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchByOtherCriteriaForm(props) {
   const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm();
+  const { handleSubmit } = useForm();
   const [positions, setPositions] = useState();
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState('');
 
   const handlePositionChange = (event) => {
     setPosition(event.target.value);
@@ -58,6 +58,7 @@ export default function SearchByOtherCriteriaForm(props) {
     
     getPositions();
   }, []);
+  console.log(position);
   const showInfo = () => {
     if(positions != null){
       if(positions.length > 0){
@@ -67,32 +68,30 @@ export default function SearchByOtherCriteriaForm(props) {
               <Card>        
                 <CardContent className={classes.cardcontents}>          
                   <form className={classes.form} align='center' onSubmit={handleSubmit(props.onSubmit)}>
-                    <TextField name='fName' label='First Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
-                    {errors.fName && errors.fName.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
-                    {errors.fName && errors.fName.type === 'required' && (<p className={classes.paragraphColor}>First name is required!</p>)}
+                    <TextField name='fName' label='First Name' variant='outlined' margin='normal' defaultValue={''}/>
                     <br />
-                    <TextField name='lName' label='Last Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
-                    {errors.lName && errors.lName.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
-                    {errors.lName && errors.lName.type === 'required' && (<p className={classes.paragraphColor}>Last name is required!</p>)}
+                    <TextField name='lName' label='Last Name' variant='outlined' margin='normal' defaultValue={''}/>
                     <br />
-                    {/* <TextField name='position' label='Rank' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
-                    {errors.position && errors.position.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
-                    {errors.position && errors.position.type === 'required' && (<p className={classes.paragraphColor}>First name is required!</p>)} */}
-                    <FormControl variant="outlined" className={classes.formControl}>
+                    <TextField name='position' select label='Rank' variant='outlined' margin='normal' value={position} onChange={handlePositionChange} className={classes.formControl}>
+                      {positions.map((option) => (<option key={option.id} value={option.id}>{option.name}</option>))}
+                    </TextField>
+                    {/* <FormControl name='position' variant="outlined" className={classes.formControl}>
                       <InputLabel id="position-label">Rank</InputLabel>
                       <Select
                         labelId="position-label"
                         id="position"
+                        name="position"
+                        defaultValue={''}
                         value={position}
                         onChange={handlePositionChange}
                         label="Rank"
                       >
-                        <MenuItem value=""><em>Select</em></MenuItem>
+                        <MenuItem value=""><em>Rank</em></MenuItem>
                         {positions.map((position) =>
-                          <MenuItem key={position.id} value={position.name}>{position.name}</MenuItem>
+                          <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>
                         )}
                       </Select>
-                    </FormControl>
+                    </FormControl> */}
                     <br />
                     <Button type='submit' color='primary' variant='contained'>Search<SearchIcon /></Button>
                   </form>

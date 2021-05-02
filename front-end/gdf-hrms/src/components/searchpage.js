@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPage() {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-  const [searchResults, setsearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
 
   const getDataByRegNum = data => {
     setIsLoading(true);
@@ -38,15 +38,16 @@ export default function SearchPage() {
         if(response.data !== ""){
           resultArray.push(response.data);
         }
-        setsearchResults(resultArray);
+        setSearchResults(resultArray);
     });
     setIsLoading(false);
   }
   
   const getDataByOtherCriteria= data => {
+    console.log(data);
     setIsLoading(true);
-    Axios.get("GetInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
-        setsearchResults(response.data);
+    Axios.get("GetInfo/OtherCriteria/" + data.fName + '/'+ data.lName +'/'+ parseInt(data.position)).then((response) => {
+        setSearchResults(response.data);
     });
     setIsLoading(false);
   }

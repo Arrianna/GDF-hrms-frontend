@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button } from '@material-ui/core';
-//import { Dialog, DialogActions, DialogContent, DialogContentText, Slide } from '@material-ui/core';
+import { Grid, Button, Divider } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
 import AddEmployeeOfficialInfoForm from './AddEmployeeComponents/AddEmployeeOfficialInfoForm';
+import Notification from './Notification';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddEmployeeInformation() {
   const classes = useStyles();
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [employeeInfo, setEmployeeInfo] = useState({
     nationalityId: '',
     religionId: '',
@@ -68,6 +71,23 @@ export default function AddEmployeeInformation() {
     }))
   }
 
+  const getNotification = (option) => {
+    if(option.statusText === 'OK'){
+      setNotify({
+        isOpen: true,
+        message: 'Employee Information Successfully Added',
+        type: 'success'
+      })
+    }
+    else{
+      setNotify({
+        isOpen: true,
+        message: 'An error occurred',
+        type: 'error'
+      })
+    }    
+  }
+
   const postDataHandler = () => {    
     let Info = {
       nationalityId: parseInt(employeeInfo.nationalityId, 10),
@@ -98,8 +118,8 @@ export default function AddEmployeeInformation() {
     }
     if(Info){
       axios.post('PostInfo/AddAnEmployee', Info)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
+      .then(response => getNotification(response))
+      .catch(error => getNotification(error))
     }    
   }
   
@@ -135,6 +155,7 @@ export default function AddEmployeeInformation() {
           </div>
         </Grid>
       </Grid>
+      <Notification notify={notify} setNotify={setNotify}/>
     </div>
   );
 }
