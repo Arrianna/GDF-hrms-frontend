@@ -81,14 +81,14 @@ export default function EmployeeProfileLayout(props) {
   })
 
   const [rowSelected, setRowSelected] = useState({
-    id: null,
+    id: '',
     lot:'',
     street: '',
     area: '',
     village: '',
-    regionId: null,
-    countryId: null,
-    employeeId: null,
+    regionId: '',
+    countryId: '',
+    employeeId: '',
   })
 
   const handleNewAddressChange = e => {
