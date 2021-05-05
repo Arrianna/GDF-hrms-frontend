@@ -1,11 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import { TextField } from '@material-ui/core';
+import { Button, Grid, Paper, Typography, TextField } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import { useForm } from 'react-hook-form';
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,40 +12,66 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(5),    
   },
-    
-  cardcontents: {        
-    flex: 1,
-    float: 'left',
-    margin: theme.spacing(5),   
-  },
 
   paragraphColor: {
     color: 'red'
   }
 }));
 
-export default function SearchByRegimentNumberForm(props) {
+const validationSchema = Yup.object().shape({
+  regimentalNumber: Yup.number()
+    .typeError("Enter valid Regimental Number")
+    .required("A Regimental Number is Required")
+    .positive("A regimental number can't start with a minus")
+    .integer("A regimental number can't include a decimal point"),
+  regimentalNumber: Yup.string()
+    .required("A Regimental Number is Required")
+    .matches(/^[0-9]+$/, "Regimental Number must be digits only")
+    .min(6, 'Must be at least 6 digits')
+});
 
-  const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm();  
+export default function SearchByRegimentNumberForm(submitFunction) {
+  const paperStyle = { padding: '40px 20px', width: 350, margin: '20px auto' }
+  const btnStyle = { marginTop: 30 }
     
-  return (    
-    <React.Fragment>
-      <div>
-        <Card>
-          <CardContent className={classes.cardcontents}>          
-            <form className={classes.form} align='center' onSubmit={handleSubmit(props.onSubmit)}>
-              <TextField required name='regNum' label='Regiment Number' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
-              {errors.regNum && errors.regNum.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
-              {errors.regNum && errors.regNum.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
-              {errors.regNum && errors.regNum.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
-              {errors.regNum && errors.regNum.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid regiment number</p>)}
-              <br />
-              <Button type='submit' color='primary' variant='contained'>Search<SearchIcon /></Button>               
-            </form>
-          </CardContent>        
-        </Card>
-      </div>
-    </React.Fragment>    
+  const { handleSubmit, handleChange, values, errors } = useFormik({
+    initialValues: {
+      regimentalNumber: ''
+    },
+
+    validationSchema,
+
+    onSubmit(values){
+      console.log(values);
+      submitFunction.onSubmit(values);
+    },
+  });
+
+  return (
+    <div>
+      <Grid>
+        <Paper elevation={5} style={paperStyle}>
+          <Grid align='center'>
+            <Typography variant='h6'>Search by Regimental Number</Typography>
+            <br />
+          </Grid>          
+          <form onSubmit={handleSubmit}>
+            <div>
+              <TextField 
+                name='regimentalNumber' 
+                label='Regimental Number' 
+                variant='outlined' 
+                fullWidth
+                value={values.regimentalNumber}
+                onChange={handleChange}
+                helperText={errors.regimentalNumber ? errors.regimentalNumber : null}
+              />
+                {/* {errors.regimentalNumber ? errors.regimentalNumber : null} */}
+            </div>
+                <Button type='submit' style={btnStyle} variant='contained' color='primary'>Search<SearchIcon /></Button>
+          </form>         
+        </Paper>
+      </Grid>
+    </div>
   );
 }
