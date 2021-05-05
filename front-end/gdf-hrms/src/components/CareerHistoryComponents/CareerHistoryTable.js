@@ -25,6 +25,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
+import {Formik,Form,Field, ErrorMessage} from 'formik';
+import * as Yup  from 'yup';
+
+
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -147,7 +152,13 @@ export default function CareerHistoryTable(props) {
     console.log(row.position);
     console.log('newPosition ' + newPosition)
   }
-  
+  const initialValues = {
+    newPosition: newPosition
+    
+}
+
+
+
   const handleClickOpen = () => {    
     setOpen(true);
     console.log(open);
@@ -219,6 +230,9 @@ export default function CareerHistoryTable(props) {
   }
 
   const showDialog = () => {
+    const validationSchema = Yup.object().shape({
+      newPosition: Yup.string().required("Required")
+    })
     console.log("working");
     if(positions != null && departments != null) {
       if(positions.length > 0 && departments.length > 0){
@@ -232,54 +246,65 @@ export default function CareerHistoryTable(props) {
                     <DialogTitle id="form-dialog-title">Edit Career History Record</DialogTitle>
 
                     <DialogContent>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema}>
+                        {(props)=>(
+                           <Form>
+                          <FormControl className={classes.formControl}>
+                          <InputLabel shrink="true" id="position-label">Position</InputLabel>
+                          <Select
+                            labelId="position-label"
+                            id="position"
+                            value={newPosition}
+                            onChange={handlePositionChange}
+                            label="Position"
+                            fullwidth
+                            variant="outlined"
+                            margin="normal"
+                            error={props.errors.newPosition && props.touched.newPosition}
+                            helperText={<ErrorMessage newPosition='newPosition' />} required
+                          >
+                            <MenuItem  value=""><em>Select</em></MenuItem>
+                            {positions.map((position) =>
+                              <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}  
+                          </Select>
+                        </FormControl>
+                       <br/> 
+                     
                       <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="position-label">Position</InputLabel>
-                        <Select
-                          labelId="position-label"
-                          id="position"
-                          value={newPosition}
-                          onChange={handlePositionChange}
-                          label="Position"
-                          fullwidth
-                          variant="outlined"
-                          margin="normal"
-                        >
-                          <MenuItem  value=""><em>Select</em></MenuItem>
-                          {positions.map((position) =>
-                            <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}  
-                        </Select>
-                      </FormControl>
-                     <br/> 
-                      {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
-                     <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="department-label">Department</InputLabel>
-                        <Select
-                          labelId="department-label"
-                          id="department"
-                          value={newDepartment}
-                          onChange={handleDepartmentChange}
-                          label="Department"
-                          fullwidth
-                          variant="outlined"
-                          margin="normal"
-                        >
-                         <MenuItem value=""><em>Select</em></MenuItem>
-                            {departments.map((department) =>
-                            <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem>  
-                          )}                         
-                        </Select>
-                            </FormControl> 
+                      <InputLabel shrink="true" id="department-label">Department</InputLabel>
+                      <Select
+                            labelId="department-label"
+                            id="department"
+                            value={newDepartment}
+                            onChange={handleDepartmentChange}
+                            label="Department"
+                            fullwidth
+                            variant="outlined"
+                            margin="normal"
+                            
+                          >
+                           <MenuItem value=""><em>Select</em></MenuItem>
+                              {departments.map((department) =>
+                              <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem>  
+                            )}                         
+                          </Select>
+                              </FormControl> 
+                         <br/>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
+                          <TextField margin="normal" id="startDate"  type="date" fullWidth variant="outlined" value={moment(startDate).format('YYYY-MM-DD')} onChange={handleStartDateChange}/>
+                        </FormControl>
                        <br/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
-                        <TextField margin="normal" id="startDate"  type="date" fullWidth variant="outlined" value={moment(startDate).format('YYYY-MM-DD')} onChange={handleStartDateChange}/>
-                      </FormControl>
-                     <br/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" htmlFor="component-simple">End Date</InputLabel>
-                        <TextField margin="normal" id="EndDate"  type="date" format="dd-MM-yyyy" fullWidth variant="outlined" value={moment(endDate).format('YYYY-MM-DD')} onChange={handleEndDateChange}/>
-                      </FormControl> 
-                    
+                        <FormControl className={classes.formControl}>
+                          <InputLabel shrink="true" htmlFor="component-simple">End Date</InputLabel>
+                          <TextField margin="normal" id="EndDate"  type="date" format="dd-MM-yyyy" fullWidth variant="outlined" value={moment(endDate).format('YYYY-MM-DD')} onChange={handleEndDateChange}/>
+                        </FormControl> 
+                        </Form>
+                        )}
+                     
+                    </Formik>
+
+                      
                     </DialogContent>
                   
                     <DialogActions>
