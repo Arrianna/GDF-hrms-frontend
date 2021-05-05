@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import { TextField } from '@material-ui/core';
+import { Button, Grid, Paper, Typography, TextField, Select } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import { useForm } from 'react-hook-form';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import { useForm, Controller } from 'react-hook-form';
 import Axios from 'axios';
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +32,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validationSchema = Yup.object().shape({
+  employeeFname: Yup.string()
+    .required("First Name is Required"),
+  employeeLname: Yup.string()
+    .required("Last Name is Required"),
+  employeePosition: Yup.string()
+    .required("Employee Position is Required")
+});
+
 export default function SearchByOtherCriteriaForm(props) {
   const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm();
+  const { control } = useForm();
   const [positions, setPositions] = useState();
-  const [position, setPosition] = useState("");
-
-  const handlePositionChange = (event) => {
-    setPosition(event.target.value);
-  }
   
   useEffect(() => {
     const getPositions = async () => {
@@ -58,48 +58,80 @@ export default function SearchByOtherCriteriaForm(props) {
     
     getPositions();
   }, []);
+
+  const { handleSubmit, handleChange, values, errors } = useFormik({
+    initialValues: {
+      employeeFname: '',
+      employeeLname: '',
+      employeePosition: ''
+    },
+
+    validationSchema,
+
+    onSubmit(values){
+      props.onSubmit(values);
+      console.log(values);
+    }
+  });
+  
   const showInfo = () => {
+    const paperStyle = { padding: '40px 20px', width: 350, margin: '20px auto' }
+    const btnStyle = { marginTop: 30 }    
+
     if(positions != null){
       if(positions.length > 0){
         return (
-          <React.Fragment>
-            <div>
-              <Card>        
-                <CardContent className={classes.cardcontents}>          
-                  <form className={classes.form} align='center' onSubmit={handleSubmit(props.onSubmit)}>
-                    <TextField name='fName' label='First Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
-                    {errors.fName && errors.fName.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
-                    {errors.fName && errors.fName.type === 'required' && (<p className={classes.paragraphColor}>First name is required!</p>)}
-                    <br />
-                    <TextField name='lName' label='Last Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
-                    {errors.lName && errors.lName.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
-                    {errors.lName && errors.lName.type === 'required' && (<p className={classes.paragraphColor}>Last name is required!</p>)}
-                    <br />
-                    {/* <TextField name='position' label='Rank' variant='outlined' margin='normal' defaultValue={''} inputRef={register({ required: true, maxLength: 25 })}/>
-                    {errors.position && errors.position.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 25 characters only!</p>)}
-                    {errors.position && errors.position.type === 'required' && (<p className={classes.paragraphColor}>First name is required!</p>)} */}
-                    <FormControl variant="outlined" className={classes.formControl}>
-                      <InputLabel id="position-label">Rank</InputLabel>
-                      <Select
-                        labelId="position-label"
-                        id="position"
-                        value={position}
-                        onChange={handlePositionChange}
-                        label="Rank"
-                      >
-                        <MenuItem value=""><em>Select</em></MenuItem>
-                        {positions.map((position) =>
-                          <MenuItem key={position.id} value={position.name}>{position.name}</MenuItem>
-                        )}
-                      </Select>
-                    </FormControl>
-                    <br />
-                    <Button type='submit' color='primary' variant='contained'>Search<SearchIcon /></Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
-          </React.Fragment>
+          <div>
+            <Grid>
+              <Paper elevation={5} style={paperStyle}>
+                <Grid align='center'>
+                  <Typography variant='h6'>Search by Other Criteria</Typography>
+                  <br />
+                </Grid>
+                <form onSubmit={handleSubmit}>                  
+                  <TextField 
+                    name='employeeFname' 
+                    label='First Name' 
+                    variant='outlined' 
+                    fullWidth
+                    value={values.employeeFname}
+                    onChange={handleChange}
+                    helperText={errors.employeeFname ? errors.employeeFname : null}
+                  />
+                  <br /><br />
+                  <TextField 
+                    name='employeeLname' 
+                    label='Last Name' 
+                    variant='outlined' 
+                    fullWidth
+                    value={values.employeeLname}
+                    onChange={handleChange}
+                    helperText={errors.employeeLname ? errors.employeeLname : null}
+                    />
+                  <br /><br />
+                  <TextField 
+                    select
+                    id="position" 
+                    name="employeePosition"
+                    label="Rank"
+                    variant='outlined' 
+                    margin='normal'
+                    defaultValue=""
+                    value={values.employeePosition}
+                    onChange={handleChange}
+                    className={classes.formControl}
+                    helperText={errors.employeePosition ? errors.employeePosition : null}
+                  >
+                    <MenuItem value=""><em>Select</em></MenuItem>
+                    {positions.map((position) => (
+                      <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>
+                      ))}
+                  </TextField>
+                  <Button type='submit' style={btnStyle} color='primary' variant='contained'>Search<SearchIcon /></Button>
+                </form>
+              </Paper>
+            </Grid>
+          </div>
         );
       }
     }

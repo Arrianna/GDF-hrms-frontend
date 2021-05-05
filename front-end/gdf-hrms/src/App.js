@@ -13,7 +13,7 @@ import HomePage from './components/Home';
 import UpdateEmployeeInformation from './components/UpdateEmployeeInformation';
 
 const App = () => {
-  
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,8 +21,8 @@ const App = () => {
           <Route path="/" exact component={HomePage}/>
           {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
           <Route path="/add-employee" exact component={AddEmployeeInformation} />
-          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />          
-          <Route path="/employee-history" exact component={CareerHistoryLayout} />          
+          <Route path="/employee-profile" exact component={EmployeeProfileLayout} />
+          <Route path="/employee-history" exact component={CareerHistoryLayout} />
           <Route path="/search-page" exact component={SearchPage} />
           <Route path="/employee-profile/:regNum" exact component={EmployeeProfileLayout} />
           <Route path="/employee-history-view/:empId" exact component={ViewCareerHistory} />

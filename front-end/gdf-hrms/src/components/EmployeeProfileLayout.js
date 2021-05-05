@@ -11,6 +11,7 @@ import PersonalInformationForm from './EmployeeProfileComponents/PersonalInforma
 import AddressForm from './EmployeeProfileComponents/AddressForm';
 import ContactForm from './EmployeeProfileComponents/ContactForm';
 import OfficialInformationForm from './EmployeeProfileComponents/OfficialInformationForm';
+import Notification from './Notification';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,28 +65,39 @@ export default function EmployeeProfileLayout(props) {
   const [employeeInfo, setEmployeeInfo] = useState({});
   const [employeeAddress, setEmployeeAddress] = useState();  
   const [open, setOpen] = useState(false);
-  const [lot, setLot] = useState();
-  const [street, setStreet] = useState();
-  const [area, setArea] = useState();
-  const [village, setVillage] = useState();
-  const [newRegion, setNewRegion] = useState("");
-  const [newCountry, setNewCountry] = useState("");
   const [regions, setRegions] = useState();
   const [countries, setCountries] = useState();
-
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
 
+  const [newAddress, setNewAddress] = useState({
+    lot: '',
+    street: '',
+    area: '',
+    village: '',
+    region: '',
+    country: '',
+  })
+
   const [rowSelected, setRowSelected] = useState({
-    id: null,
+    id: '',
     lot:'',
     street: '',
     area: '',
     village: '',
-    regionId: null,
-    countryId: null,
-    employeeId: null,
+    regionId: '',
+    countryId: '',
+    employeeId: '',
   })
+
+  const handleNewAddressChange = e => {
+    const {name, value} = e.target;
+    setNewAddress(prevState=>({
+      ...prevState,
+      [name]: value
+    }))
+  }
 
   const handleChange = e => {
     const {name, value} = e.target;
@@ -100,7 +112,22 @@ export default function EmployeeProfileLayout(props) {
     .then(response=>{
       setEmployeeAddress(employeeAddress.filter(row => row.id !== rowSelected.id));
       openCloseModalDelete();
-    })
+
+      if(response.status === 204){
+        setNotify({
+          isOpen: true,
+          message: 'Address Successfully Deleted',
+          type: 'success'
+        })
+      }
+      else{
+        setNotify({
+          isOpen: true,
+          message: 'An error occurred',
+          type: 'error'
+        })
+      }
+    })    
   }
 
   const putRequest = async() => {
@@ -128,9 +155,23 @@ export default function EmployeeProfileLayout(props) {
           row.countryId = editedAddress.countryId;
           row.employeeId = editedAddress.employeeId;
         }
-      })
+      })      
       setEmployeeAddress(newData);
       openCloseModalEdit();
+      if(response.status === 204){
+        setNotify({
+          isOpen: true,
+          message: 'Address Successfully Saved',
+          type: 'success'
+        })
+      }
+      else{
+        setNotify({
+          isOpen: true,
+          message: 'An error occurred',
+          type: 'error'
+        })
+      }
     })
   }
  
@@ -157,30 +198,6 @@ export default function EmployeeProfileLayout(props) {
     </div>
   )
 
-  const handleLotChange = (event) => {
-    setLot(event.target.value);
-  }
-
-  const handleStreetChange = (event) => {
-    setStreet(event.target.value);
-  }
-
-  const handleAreaChange = (event) => {
-    setArea(event.target.value);
-  }
-
-  const handleVillageChange = (event) => {
-    setVillage(event.target.value);
-  }
-
-  const handleRegionChange = (event) => {
-    setNewRegion(event.target.value);
-  }
-
-  const handleCountryChange = (event) => {
-    setNewCountry(event.target.value);
-  }
-
   const handleClickOpen = () => {    
     setOpen(true);
   };
@@ -191,21 +208,35 @@ export default function EmployeeProfileLayout(props) {
   
   const handleSave = () => {
     let Address = {
-      lot: lot,
-      street: street,
-      area: area,
-      village: village,
-      reg: newRegion,
-      ctry: newCountry,
+      lot: newAddress.lot,
+      street: newAddress.street,
+      area: newAddress.area,
+      village: newAddress.village,
+      reg: parseInt(newAddress.region, 10),
+      ctry: parseInt(newAddress.country, 10),
       eId: empId,
     }
     if(Address){
       Axios.post('PostInfo/AddAnEmployeeAddress', Address)
-      .then(response => console.log(response))
-      /* .then(response => {
+      .then(response => {
         setEmployeeAddress(employeeAddress.concat(response.data))
-      }) */
-      .catch(error => console.log(error))
+
+        if(response.status === 200){
+          setNotify({
+            isOpen: true,
+            message: 'Address Successfully Saved',
+            type: 'success'
+          })
+        }
+        else{
+          setNotify({
+            isOpen: true,
+            message: 'An error occurred',
+            type: 'error'
+          })
+        }
+      })
+      .catch(error => console.log(error))      
     }
     setEmployeeAddress([Address, ...employeeAddress]);
     setOpen(false);    
@@ -327,17 +358,18 @@ export default function EmployeeProfileLayout(props) {
                   <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
                     <DialogContent>
-                      <TextField margin="dense" id="lot" label="Lot" type="text" fullWidth value={lot} onChange={handleLotChange}/>
-                      <TextField margin="dense" id="street" label="Street" type="text" fullWidth value={street} onChange={handleStreetChange}/>
-                      <TextField margin="dense" id="area" label="Area" type="text" fullWidth value={area} onChange={handleAreaChange}/>
-                      <TextField margin="dense" id="village" label="Village" type="text" fullWidth value={village} onChange={handleVillageChange}/>
+                      <TextField margin="dense" id="lot" name="lot" label="Lot" type="text" fullWidth value={newAddress.lot} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="street" name="street" label="Street" type="text" fullWidth value={newAddress.street} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="area" name="area" label="Area" type="text" fullWidth value={newAddress.area} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="village" name="village" label="Village" type="text" fullWidth value={newAddress.village} onChange={handleNewAddressChange}/>
                       <FormControl className={classes.formControl}>
                         <InputLabel shrink="true" id="region-label">Region</InputLabel>
                         <Select
                           labelId="region-label"
                           id="region"
-                          value={newRegion}
-                          onChange={handleRegionChange}
+                          name="region"
+                          value={newAddress.region}
+                          onChange={handleNewAddressChange}
                           label="Region"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
@@ -352,8 +384,9 @@ export default function EmployeeProfileLayout(props) {
                         <Select
                           labelId="country-label"
                           id="country"
-                          value={newCountry}
-                          onChange={handleCountryChange}
+                          name="country"
+                          value={newAddress.country}
+                          onChange={handleNewAddressChange}
                           label="Country"
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
@@ -416,6 +449,7 @@ export default function EmployeeProfileLayout(props) {
       <Modal open={modalEdit} onClose={openCloseModalEdit}>
         {bodyEdit()}        
       </Modal>
+      <Notification notify={notify} setNotify={setNotify}/>
     </div>
   );
 }

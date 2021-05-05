@@ -7,10 +7,9 @@ import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentN
 import SearchByOtherCriteriaForm from './SearchPageComponents/SearchByOtherCriteriaForm';
 import MatPaginationTable from './SearchPageComponents/SearchResultsTable';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Axios from 'axios'; // remember to npm install Axios
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
-
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -29,24 +28,36 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPage() {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-  const [searchResults, setsearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
+
+  /* const onSubmit = (values, props) => {
+    alert(JSON.stringify(values), null, 2)
+    props.resetForm()
+  } */
 
   const getDataByRegNum = data => {
+    console.log(data);
     setIsLoading(true);
-    Axios.get("GetInfo/RegimentNumber/" + data.regNum).then((response) => {        
-        let resultArray = [];        
-        if(response.data !== ""){
-          resultArray.push(response.data);
-        }
-        setsearchResults(resultArray);
+    Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber).then((response) => {        
+      let resultArray = [];        
+      if(response.data !== ""){
+        resultArray.push(response.data);
+      }
+      setSearchResults(resultArray);
     });
     setIsLoading(false);
   }
   
-  const getDataByOtherCriteria= data => {
+  const getDataByOtherCriteria = data => {
+    console.log(data);
     setIsLoading(true);
-    Axios.get("GetInfo/OtherCriteria/" + data.fName + '%2'+ data.lName +'%2'+ data.position +'?employeeFname='+ data.fName + '&employeeLname=' + data.lName + '&employeePosition=' + data.position).then((response) => {
-        setsearchResults(response.data);
+    let employeePosition = parseInt(data.employeePosition)
+    Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition).then((response) => {
+      let resultArray = [];
+      if(response.data !== ""){
+        resultArray.push(response.data);
+      }
+      setSearchResults(resultArray);
     });
     setIsLoading(false);
   }
@@ -73,12 +84,12 @@ export default function SearchPage() {
       <div className={classes.root}>
         <Card>
           <CardContent className={classes.cardcontents}>
-            <Typography variant='h5' align='center' gutterBottom >Search by Regiment Number</Typography>
+            {/* <Typography variant='h5' align='center' gutterBottom >Search by Regiment Number</Typography> */}
             <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
           </CardContent>
 
           <CardContent className={classes.cardcontents}>
-            <Typography variant='h5' align='center' gutterBottom>Search by Other Criteria</Typography>
+            {/* <Typography variant='h5' align='center' gutterBottom>Search by Other Criteria</Typography> */}
             <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)}> </SearchByOtherCriteriaForm>
           </CardContent>
         </Card>
