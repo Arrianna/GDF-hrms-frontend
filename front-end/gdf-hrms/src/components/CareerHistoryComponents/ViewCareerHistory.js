@@ -16,6 +16,10 @@ import SaveIcon from '@material-ui/icons/Save';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import { ErrorSharp, TouchAppRounded } from '@material-ui/icons';
+
+import {Formik,Form,Field, ErrorMessage} from 'formik';
+import * as Yup  from 'yup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,16 +30,17 @@ const useStyles = makeStyles((theme) => ({
     }, 
   },
 
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 200,
-  },
-
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  // formControl: {
+  //   margin: theme.spacing(1),
+  //   minWidth: 200,
+  // },
+  
+  
 }));
 
 export default function ViewCareerHistory(props) {
@@ -52,6 +57,29 @@ export default function ViewCareerHistory(props) {
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState();
   const [departments, setDepartments] = useState();
+
+  
+  //Define object schema and its validation
+  const initialValues = {
+    newPosition: [],
+    startDate:'',
+    endDate:''
+  }
+
+  //Create validator object using Yup with expected schema and validation
+  const validationSchema = Yup.object().shape({
+    newPosition:Yup.array().of(
+      Yup.object().shape({
+        label: Yup.string().required(),
+        value: Yup.string().required(),
+      })
+    )
+    .required("Required"),
+
+    startDate:Yup.date().required("Required"),
+    endDate: Yup.date().required("End Date is required").min(Yup.ref('startDate'))
+  
+  });
 
   let eId = params.empId;
 
@@ -159,61 +187,102 @@ export default function ViewCareerHistory(props) {
           <Grid container spacing={3}>
             <Grid container item xs={12} spacing={3}>
               <React.Fragment>
+              
                  <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
 
                     <DialogTitle id="form-dialog-title">Add Career History Record</DialogTitle>
-
+                   
                     <DialogContent>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="position-label">Position</InputLabel>
-                        <Select
-                          labelId="position-label"
-                          id="position"
-                          value={newPosition}
-                          onChange={handlePositionChange}
-                          label="Position"
-                          fullwidth
-                          variant="outlined"
-                          margin="normal"
-                        >
-                          <MenuItem  value=""><em>Select</em></MenuItem>
-                          {positions.map((position) =>
-                            <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}  
-                        </Select>
-                      </FormControl>
-                     <br/>
-                      {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="department-label">Department</InputLabel>
-                        <Select
-                          labelId="department-label"
-                          id="department"
-                          value={newDepartment}
-                          onChange={handleDepartmentChange}
-                          label="Department"
-                          fullwidth
-                          variant="outlined"
-                          margin="normal"
-                        >
-                         <MenuItem value=""><em>Select</em></MenuItem>
-                            {departments.map((department) =>
-                            <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem>  
-                          )}                         
-                        </Select>
-                      </FormControl>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema}>
+                      {(props)=>(
+                        <Form>
+                         {/* <FormControl className={classes.formControl}> */}
+                         <InputLabel shrink="true" id="position-label">Position</InputLabel>
+                         <Select
+                           labelId="position-label"
+                           id="position"
+                           value={newPosition}
+                           onChange={handlePositionChange}
+                           label="Position"
+                           fullwidth
+                           variant="outlined"
+                           margin="normal"
+                          
+                         >
+                           <MenuItem  value=""><em>Select</em></MenuItem>
+                           {positions.map((position) =>
+                             <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}  
+                         </Select>
+                       
+                       {/* </FormControl> */}
+
+
                       <br/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
-                        <TextField margin="normal" id="startDate"  type="date" fullWidth variant="outlined" value={startDate} onChange={handleStartDateChange}/>
-                      </FormControl>
-                     <br/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" htmlFor="component-simple">End Date</InputLabel>
-                        <TextField margin="normal" id="EndDate"  type="date" fullWidth variant="outlined" value={endDate} onChange={handleEndDateChange}/>
-                      </FormControl>
+                       {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
+                       {/* <FormControl className={classes.formControl}> */}
+                         <InputLabel shrink="true" id="department-label">Department</InputLabel>
+                         <Select
+                           labelId="department-label"
+                           name="department"
+                           id="department"
+                           value={newDepartment}
+                           onChange={handleDepartmentChange}
+                           label="Department"
+                           fullwidth
+                           variant="outlined"
+                           margin="normal"
+                          
+                         >
+ 
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                             {departments.map((department) =>
+                             <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem> 
+                          
+                           )}                         
+                         </Select>
+                       {/* </FormControl> */}
+                       
+
+                       <Field as={TextField}   
+                        name='startDate' 
+                        label='Start Date'
+                        variant = 'outlined'
+                        type='date' 
+                        fullWidth 
+                        InputLabelProps={{ shrink: true,}}
+                        error={props.errors.startDate && props.touched.startDate}
+                        helperText={<ErrorMessage name='startDate' />}  />
+                     
+                       {/* <FormControl className={classes.formControl}>
+                         <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
+                         <TextField margin="normal" id="startDate"  name="startDate"  type="date" fullWidth 
+                         variant="outlined" value={startDate} onChange={handleStartDateChange}
+                         error={props.errors.startDate && props.touched.startDate}
+                         helperText={<ErrorMessage name='startDate' />} required
+                         />
+                       </FormControl>
+                        */}
+                      
+                      <br/>
+                      <Field as={TextField} 
+                        name='endDate' 
+                        label='End Date'
+                        variant='outlined'
+                        type='date' 
+                        fullWidth 
+                        InputLabelProps={{ shrink: true,}}
+                        error={props.errors.endDate && props.touched.endDate}
+                        helperText={<ErrorMessage name='endDate' />} required />
+                     
+                      
+                    
+                       </Form>
+                      )}
+                    </Formik>
+                     
                     
                     </DialogContent>
-
+                    
                     <DialogActions>
                     <div>
                       <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
