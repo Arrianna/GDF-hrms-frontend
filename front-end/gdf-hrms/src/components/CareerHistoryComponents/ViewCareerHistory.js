@@ -16,6 +16,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import Notification from './Notification';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +54,7 @@ export default function ViewCareerHistory(props) {
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState();
   const [departments, setDepartments] = useState();
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   let eId = params.empId;
 
@@ -79,6 +82,23 @@ export default function ViewCareerHistory(props) {
     setEndDate(event.target.value);
   }
 
+  const getNotification = (option, notificationType) => {
+    if(notificationType === 'success'){
+      setNotify({
+        isOpen: true,
+        message: 'Career History Information Successfully AddedS',
+        type: 'success'
+      })
+  }
+    if(notificationType == 'error'){
+      setNotify({
+        isOpen: true,
+        message: 'An error was detected',
+        type: 'error'
+      })
+    }
+    }
+
   const handleSave = () => {
     let careerHistory = {
       eId: parseInt(eId),
@@ -91,8 +111,9 @@ export default function ViewCareerHistory(props) {
 
       const postRequest = async() => {
         Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
-        .then(response => setEmpData(empData.concat(response.data)))
-        .catch(error => console.log(error))
+        .then(response => getNotification(response, 'success'))
+     //   .then(response => setEmpData(empData.concat(response.data)))
+        .catch(error => getNotification(error, 'error'))
       }
 
       postRequest();
@@ -144,7 +165,7 @@ export default function ViewCareerHistory(props) {
     if(employeeInfo != null) {
       return(
         <div>
-         <h2>Career History for {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h2>  
+         <h1>Career History for :   {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h1>  
         </div>
       );
     }
@@ -164,6 +185,7 @@ export default function ViewCareerHistory(props) {
                     <DialogTitle id="form-dialog-title">Add Career History Record</DialogTitle>
 
                     <DialogContent>
+
                       <FormControl className={classes.formControl}>
                         <InputLabel shrink="true" id="position-label">Position</InputLabel>
                         <Select
@@ -219,7 +241,7 @@ export default function ViewCareerHistory(props) {
                       <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
                     </div>
                     <div>
-                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<SaveIcon />}>Save Address</Button>
+                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<SaveIcon />}>Save Career History</Button>
                     </div>
                     </DialogActions>
                   </Dialog>
@@ -233,37 +255,30 @@ export default function ViewCareerHistory(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
-        <Grid item xs={6}>  
+      <Grid container xs={12} justify="center" alignItems="center" direction="column" spacing={3}>
+          <Grid item>
           {showInfo()}
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <React.Fragment>
-            <div>
-              <Grid container spacing={3}>    
-                <Grid item xs={12}>
+          </Grid>
+          
+          <Grid item>
+            <Grid container spacing={1} direction="column">
+           <Button variant="contained" color="primary" size="medium" onClick={handleClickOpen}>
+             Add Career History Record
+          </Button>
+          </Grid>
+          </Grid>
 
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Add Career History Record
-                    {/* <Link to={'/add-address/' + empId}>Add Employee Address</Link> */}
-                  </Button>
-                </Grid>
+          <Grid>
+           {showDialog()}
+          </Grid>
 
-              <Grid item xs={12}>
-                <div>
-                {showDialog()}
-                </div>
-              </Grid>
+          <Grid item>
+          <CareerHistoryTable data={empData}></CareerHistoryTable>  
+          </Grid>
 
-                </Grid>            
-                <Grid item xs={12}>
-                   <CareerHistoryTable data={empData}></CareerHistoryTable>  
-                </Grid>
-           
-            </div>
-          </React.Fragment>
-        </Grid>
       </Grid>
-    </div>
+
+      </div>
+    
   );
 }
