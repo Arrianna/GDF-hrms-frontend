@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import Card from '@material-ui/core/Card';
 import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentNumberForm';
@@ -30,13 +29,7 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
 
-  /* const onSubmit = (values, props) => {
-    alert(JSON.stringify(values), null, 2)
-    props.resetForm()
-  } */
-
   const getDataByRegNum = data => {
-    console.log(data);
     setIsLoading(true);
     Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber).then((response) => {        
       let resultArray = [];        
@@ -49,7 +42,6 @@ export default function SearchPage() {
   }
   
   const getDataByOtherCriteria = data => {
-    console.log(data);
     setIsLoading(true);
     let employeePosition = parseInt(data.employeePosition)
     Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition).then((response) => {
@@ -84,12 +76,10 @@ export default function SearchPage() {
       <div className={classes.root}>
         <Card>
           <CardContent className={classes.cardcontents}>
-            {/* <Typography variant='h5' align='center' gutterBottom >Search by Regiment Number</Typography> */}
             <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
           </CardContent>
 
           <CardContent className={classes.cardcontents}>
-            {/* <Typography variant='h5' align='center' gutterBottom>Search by Other Criteria</Typography> */}
             <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)}> </SearchByOtherCriteriaForm>
           </CardContent>
         </Card>
