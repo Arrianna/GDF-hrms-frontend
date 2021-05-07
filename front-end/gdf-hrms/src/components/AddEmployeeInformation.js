@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import axios from 'axios';
-
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';
 import AddEmployeeContactForm from './AddEmployeeComponents/AddEmployeeContactForm';
@@ -134,9 +133,9 @@ export default function AddEmployeeInformation() {
                 <AddEmployeePIForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeePIForm>
               </Grid>
 
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <AddEmployeeAddressForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeAddressForm>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <AddEmployeeContactForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeContactForm>

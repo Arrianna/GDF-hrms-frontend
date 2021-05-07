@@ -75,7 +75,7 @@ export default function PersonalInformationForm(employeeInfo) {
   
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container >
         <h4>Personal Information</h4>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
@@ -98,8 +98,7 @@ export default function PersonalInformationForm(employeeInfo) {
                 <TextField id="MiddleNameOne" label="Middle Name" variant="outlined" size="small"  InputLabelProps={{ shrink: true,}} value={employeeInfo.employeeInfo.otherName} />
                 <TextField id="MiddleNameTwo" label="Middle Name 2" InputLabelProps={{ shrink: true,}} variant="outlined" size="small" />
               </Grid>
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <Field as={TextField} 
                   name="lastName" 
@@ -124,8 +123,7 @@ export default function PersonalInformationForm(employeeInfo) {
                       //  value={employeeInfo.employeeInfo.ethnicity} 
                        />
               </Grid >
-            </div> 
-            <div>
+           
               <Grid item xs={2}>
                 <Grid item xs={2}>
                   <Field as= {TextField} 
