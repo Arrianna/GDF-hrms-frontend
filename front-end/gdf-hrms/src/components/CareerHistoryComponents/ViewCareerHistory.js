@@ -218,7 +218,7 @@ export default function ViewCareerHistory(props) {
                         name='newPosition'
                         label= 'Rank'
                         fullWidth
-                        variant='outlined'
+                        //variant='outlined'
                         InputLabelProps={{ shrink: true,}}
                         error={props.errors.newPosition && props.touched.newPosition}
                         helperText={<ErrorMessage name='newPosition' />} 
@@ -239,7 +239,7 @@ export default function ViewCareerHistory(props) {
                         name='newDepartment'
                         label='Department'
                         fullWidth
-                        variant='outlined'
+                     //  variant='outlined'
                         InputLabelProps={{ shrink: true,}}
                         error={props.errors.newDepartment && props.touched.newDepartment}
                       helperText={<ErrorMessage name='newDepartment' />} 
@@ -260,7 +260,7 @@ export default function ViewCareerHistory(props) {
                       <Field as ={TextField}
                         name='startDate' 
                         label='Start Date'
-                        variant = 'outlined'
+                    //    variant = 'outlined'
                         type='date' 
                         fullWidth 
                         InputLabelProps={{ shrink: true,}}
@@ -273,7 +273,7 @@ export default function ViewCareerHistory(props) {
                       <Field as={TextField} 
                         name='endDate' 
                         label='End Date'
-                        variant='outlined'
+                     //   variant='outlined'
                         type='date' 
                         fullWidth 
                         InputLabelProps={{ shrink: true,}}
