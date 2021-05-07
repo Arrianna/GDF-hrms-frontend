@@ -63,16 +63,18 @@ export default function ViewCareerHistory(props) {
 
   //Create validator object using Yup with expected schema and validation
   const validationSchema = Yup.object().shape({
-    newPosition:Yup.string().required("Required"),
-    newDepartment:Yup.string().required("Required"),
-    startDate:Yup.date().required("Required"),
-    endDate: Yup.date().required("End Date is required")
+    newPosition:Yup.string()
+      .required("Employee Rank is Required"),
+    newDepartment:Yup.string()
+      .required("Department is Required"),
+    startDate:Yup.date()
+      .required("Required"),
+    endDate: Yup.date()
+      .min(Yup.ref('startDate'),"End date can't be before Start date")
     
   
   });
-  
-  
-  
+
   
   let eId = params.empId;
 
