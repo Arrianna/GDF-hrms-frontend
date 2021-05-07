@@ -1,8 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, Divider } from '@material-ui/core';
-import { Snackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import { Grid, Button } from '@material-ui/core';
 import axios from 'axios';
 import AddEmployeePIForm from './AddEmployeeComponents/AddEmployeePIForm';
 import AddEmployeeAddressForm from './AddEmployeeComponents/AddEmployeeAddressForm';

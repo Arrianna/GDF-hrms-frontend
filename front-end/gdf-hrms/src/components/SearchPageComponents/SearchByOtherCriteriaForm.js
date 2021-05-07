@@ -1,50 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import { TextField } from '@material-ui/core';
+import { Button, Grid, Paper, Typography, TextField, MenuItem } from "@material-ui/core";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import SearchIcon from '@material-ui/icons/Search';
-import { useForm, Controller } from 'react-hook-form';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Axios from 'axios';
+import * as Yup from 'yup'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: theme.spacing(5),
-  },
-    
-  cardcontents: {        
-    flex: 1,
-    float: 'left',
-    margin: theme.spacing(5),        
-  },
-
-  paragraphColor: {
-    color: 'red'
-  },
-
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 200,
-  },
-}));
-
-export default function SearchByOtherCriteriaForm(props) {
-  const classes = useStyles();
-  const { register, handleSubmit, control } = useForm();
+export default function SearchByOtherCriteriaForm(submitFunction) {
   const [positions, setPositions] = useState();
-  //const [position, setPosition] = useState('');
   
- /*  const handlePositionChange = (event) => {
-    setPosition(event.target.value);
-  } */
+  const initialValues = {
+    employeeFname: '',
+    employeeLname: '',
+    employeePosition: '',
+  }
+
+  const validationSchema = Yup.object().shape({
+    employeeFname: Yup.string()
+      .required("First Name is Required"),
+    employeeLname: Yup.string()
+      .required("Last Name is Required"),
+    employeePosition: Yup.string()
+      .required("Employee Position is Required")
+  });
+
+  const onSubmit = (values, props) => {
+    submitFunction.onSubmit(values);
+    props.resetForm()
+  }
   
   useEffect(() => {
     const getPositions = async () => {
@@ -58,45 +40,64 @@ export default function SearchByOtherCriteriaForm(props) {
     
     getPositions();
   }, []);
-  //console.log(position);
+
   const showInfo = () => {
+    const paperStyle = { padding: '40px 20px', width: 350, margin: '20px auto' }
+    const btnStyle = { marginTop: 20 }    
+
     if(positions != null){
       if(positions.length > 0){
         return (
-          <React.Fragment>
-            <div>
-              <Card>        
-                <CardContent className={classes.cardcontents}>          
-                  <form align='center' onSubmit={handleSubmit(props.onSubmit)}>
-                    <TextField name='employeeFname' label='First Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register}/>
-                    <br />
-                    <TextField name='employeeLname' label='Last Name' variant='outlined' margin='normal' defaultValue={''} inputRef={register}/>
-                    <br />
-                    <FormControl>
-                      <InputLabel htmlFor="position">Rank</InputLabel>
-                      <Controller
-                        control={control}
-                        name="employeePosition"
-                        as={
-                          <Select 
-                            id="position" 
-                            variant='outlined' 
-                            margin='normal'
-                            className={classes.formControl}>
-                            {positions.map((position) => (
-                              <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>
-                              ))}
-                          </Select>
-                        }
-                      />
-                    </FormControl>
-                    <br />
-                    <Button type='submit' color='primary' variant='contained'>Search<SearchIcon /></Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
-          </React.Fragment>
+          <Grid>
+            <Paper elevation={5} style={paperStyle}>
+              <Grid align='center'>
+                <Typography variant='h6'>Search by Other Criteria</Typography>
+              </Grid>
+              <br />
+              <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+                {(props) => (
+                  <Form>
+                    <Field as={TextField} 
+                      name='employeeFname' 
+                      label='First Name' 
+                      fullWidth
+                      variant='outlined'
+                      error={props.errors.employeeFname && props.touched.employeeFname}
+                      helperText={<ErrorMessage name='employeeFname' />} 
+                      required 
+                    />
+                    <br /><br />
+                    <Field as={TextField} 
+                      name='employeeLname' 
+                      label='Last Name' 
+                      fullWidth
+                      variant='outlined'
+                      error={props.errors.employeeLname && props.touched.employeeLname}
+                      helperText={<ErrorMessage name='employeeLname' />} 
+                      required 
+                    />
+                    <br /><br />
+                    <Field as={TextField} 
+                      select
+                      name='employeePosition' 
+                      label='Rank' 
+                      fullWidth
+                      variant='outlined'
+                      error={props.errors.employeePosition && props.touched.employeePosition}
+                      helperText={<ErrorMessage name='employeePosition' />} 
+                      required 
+                    >
+                      <MenuItem value=""><em>Select</em></MenuItem>
+                      {positions.map((position) => (
+                        <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>
+                      ))}
+                    </Field>
+                    <Button type='submit' style={btnStyle} variant='contained' color='primary'>Search<SearchIcon /></Button>
+                  </Form>
+                )}
+              </Formik>
+            </Paper>
+          </Grid>
         );
       }
     }

@@ -21,9 +21,14 @@ import SaveIcon from '@material-ui/icons/Save';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Notification from './Notification';
+
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+
+import {Formik,Form,Field, ErrorMessage} from 'formik';
+import * as Yup  from 'yup';
+
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -46,7 +51,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 1300,
+    minWidth: 700,
   },
 
   formControl: {
@@ -71,7 +76,7 @@ export default function CareerHistoryTable(props) {
   const [departments, setDepartments] = useState();
   const [rowId, setRowId] = useState();
   const [eId, setEId] = useState();
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+  
 
   let data = props.data;
   //console.log(data);
@@ -147,7 +152,13 @@ export default function CareerHistoryTable(props) {
     console.log(row.position);
     console.log('newPosition ' + newPosition)
   }
-  
+  const initialValues = {
+    newPosition: newPosition
+    
+}
+
+
+
   const handleClickOpen = () => {    
     setOpen(true);
     console.log(open);
@@ -156,26 +167,6 @@ export default function CareerHistoryTable(props) {
   const handleCancel = () => {
     setOpen(false);
   };
-
-  const getNotification = (option, notificationType) => {
-    if(notificationType === 'success'){
-   // if(option.statusText === 'OK' || 'No Content'){
-      setNotify({
-        isOpen: true,
-        message: 'Career History Information Successfully Updated',
-        type: 'success'
-      })
-  //  }
-  }
-    if(notificationType == 'error'){
-      setNotify({
-        isOpen: true,
-        message: 'An error was detected',
-        type: 'error'
-      })
-    }
-    }
-  
 
   const handleSave = () => {
     let careerHistory = {
@@ -186,15 +177,12 @@ export default function CareerHistoryTable(props) {
       startDate: startDate,
       endDate: endDate
     }
-    
     if(careerHistory){
-      console.log(careerHistory);
 
       const patchRequest = async() => {
-      Axios.patch('UpdateInfo/update/employeeCH/' + careerHistory.id, careerHistory)
-      .then(response => getNotification(response, 'success'))
-      .then(response => console.log(response))
-      .catch(error => getNotification(error, 'error')) 
+      Axios.patch('UpdateInfo/update/employeeCH/' + eId, careerHistory)
+     // .then(response => (data = data.concat(response.data)))
+      .catch(error => console.log(error)) 
     }
 
     patchRequest();
@@ -203,14 +191,10 @@ export default function CareerHistoryTable(props) {
    
     setOpen(false);    
   };
-
-
-
   const showResults = () => {
     if(data!= null) {
       if(data.length > 0) {  
         return (
-          
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
               <TableHead>
@@ -240,74 +224,87 @@ export default function CareerHistoryTable(props) {
               </TableBody>
             </Table>
           </TableContainer>
-         
         );
       }
     }
   }
 
   const showDialog = () => {
+    const validationSchema = Yup.object().shape({
+      newPosition: Yup.string().required("Required")
+    })
     console.log("working");
     if(positions != null && departments != null) {
       if(positions.length > 0 && departments.length > 0){
         return(
           <div className={classes.root}>
           <Grid container spacing={3}>
-            <Grid item>
+            <Grid container item xs={12} spacing={3}>
               <React.Fragment>
                  <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
 
                     <DialogTitle id="form-dialog-title">Edit Career History Record</DialogTitle>
 
                     <DialogContent>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema}>
+                        {(props)=>(
+                           <Form>
+                          <FormControl className={classes.formControl}>
+                          <InputLabel shrink="true" id="position-label">Position</InputLabel>
+                          <Select
+                            labelId="position-label"
+                            id="position"
+                            value={newPosition}
+                            onChange={handlePositionChange}
+                            label="Position"
+                            fullwidth
+                            variant="outlined"
+                            margin="normal"
+                            error={props.errors.newPosition && props.touched.newPosition}
+                            helperText={<ErrorMessage newPosition='newPosition' />} required
+                          >
+                            <MenuItem  value=""><em>Select</em></MenuItem>
+                            {positions.map((position) =>
+                              <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}  
+                          </Select>
+                        </FormControl>
+                       <br/> 
+                     
                       <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="position-label">Position</InputLabel>
-                        <Select
-                          labelId="position-label"
-                          id="position"
-                          value={newPosition}
-                          onChange={handlePositionChange}
-                          label="Position"
-                          fullwidth
-                          variant="outlined"
-                          margin="normal"
-                        >
-                          <MenuItem  value=""><em>Select</em></MenuItem>
-                          {positions.map((position) =>
-                            <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}  
-                        </Select>
-                      </FormControl>
-                     <br/> 
-                      {/* <TextField margin="dense" id="country" label="Country" type="text" fullWidth/> */}
-                     <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="department-label">Department</InputLabel>
-                        <Select
-                          labelId="department-label"
-                          id="department"
-                          value={newDepartment}
-                          onChange={handleDepartmentChange}
-                          label="Department"
-                          fullwidth
-                          variant="outlined"
-                          margin="normal"
-                        >
-                         <MenuItem value=""><em>Select</em></MenuItem>
-                            {departments.map((department) =>
-                            <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem>  
-                          )}                         
-                        </Select>
-                            </FormControl> 
+                      <InputLabel shrink="true" id="department-label">Department</InputLabel>
+                      <Select
+                            labelId="department-label"
+                            id="department"
+                            value={newDepartment}
+                            onChange={handleDepartmentChange}
+                            label="Department"
+                            fullwidth
+                            variant="outlined"
+                            margin="normal"
+                            
+                          >
+                           <MenuItem value=""><em>Select</em></MenuItem>
+                              {departments.map((department) =>
+                              <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem>  
+                            )}                         
+                          </Select>
+                              </FormControl> 
+                         <br/>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
+                          <TextField margin="normal" id="startDate"  type="date" fullWidth variant="outlined" value={moment(startDate).format('YYYY-MM-DD')} onChange={handleStartDateChange}/>
+                        </FormControl>
                        <br/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
-                        <TextField margin="normal" id="startDate"  type="date" fullWidth variant="outlined" value={moment(startDate).format('YYYY-MM-DD')} onChange={handleStartDateChange}/>
-                      </FormControl>
-                     <br/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" htmlFor="component-simple">End Date</InputLabel>
-                        <TextField margin="normal" id="EndDate"  type="date"  fullWidth variant="outlined" value={moment(endDate).format('YYYY-MM-DD')} onChange={handleEndDateChange}/>
-                      </FormControl> 
-                    
+                        <FormControl className={classes.formControl}>
+                          <InputLabel shrink="true" htmlFor="component-simple">End Date</InputLabel>
+                          <TextField margin="normal" id="EndDate"  type="date" format="dd-MM-yyyy" fullWidth variant="outlined" value={moment(endDate).format('YYYY-MM-DD')} onChange={handleEndDateChange}/>
+                        </FormControl> 
+                        </Form>
+                        )}
+                     
+                    </Formik>
+
+                      
                     </DialogContent>
                   
                     <DialogActions>
@@ -332,7 +329,6 @@ export default function CareerHistoryTable(props) {
     <div>
       {showResults()}
       {showDialog()}
-      <Notification notify={notify} setNotify={setNotify}/>
     </div>
   );
 }

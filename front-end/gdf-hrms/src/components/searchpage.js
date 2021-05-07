@@ -1,16 +1,14 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import Card from '@material-ui/core/Card';
 import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentNumberForm';
 import SearchByOtherCriteriaForm from './SearchPageComponents/SearchByOtherCriteriaForm';
 import MatPaginationTable from './SearchPageComponents/SearchResultsTable';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Axios from 'axios'; // remember to npm install Axios
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
-
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -33,7 +31,7 @@ export default function SearchPage() {
 
   const getDataByRegNum = data => {
     setIsLoading(true);
-    Axios.get("GetInfo/RegimentNumber/" + data.regNum).then((response) => {        
+    Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber).then((response) => {        
       let resultArray = [];        
       if(response.data !== ""){
         resultArray.push(response.data);
@@ -44,7 +42,6 @@ export default function SearchPage() {
   }
   
   const getDataByOtherCriteria = data => {
-    console.log(data);
     setIsLoading(true);
     let employeePosition = parseInt(data.employeePosition)
     Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition).then((response) => {
@@ -79,12 +76,10 @@ export default function SearchPage() {
       <div className={classes.root}>
         <Card>
           <CardContent className={classes.cardcontents}>
-            <Typography variant='h5' align='center' gutterBottom >Search by Regiment Number</Typography>
             <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
           </CardContent>
 
           <CardContent className={classes.cardcontents}>
-            <Typography variant='h5' align='center' gutterBottom>Search by Other Criteria</Typography>
             <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)}> </SearchByOtherCriteriaForm>
           </CardContent>
         </Card>
