@@ -38,11 +38,11 @@ export default function AddEmployeeContactForm(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container>
       <h4>Contact Information</h4>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container xs={12} spacing={3}>
           <React.Fragment>
-            <div>
+           
               <Grid item xs={2}>
                 <TextField 
                   id="HomeNumber" 
@@ -58,8 +58,7 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
                 />                
               </Grid>
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <TextField 
                   id="CellNumber" 
@@ -75,8 +74,7 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><PhoneAndroidIcon color="primary"/></InputAdornment>,}}
                 />
               </Grid>
-            </div>
-            <div>   
+            
               <Grid item xs={2}>
                 <TextField 
                   id="WorkNumber" 
@@ -92,8 +90,7 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
                 />                
               </Grid >
-            </div>
-            <div>
+          
               <Grid item xs={2}>
                 <TextField 
                   id="Email"
@@ -118,7 +115,7 @@ export default function AddEmployeeContactForm(props) {
                 />
                 {errors.email && ( <span className={classes.error}>{errors.email.message}</span> )}
               </Grid >
-            </div>    
+               
           </React.Fragment>
         </Grid>
       </Grid>

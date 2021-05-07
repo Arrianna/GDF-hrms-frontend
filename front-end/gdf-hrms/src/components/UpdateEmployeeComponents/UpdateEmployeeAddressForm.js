@@ -94,31 +94,26 @@ export default function AddEmployeeAddressForm(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container>
         <h4>Address </h4>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container xs={12} spacing={3}>
           <React.Fragment>
-            <div>
               <Grid item xs={2}>
                 <TextField name="addressLot" label="Lot" value={lot} onChange={handleLotChange} variant="outlined" size="small" />
               </Grid>
-            </div>
-            <div>
+         
               <Grid item xs={2}>
                 <TextField name="addressStreet" label="Street" value={street} onChange={handleStreetChange} variant="outlined" size="small" />
               </Grid>
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <TextField id="Area/Section" label="Area/Section" value={area} onChange={handleAreaChange} variant="outlined" size="small" />
               </Grid >
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <TextField name="addressVillage" label="Village" value={village} onChange={handleVillageChange} variant="outlined" size="small" />
               </Grid >
-            </div>
-            <div>
+         
               <Grid item xs={2}>
                 <FormControl variant="outlined" size="small" className={classes.formControl}>
                   <InputLabel id="region-label">Region</InputLabel>
@@ -143,8 +138,7 @@ export default function AddEmployeeAddressForm(props) {
                   </Select>
                 </FormControl>
               </Grid >
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <FormControl variant="outlined" size="small" className={classes.formControl}>
                   <InputLabel id="region-label">Country</InputLabel>
@@ -165,7 +159,6 @@ export default function AddEmployeeAddressForm(props) {
                   </Select>
                 </FormControl>
               </Grid >
-            </div>
           </React.Fragment>
         </Grid>
         <Grid item xs={12}>

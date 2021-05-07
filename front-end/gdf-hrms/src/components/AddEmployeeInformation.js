@@ -133,9 +133,9 @@ export default function AddEmployeeInformation() {
                 <AddEmployeePIForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeePIForm>
               </Grid>
 
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <AddEmployeeAddressForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeAddressForm>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <AddEmployeeContactForm handleChange={handleChange} employeeInfo={employeeInfo}></AddEmployeeContactForm>

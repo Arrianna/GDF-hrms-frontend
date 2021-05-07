@@ -249,22 +249,13 @@ export default function UpdateEmployeeInformation() {
   
   return (
     <div className={classes.root}>
-      <Grid container spacing={1} >
+      <Grid container spacing={3}>
         <Grid item xs={6}>
          <h1>Update Employee Profile</h1>
         </Grid>
-        <Grid item xs={6}>
-          <h1>
-            <Button variant="outlined" color="primary">
-            <Link to={'/employee-history/'}>Update Career History</Link>
-            </Button>
-          </h1>
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <div>
-            <Grid container spacing={3}>          
+            <Grid container>          
+             
               <Grid item xs={12}>
-
                 <UpdateEmployeePIForm 
                   firstName={firstName}
                   lastName={lastName}
@@ -332,15 +323,14 @@ export default function UpdateEmployeeInformation() {
                   handleTinNumChange={handleTinNumChange}>
                 </UpdateEmployeeOfficialInfoForm>
               </Grid >
-
-              <Grid item xs={12}>
+              
+              <Grid item xs={6}>
                 <Button type="submit" onClick={postDataHandler} variant="outlined" color="primary"> Update Employee </Button>
                 <Notification  notify={notify} setNotify={setNotify}></Notification>
               </Grid >
               <Notification  notify={notify} setNotify={setNotify}></Notification>
             </Grid>           
-          </div>
-        </Grid>
+       
       </Grid>
     </div>
   );

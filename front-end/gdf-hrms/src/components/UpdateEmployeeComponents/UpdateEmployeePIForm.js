@@ -84,24 +84,19 @@ export default function UpdateEmployeePIForm(props) {
     if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
       if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
         return(
-          <Grid container spacing={1}>
+          <Grid container>
           <h4>Personal Information</h4>
-          <Grid container item xs={12} spacing={3}>
+          <Grid container xs={12} spacing={3}>
             <React.Fragment>
-              <div>
                 <Grid item xs={2}>
                   <TextField required name="FirstName" label="First Name" InputLabelProps={{ shrink: true,}} value={props.firstName} onChange={props.handleFirstNameChange} variant="outlined" size="small" />                
+                  </Grid>
+                 <Grid item xs={2}>
                   <TextField name="otherNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
                 </Grid>
-              </div>
-              <div>
                 <Grid item xs={2}>
                   <TextField required id="LastName" name="lastName" label="Last Name" InputLabelProps={{ shrink: true,}} value={props.lastName} onChange={props.handleLastNameChange} variant="outlined" size="small" />
-                  <TextField id="MiddleNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} value={props.otherNameTwo} onChange={props.handleOtherNameTwoChange} variant="outlined" size="small" />
-                </Grid >
-              </div> 
-              <div>
-                <Grid item xs={2}>
+                  </Grid>
                   <Grid item xs={2}>
                     <FormControl variant="outlined" size="small" className={classes.formControl}>
                       <InputLabel id="sex-label">Sex</InputLabel>
@@ -118,12 +113,11 @@ export default function UpdateEmployeePIForm(props) {
                         <MenuItem value={"Other"}>Other</MenuItem>
                       </Select>
                     </FormControl>
-  
+                    </Grid>
+                 <Grid item xs={2}>
                     <TextField id="dateOfBirth" label="Date of Birth" InputLabelProps={{ shrink: true,}} value={props.dateOfBirth} onChange={props.handleDoBChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />
                   </Grid>
-                </Grid >
-              </div>
-              <div>
+      
                 <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
                     <InputLabel id="ethnicity-label">Ethnicity</InputLabel>
@@ -141,7 +135,9 @@ export default function UpdateEmployeePIForm(props) {
                     )}
                  </Select>
                   </FormControl>         
-                </Grid >            
+                </Grid >         
+               
+                 <Grid item xs={2}>   
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
                     <InputLabel id="religion-label">Religion</InputLabel>
                     <Select
@@ -158,8 +154,7 @@ export default function UpdateEmployeePIForm(props) {
                       <MenuItem value={4}>Other</MenuItem>                
                     </Select>
                   </FormControl>
-              </div>
-              <div>
+                  </Grid>
                 <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
                     <InputLabel id="marital-status-label">Marital Status</InputLabel>
@@ -176,7 +171,8 @@ export default function UpdateEmployeePIForm(props) {
                       <MenuItem value={3}>Divorced</MenuItem>
                     </Select>
                   </FormControl>
-                  {/*<TextField id="Nationality" label="Nationality" value={props.nationality} onChange={props.handleNationalityChange} variant="outlined" size="small" />*/}
+                  </Grid>
+                 <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
                     <InputLabel id="nationality-label">Nationality</InputLabel>
                     <Select
@@ -197,7 +193,6 @@ export default function UpdateEmployeePIForm(props) {
                     </Select>
                   </FormControl>
                 </Grid >
-              </div>
             </React.Fragment>
           </Grid>
         </Grid>

@@ -30,11 +30,10 @@ export default function AddEmployeeOfficialInfoForm(props) {
  
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container>
       <h4>Official Information</h4>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container xs={12} spacing={3}>
           <React.Fragment>
-            <div>
               <Grid item xs={2}>
                 <TextField required id="regimentalNumber" label="RegimentalNumber" name="regimentNumber" value={props.employeeInfo && props.employeeInfo.regimentNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
                 {errors.regimentalNumber && errors.regimentalNumber.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
@@ -42,8 +41,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                 {errors.regimentalNumber && errors.regimentalNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
                 {errors.regimentalNumber && errors.regimentalNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid regiment number</p>)}
               </Grid>
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <TextField required id="identificationNumber" name="nationalIdNumber" label="IdentificationNumber" value={props.employeeInfo && props.employeeInfo.nationalIdNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i})}/>
                 {errors.identificationNumber && errors.identificationNumber.type === 'required' && (<p className={classes.paragraphColor}>National Identification Number is required</p>)}
@@ -51,8 +49,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                 {errors.identificationNumber && errors.identificationNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
                 {errors.identificationNumber && errors.identificationNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid ID Number</p>)}
               </Grid>
-            </div>
-            <div>
+          
               <Grid item xs={2}>
                 <TextField required id="passportNumber" name="passportNumber" label="PassportNumber" value={props.employeeInfo && props.employeeInfo.passportNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 8, maxLength: 8, type: "text"})}/>
                 {errors.passportNumber && errors.passportNumber.type === 'required' && (<p className={classes.paragraphColor}>Passport Number is required</p>)}
@@ -60,14 +57,12 @@ export default function AddEmployeeOfficialInfoForm(props) {
                 {errors.passportNumber && errors.passportNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 8 characters required</p>)}
                 {errors.passportNumber && errors.passportNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Passport Number</p>)}
               </Grid >
-            </div>
-            <div>
+          
               <Grid item xs={2}>
                 <TextField required id="passportExpirationDate" name="passportExpirationDate" label="Passport Expiration Date" value={props.employeeInfo && props.employeeInfo.passportExpirationDate} onChange={props.handleChange} variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" inputRef={register({ required: true})}/>
                 {errors.passportExpirationDate && errors.passportExpirationDate.type === 'required' && (<p className={classes.paragraphColor}>Passport Expiration Date is required</p>)}
               </Grid >
-            </div>
-            <div>
+            
               <Grid item xs={2}>
                 <TextField required id="tinNumber" name="tinNumber" label="TIN Number" value={props.employeeInfo && props.employeeInfo.tinNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i })}/>
                 {errors.tinNumber && errors.tinNumber.type === 'required' && (<p className={classes.paragraphColor}>Tin Number is required</p>)}
@@ -75,7 +70,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                 {errors.tinNumber && errors.tinNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
                 {errors.tinNumber && errors.tinNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Tin Number</p>)}
               </Grid>
-            </div>        
+                
           </React.Fragment>
         </Grid>
       </Grid>
