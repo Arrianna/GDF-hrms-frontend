@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+
+  form: {
+    minWidth: 400,
+  },
  
   
 }));
@@ -211,7 +215,7 @@ export default function ViewCareerHistory(props) {
                     <DialogContent>
                     <Formik initialValues={initialValues} validationSchema={validationSchema}>
                     {(props)=>(
-                      <Form>
+                      <Form className={classes.form}>
                       <div>
                         <Field as = {TextField}
                         select
