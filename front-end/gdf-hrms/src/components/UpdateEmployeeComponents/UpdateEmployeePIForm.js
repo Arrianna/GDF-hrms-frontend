@@ -129,7 +129,7 @@ export default function UpdateEmployeePIForm(props) {
             <React.Fragment>
               
                 <Grid item xs={2}>
-                  <Field as ={TextField} 
+                  <TextField
                          name="firstName" 
                          label="First Name" 
                          InputLabelProps={{ shrink: true,}} 
@@ -146,7 +146,7 @@ export default function UpdateEmployeePIForm(props) {
                 </Grid>
 
                 <Grid item xs={2}>
-                <Field as= {TextField} 
+                <TextField 
                        name="lastName" 
                        name="lastName" 
                        label="Last Name" 
