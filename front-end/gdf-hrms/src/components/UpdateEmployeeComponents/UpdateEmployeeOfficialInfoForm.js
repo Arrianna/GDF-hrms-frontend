@@ -86,7 +86,7 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
         <Grid container item xs={12} spacing={3}>
           <Formik initialValues={initialValues} validationSchema={validationSchema}>
           {(props) => (
-          <Form>
+          
           <React.Fragment>
               <Grid item xs={2}>
                 <Field as ={TextField} required 
@@ -177,7 +177,7 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
               </Grid >
                 
           </React.Fragment>
-          </Form>
+         
           )}
           </Formik>
         </Grid>
