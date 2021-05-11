@@ -5,6 +5,8 @@ import { TextField, Grid, Button, Modal } from '@material-ui/core';
 import { Save, Cancel } from '@material-ui/icons';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { MenuItem, InputLabel, FormControl, Select } from '@material-ui/core';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import Axios from 'axios';
 
 import PersonalInformationForm from './EmployeeProfileComponents/PersonalInformationForm';
@@ -90,6 +92,35 @@ export default function EmployeeProfileLayout(props) {
     countryId: '',
     employeeId: '',
   })
+
+  const initialValues = {
+    lot: '',
+    street: '',
+    area: '',
+    village: '',
+    region: '',
+    country: '',
+  }
+
+  const validationSchema = Yup.object().shape({
+    lot: Yup.string()
+    .required("Lot is Required"),
+    street: Yup.string()
+      .required("Street is Required"),
+    area: Yup.string()
+      .required("Area is Required"),
+    village: Yup.string()
+      .required("Village is Required"),
+    region: Yup.number()
+      .required("Region is Required"),
+    country: Yup.number()
+      .required("Country is Required"),
+  });
+
+  const onSubmitHandler = (values, action) => {
+    console.log(values);
+    action.resetForm();
+  }
 
   const handleNewAddressChange = e => {
     const {name, value} = e.target;
@@ -292,7 +323,7 @@ export default function EmployeeProfileLayout(props) {
         return(
           <div className={classes.modal}>
             <h3>Edit Employee Address</h3>
-            <TextField name="lot" className={classes.inputMaterial} label="Lot" onChange={handleChange} value={rowSelected && rowSelected.lot}/>
+            {/* <TextField name="lot" className={classes.inputMaterial} label="Lot" onChange={handleChange} value={rowSelected && rowSelected.lot}/>
             <br />
             <TextField name="street" className={classes.inputMaterial} label="Street" onChange={handleChange} value={rowSelected && rowSelected.street}/>
             <br />
@@ -332,7 +363,107 @@ export default function EmployeeProfileLayout(props) {
                   <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
                 )}                          
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmitHandler}>
+              {(props) => (
+                <Form>
+                  <div>
+                    <Grid item xs={2}>
+                      <Field as={TextField} 
+                        required
+                        name='lot' 
+                        label='Lot' 
+                        size="small"
+                        variant='outlined'
+                        fullWidth
+                        error={props.errors.lot && props.touched.lot}
+                        helperText={<ErrorMessage name='lot' />} 
+                      />
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid item xs={2}>
+                    <Field as={TextField} 
+                        required
+                        name='street' 
+                        label='Street' 
+                        size="small"
+                        variant='outlined'
+                        fullWidth
+                        error={props.errors.street && props.touched.street}
+                        helperText={<ErrorMessage name='street' />} 
+                      />
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid item xs={2}>
+                      <Field as={TextField} 
+                        required
+                        name='area' 
+                        label='Area' 
+                        size="small"
+                        variant='outlined'
+                        fullWidth
+                        error={props.errors.area && props.touched.area}
+                        helperText={<ErrorMessage name='area' />} 
+                      />
+                    </Grid >
+                  </div>
+                  <div>
+                    <Grid item xs={2}>
+                      <Field as={TextField} 
+                        required
+                        name='village' 
+                        label='Village' 
+                        size="small"
+                        variant='outlined'
+                        fullWidth
+                        error={props.errors.village && props.touched.village}
+                        helperText={<ErrorMessage name='village' />} 
+                      />
+                    </Grid >
+                  </div>
+                  <div>
+                    <Grid item xs={2}>
+                      <Field as={TextField} 
+                        select
+                        name='region' 
+                        label='Region' 
+                        fullWidth
+                        variant='outlined'
+                        error={props.errors.region && props.touched.region}
+                        helperText={<ErrorMessage name='region' />} 
+                        required 
+                      >
+                        <MenuItem value=""><em>Select</em></MenuItem>
+                        {regions.map((region) =>
+                          <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                        )}
+                      </Field>
+                    </Grid >
+                  </div>
+                  <div>
+                    <Grid item xs={2}>
+                      <Field as={TextField} 
+                        select
+                        name='country' 
+                        label='Country' 
+                        fullWidth
+                        variant='outlined'
+                        error={props.errors.country && props.touched.country}
+                        helperText={<ErrorMessage name='country' />} 
+                        required 
+                      >
+                        <MenuItem value=""><em>Select</em></MenuItem>
+                        {countries.map((country) =>
+                          <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+                        )}
+                      </Field>
+                    </Grid >
+                  </div>
+                </Form>
+              )}
+            </Formik>
             <br /><br />
             <div align="right">
               <Button color="primary" onClick={()=>putRequest()}>Save</Button>
@@ -358,16 +489,19 @@ export default function EmployeeProfileLayout(props) {
                   <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
                     <DialogContent>
-                      <TextField margin="dense" id="lot" name="lot" label="Lot" type="text" fullWidth value={newAddress.lot} onChange={handleNewAddressChange}/>
-                      <TextField margin="dense" id="street" name="street" label="Street" type="text" fullWidth value={newAddress.street} onChange={handleNewAddressChange}/>
-                      <TextField margin="dense" id="area" name="area" label="Area" type="text" fullWidth value={newAddress.area} onChange={handleNewAddressChange}/>
-                      <TextField margin="dense" id="village" name="village" label="Village" type="text" fullWidth value={newAddress.village} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="lot" name="lot" label="Lot" type="text" variant="outlined" fullWidth value={newAddress.lot} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="street" name="street" label="Street" type="text" variant="outlined" fullWidth value={newAddress.street} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="area" name="area" label="Area" type="text" variant="outlined" fullWidth value={newAddress.area} onChange={handleNewAddressChange}/>
+                      <TextField margin="dense" id="village" name="village" label="Village" type="text" variant="outlined" fullWidth value={newAddress.village} onChange={handleNewAddressChange}/>
                       <FormControl className={classes.formControl}>
                         <InputLabel shrink="true" id="region-label">Region</InputLabel>
                         <Select
                           labelId="region-label"
                           id="region"
                           name="region"
+                          variant="outlined"
+                          fullWidth
+                          defaultValue= ''
                           value={newAddress.region}
                           onChange={handleNewAddressChange}
                           label="Region"
@@ -385,6 +519,9 @@ export default function EmployeeProfileLayout(props) {
                           labelId="country-label"
                           id="country"
                           name="country"
+                          variant="outlined"
+                          fullWidth
+                          defaultValue= ''
                           value={newAddress.country}
                           onChange={handleNewAddressChange}
                           label="Country"

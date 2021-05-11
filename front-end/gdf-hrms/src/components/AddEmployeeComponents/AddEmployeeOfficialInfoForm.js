@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { useForm } from 'react-hook-form';
+import { Grid, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,56 +24,90 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddEmployeeOfficialInfoForm(props) {
   const classes = useStyles();
-  const { register, errors } = useForm();
  
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Official Information</h4>
+      <h3>Official Information</h3>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                <TextField required id="regimentalNumber" label="RegimentalNumber" name="regimentNumber" value={props.employeeInfo && props.employeeInfo.regimentNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 6, maxLength: 6, type: "number", pattern: /^[0-9]+$/i })}/>
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid regiment number</p>)}
+                <TextField
+                  required
+                  name='regimentNumber' 
+                  label='Regimental Number' 
+                  size="small"
+                  variant='outlined'
+                  value={props.formik.values.regimentNumber} 
+                  onChange={props.formik.handleChange}
+                  error={Boolean(props.formik.errors.regimentNumber && props.formik.touched.regimentNumber)}
+                  helperText={props.formik.errors.regimentNumber && props.formik.touched.regimentNumber && String(props.formik.errors.regimentNumber)}
+                />                
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="identificationNumber" name="nationalIdNumber" label="IdentificationNumber" value={props.employeeInfo && props.employeeInfo.nationalIdNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i})}/>
-                {errors.identificationNumber && errors.identificationNumber.type === 'required' && (<p className={classes.paragraphColor}>National Identification Number is required</p>)}
-                {errors.identificationNumber && errors.identificationNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
-                {errors.identificationNumber && errors.identificationNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
-                {errors.identificationNumber && errors.identificationNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid ID Number</p>)}
+                <TextField 
+                  required
+                  name='nationalIdNumber' 
+                  label='National ID Number' 
+                  size="small"
+                  variant='outlined'
+                  value={props.formik.values.nationalIdNumber} 
+                  onChange={props.formik.handleChange}
+                  error={Boolean(props.formik.errors.nationalIdNumber && props.formik.touched.nationalIdNumber)}
+                  helperText={props.formik.errors.nationalIdNumber && props.formik.touched.nationalIdNumber && String(props.formik.errors.nationalIdNumber)}
+                />                
               </Grid>
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="passportNumber" name="passportNumber" label="PassportNumber" value={props.employeeInfo && props.employeeInfo.passportNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 8, maxLength: 8, type: "text"})}/>
-                {errors.passportNumber && errors.passportNumber.type === 'required' && (<p className={classes.paragraphColor}>Passport Number is required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 8 characters required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 8 characters required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Passport Number</p>)}
+                <TextField 
+                  required
+                  name='passportNumber' 
+                  label='Passport Number' 
+                  size="small"
+                  variant='outlined'
+                  value={props.formik.values.passportNumber} 
+                  onChange={props.formik.handleChange}
+                  error={Boolean(props.formik.errors.passportNumber && props.formik.touched.passportNumber)}
+                  helperText={props.formik.errors.passportNumber && props.formik.touched.passportNumber && String(props.formik.errors.passportNumber)}
+                />                
               </Grid >
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="passportExpirationDate" name="passportExpirationDate" label="Passport Expiration Date" value={props.employeeInfo && props.employeeInfo.passportExpirationDate} onChange={props.handleChange} variant="outlined" size="small" InputLabelProps={{ shrink: true,}} type="date" inputRef={register({ required: true})}/>
-                {errors.passportExpirationDate && errors.passportExpirationDate.type === 'required' && (<p className={classes.paragraphColor}>Passport Expiration Date is required</p>)}
+                <TextField 
+                  required                  
+                  name='passportExpirationDate' 
+                  label='Passport Expiration Date' 
+                  size="small"
+                  variant='outlined'
+                  value={props.formik.values.passportExpirationDate} 
+                  onChange={props.formik.handleChange}
+                  InputLabelProps={{ shrink: true,}}
+                  type='date'
+                  error={Boolean(props.formik.errors.passportExpirationDate && props.formik.touched.passportExpirationDate)}
+                  helpertext={props.formik.errors.passportExpirationDate && props.formik.touched.passportExpirationDate && String(props.formik.errors.passportExpirationDate)}
+                />                
               </Grid >
             </div>
             <div>
               <Grid item xs={2}>
-                <TextField required id="tinNumber" name="tinNumber" label="TIN Number" value={props.employeeInfo && props.employeeInfo.tinNumber} onChange={props.handleChange} variant="outlined" size="small" inputRef={register({ required: true, minLength: 9, maxLength: 9, type: "number", pattern: /^[0-9]+$/i })}/>
-                {errors.tinNumber && errors.tinNumber.type === 'required' && (<p className={classes.paragraphColor}>Tin Number is required</p>)}
-                {errors.tinNumber && errors.tinNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
-                {errors.tinNumber && errors.tinNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
-                {errors.tinNumber && errors.tinNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Tin Number</p>)}
+                <TextField 
+                  required
+                  name='tinNumber' 
+                  label='TIN Number' 
+                  size="small"
+                  variant='outlined'
+                  value={props.formik.values.tinNumber} 
+                  onChange={props.formik.handleChange}                  
+                  error={Boolean(props.formik.errors.tinNumber && props.formik.touched.tinNumber)}
+                  helperText={props.formik.errors.tinNumber && props.formik.touched.tinNumber && String(props.formik.errors.tinNumber)}
+                />
               </Grid>
-            </div>        
+            </div>
           </React.Fragment>
         </Grid>
       </Grid>
