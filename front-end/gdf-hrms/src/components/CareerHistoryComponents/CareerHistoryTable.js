@@ -21,7 +21,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-
+import Notification from './Notification';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
@@ -51,12 +51,12 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 700,
+    minWidth: 1300,
   },
 
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 200,
+    minWidth: 400,
   },
 
 }));
@@ -76,7 +76,7 @@ export default function CareerHistoryTable(props) {
   const [departments, setDepartments] = useState();
   const [rowId, setRowId] = useState();
   const [eId, setEId] = useState();
-  
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   let data = props.data;
   //console.log(data);
@@ -168,6 +168,26 @@ export default function CareerHistoryTable(props) {
     setOpen(false);
   };
 
+  const getNotification = (option, notificationType) => {
+    if(notificationType === 'success'){
+   // if(option.statusText === 'OK' || 'No Content'){
+      setNotify({
+        isOpen: true,
+        message: 'Career History Information Successfully Updated',
+        type: 'success'
+      })
+  //  }
+  }
+    if(notificationType == 'error'){
+      setNotify({
+        isOpen: true,
+        message: 'An error was detected',
+        type: 'error'
+      })
+    }
+    }
+  
+
   const handleSave = () => {
     let careerHistory = {
       id: rowId,
@@ -177,12 +197,15 @@ export default function CareerHistoryTable(props) {
       startDate: startDate,
       endDate: endDate
     }
+    
     if(careerHistory){
+      console.log(careerHistory);
 
       const patchRequest = async() => {
-      Axios.patch('UpdateInfo/update/employeeCH/' + eId, careerHistory)
-     // .then(response => (data = data.concat(response.data)))
-      .catch(error => console.log(error)) 
+      Axios.patch('UpdateInfo/update/employeeCH/' + careerHistory.id, careerHistory)
+      .then(response => getNotification(response, 'success'))
+      .then(response => console.log(response))
+      .catch(error => getNotification(error, 'error')) 
     }
 
     patchRequest();
@@ -191,10 +214,14 @@ export default function CareerHistoryTable(props) {
    
     setOpen(false);    
   };
+
+
+
   const showResults = () => {
     if(data!= null) {
       if(data.length > 0) {  
         return (
+          
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
               <TableHead>
@@ -224,6 +251,7 @@ export default function CareerHistoryTable(props) {
               </TableBody>
             </Table>
           </TableContainer>
+         
         );
       }
     }
@@ -239,7 +267,7 @@ export default function CareerHistoryTable(props) {
         return(
           <div className={classes.root}>
           <Grid container spacing={3}>
-            <Grid container item xs={12} spacing={3}>
+            <Grid item>
               <React.Fragment>
                  <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
 
@@ -258,7 +286,7 @@ export default function CareerHistoryTable(props) {
                             onChange={handlePositionChange}
                             label="Position"
                             fullwidth
-                            variant="outlined"
+                         //   variant="outlined"
                             margin="normal"
                             error={props.errors.newPosition && props.touched.newPosition}
                             helperText={<ErrorMessage newPosition='newPosition' />} required
@@ -279,7 +307,7 @@ export default function CareerHistoryTable(props) {
                             onChange={handleDepartmentChange}
                             label="Department"
                             fullwidth
-                            variant="outlined"
+                       //     variant="outlined"
                             margin="normal"
                             
                           >
@@ -292,12 +320,12 @@ export default function CareerHistoryTable(props) {
                          <br/>
                         <FormControl className={classes.formControl}>
                           <InputLabel shrink="true" htmlFor="component-simple">Start Date</InputLabel>
-                          <TextField margin="normal" id="startDate"  type="date" fullWidth variant="outlined" value={moment(startDate).format('YYYY-MM-DD')} onChange={handleStartDateChange}/>
+                          <TextField margin="normal" id="startDate"  type="date" fullWidth  value={moment(startDate).format('YYYY-MM-DD')} onChange={handleStartDateChange}/>
                         </FormControl>
                        <br/>
                         <FormControl className={classes.formControl}>
                           <InputLabel shrink="true" htmlFor="component-simple">End Date</InputLabel>
-                          <TextField margin="normal" id="EndDate"  type="date" format="dd-MM-yyyy" fullWidth variant="outlined" value={moment(endDate).format('YYYY-MM-DD')} onChange={handleEndDateChange}/>
+                          <TextField margin="normal" id="EndDate"  type="date" format="dd-MM-yyyy" fullWidth  value={moment(endDate).format('YYYY-MM-DD')} onChange={handleEndDateChange}/>
                         </FormControl> 
                         </Form>
                         )}
@@ -329,6 +357,7 @@ export default function CareerHistoryTable(props) {
     <div>
       {showResults()}
       {showDialog()}
+      <Notification notify={notify} setNotify={setNotify}/>
     </div>
   );
 }
