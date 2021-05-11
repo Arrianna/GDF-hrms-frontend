@@ -31,7 +31,6 @@ export default function AddEmployeeOfficialInfoForm(props) {
       <h3>Official Information</h3>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
-            <div>
               <Grid item xs={2}>
                 <TextField
                   required
@@ -45,8 +44,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                   helperText={props.formik.errors.regimentNumber && props.formik.touched.regimentNumber && String(props.formik.errors.regimentNumber)}
                 />                
               </Grid>
-            </div>
-            <div>
+           
               <Grid item xs={2}>
                 <TextField 
                   required
@@ -60,8 +58,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                   helperText={props.formik.errors.nationalIdNumber && props.formik.touched.nationalIdNumber && String(props.formik.errors.nationalIdNumber)}
                 />                
               </Grid>
-            </div>
-            <div>
+          
               <Grid item xs={2}>
                 <TextField 
                   required
@@ -75,8 +72,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                   helperText={props.formik.errors.passportNumber && props.formik.touched.passportNumber && String(props.formik.errors.passportNumber)}
                 />                
               </Grid >
-            </div>
-            <div>
+          
               <Grid item xs={2}>
                 <TextField 
                   required                  
@@ -92,8 +88,7 @@ export default function AddEmployeeOfficialInfoForm(props) {
                   helpertext={props.formik.errors.passportExpirationDate && props.formik.touched.passportExpirationDate && String(props.formik.errors.passportExpirationDate)}
                 />                
               </Grid >
-            </div>
-            <div>
+            
               <Grid item xs={2}>
                 <TextField 
                   required

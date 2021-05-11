@@ -544,29 +544,29 @@ export default function EmployeeProfileLayout(props) {
                   <Button variant="outlined" color="primary">
                     <Link to={'/employee-history-view/' + empId}>View Career History</Link>
                   </Button>
+                  <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                    Add Employee Address
+                  </Button>
                 </h1>
               </Grid>
               <Grid container item xs={12} spacing={3}>
                 <div>
-                  <Grid container spacing={3}>
+                  <Grid container spacing={1}>
                     <Grid item xs={12}>
                       <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
                     </Grid>
-                    <Grid item xs={12}>
-                      <AddressForm 
-                        employeeInfo={employeeAddress}
-                        selectRow={selectRow}>
-                      </AddressForm>
-                    </Grid>
-                    <Button variant="outlined" color="primary" size="small" onClick={handleClickOpen}>
-                      Add Address
-                    </Button>
                     <Grid item xs={12}>
                       <ContactForm employeeInfo={employeeInfo}></ContactForm>
                     </Grid >
                     <Grid item xs={12}>
                       <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
                     </Grid >
+                    <Grid item xs={12}>
+                      <AddressForm 
+                        employeeInfo={employeeAddress}
+                        selectRow={selectRow}>
+                      </AddressForm>
+                    </Grid>
                   </Grid>           
                 </div> 
               </Grid>
