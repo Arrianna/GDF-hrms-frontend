@@ -117,8 +117,41 @@ export default function EmployeeProfileLayout(props) {
       .required("Country is Required"),
   });
 
-  const onSubmitHandler = (values, action) => {
+  const onSubmit = (values, action) => {
     console.log(values);
+    let Address = {
+      lot: values.lot,
+      street: values.street,
+      area: values.area,
+      village: values.village,
+      reg: values.region,
+      ctry: values.country,
+      eId: empId,
+    }
+    console.log(Address);
+    if(Address){
+      Axios.post('PostInfo/AddAnEmployeeAddress', Address)
+      .then(response => {
+        setEmployeeAddress(employeeAddress.concat(response.data))
+        if(response.status === 200){
+          setNotify({
+            isOpen: true,
+            message: 'Address Successfully Saved',
+            type: 'success'
+          })
+        }
+        else{
+          setNotify({
+            isOpen: true,
+            message: 'An error occurred',
+            type: 'error'
+          })
+        }
+      })
+      .catch(error => console.log(error))
+    }
+    setEmployeeAddress([Address, ...employeeAddress]);
+    setOpen(false);
     action.resetForm();
   }
 
@@ -364,7 +397,7 @@ export default function EmployeeProfileLayout(props) {
                 )}                          
               </Select>
             </FormControl> */}
-            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmitHandler}>
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
               {(props) => (
                 <Form>
                   <div>
@@ -487,9 +520,95 @@ export default function EmployeeProfileLayout(props) {
               <Grid item xs={6}>
                 <h1>
                   <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
-                    <DialogContent>
-                      <TextField margin="dense" id="lot" name="lot" label="Lot" type="text" variant="outlined" fullWidth value={newAddress.lot} onChange={handleNewAddressChange}/>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+                      {(props) => (
+                        <Form>
+                          <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
+                          <DialogContent>                      
+                            <Field as={TextField} 
+                              name='lot' 
+                              label='Lot'
+                              variant='outlined'
+                              size='small'
+                              margin='dense'
+                              fullWidth
+                              error={props.errors.lot && props.touched.lot}
+                              helperText={<ErrorMessage name='lot' />} 
+                              required 
+                            />
+                            <br />
+                            <Field as={TextField} 
+                              name='street' 
+                              label='Street'
+                              variant='outlined'
+                              size='small'
+                              margin='dense'
+                              fullWidth
+                              error={props.errors.street && props.touched.street}
+                              helperText={<ErrorMessage name='street' />} 
+                              required 
+                            />
+                            <br />
+                            <Field as={TextField} 
+                              name='area' 
+                              label='Area'
+                              variant='outlined'
+                              size='small'
+                              margin='dense'
+                              fullWidth
+                              error={props.errors.area && props.touched.area}
+                              helperText={<ErrorMessage name='area' />} 
+                              required 
+                            />
+                            <br />
+                            <Field as={TextField} 
+                              name='village' 
+                              label='Village'
+                              variant='outlined'
+                              size='small'
+                              margin='dense'
+                              fullWidth
+                              error={props.errors.village && props.touched.village}
+                              helperText={<ErrorMessage name='village' />} 
+                              required 
+                            />
+                            <br />
+                            <Field as={TextField} 
+                              select
+                              name='region' 
+                              label='Region'
+                              variant='outlined'
+                              size='small'
+                              margin='dense'
+                              fullWidth
+                              error={props.errors.region && props.touched.region}
+                              helperText={<ErrorMessage name='region' />} 
+                              required 
+                            >
+                              <MenuItem value=""><em>Select</em></MenuItem>
+                              {regions.map((region) =>
+                                <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                              )}
+                            </Field>
+                            <br />
+                            <Field as={TextField} 
+                              select
+                              name='country' 
+                              label='Country'
+                              variant='outlined'
+                              size='small'
+                              margin='dense'
+                              fullWidth
+                              error={props.errors.country && props.touched.country}
+                              helperText={<ErrorMessage name='country' />} 
+                              required 
+                            >
+                              <MenuItem value=""><em>Select</em></MenuItem>
+                              {countries.map((country) =>
+                                <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+                              )}
+                            </Field>                          
+                      {/* <TextField margin="dense" id="lot" name="lot" label="Lot" type="text" variant="outlined" fullWidth value={newAddress.lot} onChange={handleNewAddressChange}/>
                       <TextField margin="dense" id="street" name="street" label="Street" type="text" variant="outlined" fullWidth value={newAddress.street} onChange={handleNewAddressChange}/>
                       <TextField margin="dense" id="area" name="area" label="Area" type="text" variant="outlined" fullWidth value={newAddress.area} onChange={handleNewAddressChange}/>
                       <TextField margin="dense" id="village" name="village" label="Village" type="text" variant="outlined" fullWidth value={newAddress.village} onChange={handleNewAddressChange}/>
@@ -531,22 +650,23 @@ export default function EmployeeProfileLayout(props) {
                             <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
                           )}                          
                         </Select>
-                      </FormControl>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleCancel} variant="contained" color="primary" startIcon={<Cancel />}>Cancel</Button>
-                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<Save />}>Save Address</Button>
-                    </DialogActions>
+                      </FormControl> */}
+                          </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleCancel} variant="contained" color="primary" startIcon={<Cancel />}>Cancel</Button>
+                          {/* <Button onClick={handleSave} variant="contained" color="primary" startIcon={<Save />}>Save Address</Button> */}
+                          <Button type="submit" variant="contained" color="primary" startIcon={<Save />}>Save</Button>
+                        </DialogActions>
+                      </Form>
+                      )}
+                    </Formik>
                   </Dialog>
                   <Button variant="outlined" color="primary">
                     <Link to={'/update-employee/' + empId}>Update Employee Record</Link>
                   </Button>
                   <Button variant="outlined" color="primary">
                     <Link to={'/employee-history-view/' + empId}>View Career History</Link>
-                  </Button>
-                  <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Add Employee Address
-                  </Button>
+                  </Button>                  
                 </h1>
               </Grid>
               <Grid container item xs={12} spacing={3}>
@@ -559,14 +679,14 @@ export default function EmployeeProfileLayout(props) {
                       <ContactForm employeeInfo={employeeInfo}></ContactForm>
                     </Grid >
                     <Grid item xs={12}>
-                      <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
-                    </Grid >
-                    <Grid item xs={12}>
-                      <AddressForm 
-                        employeeInfo={employeeAddress}
-                        selectRow={selectRow}>
-                      </AddressForm>
+                      <AddressForm employeeInfo={employeeAddress} selectRow={selectRow}></AddressForm>
+                      <Button variant="contained" color="primary" onClick={handleClickOpen}  style={{margin: '10px'}}>
+                        Add Address
+                      </Button>
                     </Grid>
+                    <Grid item xs={12}>
+                      <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
+                    </Grid >                    
                   </Grid>           
                 </div> 
               </Grid>
