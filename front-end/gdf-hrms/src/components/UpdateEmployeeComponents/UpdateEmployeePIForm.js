@@ -12,7 +12,6 @@ import axios from './axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -114,202 +113,188 @@ export default function UpdateEmployeePIForm(props) {
     getReligions();
     getMaritalStatuses();
     getNationalities();
-  
-
   }, []);
-
-
-
-
 
   const showInfo = () => {
 
     if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
       if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
-
         return(
           <Grid container spacing = {1}>
-          <h4>Personal Information</h4>
-          <Grid container xs={12} spacing={3}>
-            <Formik  initialValues={initialValues} validationSchema={validationSchema}>
-            {(props) => (
-              <Form >
-            <React.Fragment>
-              
-                <Grid item xs={2}>
-                  <TextField
-                         name="firstName" 
-                         label="First Name" 
-                         InputLabelProps={{ shrink: true,}} 
+            <h4>Personal Information</h4>
+            <Grid container xs={12} spacing={3}>
+              <Formik  initialValues={initialValues} validationSchema={validationSchema}>
+                {(props) => (
+                  <Form >
+                    <React.Fragment>              
+                      <Grid item xs={2}>
+                        <TextField
+                          name="firstName" 
+                          label="First Name" 
+                          // InputLabelProps={{ shrink: true,}} 
                         //  value={props.firstName} 
                         //  onChange={props.handleFirstNameChange} 
-                         variant="outlined" 
-                         size="small"
-                         error={props.errors.firstName && props.touched.firstName}
-                         helperText={<ErrorMessage name='firstName' />} required />            
-                  </Grid>
+                          variant="outlined" 
+                          size="small"
+                          error={props.errors.firstName && props.touched.firstName}
+                          helperText={<ErrorMessage name='firstName' />} required
+                        />            
+                      </Grid>
 
-                 <Grid item xs={2}>
-                  <TextField name="otherNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
-                </Grid>
+                      <Grid item xs={2}>
+                        <TextField name="otherNameTwo" label="Middle Name" value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
+                      </Grid>
 
-                <Grid item xs={2}>
-                <TextField 
-                       name="lastName" 
-                       name="lastName" 
-                       label="Last Name" 
-                       InputLabelProps={{ shrink: true,}} 
-                      //  value={props.lastName}
-                      //  onChange={props.handleLastNameChange} 
-                       variant="outlined" 
-                       size="small" 
-                       error={props.errors.lastName && props.touched.lastName}
-                       helperText={<ErrorMessage name='lastName' />} required
-                      />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Field as={TextField}
-                      select
-                        name="sex"
-                        label="Sex"
-                        // value={props.sex}
-                        // onChange={props.handleSexChange}
-                        label="Sex" 
-                        variant="outlined"  
-                        size="small"                
-                        InputLabelProps={{ shrink: true,}}
-                        error={props.errors.sex && props.touched.sex}
-                        helperText={<ErrorMessage name='sex' />} 
-                        required >
+                      <Grid item xs={2}>
+                        <TextField 
+                          name="lastName" 
+                          name="lastName" 
+                          label="Last Name" 
+                          //  InputLabelProps={{ shrink: true,}} 
+                          //  value={props.lastName}
+                          //  onChange={props.handleLastNameChange} 
+                          variant="outlined" 
+                          size="small" 
+                          error={props.errors.lastName && props.touched.lastName}
+                          helperText={<ErrorMessage name='lastName' />} required
+                        />
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Field as={TextField}
+                          select
+                          name="sex"
+                          label="Sex"
+                          // value={props.sex}
+                          // onChange={props.handleSexChange}
+                          label="Sex" 
+                          variant="outlined"  
+                          size="small"                
+                          // InputLabelProps={{ shrink: true,}}
+                          error={props.errors.sex && props.touched.sex}
+                          helperText={<ErrorMessage name='sex' />} 
+                          required 
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          <MenuItem value={"Male"}>Male</MenuItem>
+                          <MenuItem value={"Female"}>Female</MenuItem>
+                          <MenuItem value={"Other"}>Other</MenuItem>                      
+                        </Field>
+                      </Grid>
 
-                        <MenuItem value=""><em>Select</em></MenuItem>
-                        <MenuItem value={"Male"}>Male</MenuItem>
-                        <MenuItem value={"Female"}>Female</MenuItem>
-                        <MenuItem value={"Other"}>Other</MenuItem>
-                      
-                      </Field>
-                    </Grid>
-
-
-                 <Grid item xs={2}>
-                    <Field as= {TextField }
-                           name="dateOfBirth" 
-                           label="Date of Birth" 
-                          //  value={props.dateOfBirth} 
-                          //  onChange={props.handleDoBChange} 
-                           variant="outlined"
-                           size="small" 
-                           type="date" 
-                           InputLabelProps={{ shrink: true,}} 
-                           error={props.errors.dateOfBirth && props.touched.dateOfBirth}
-                           helperText={<ErrorMessage name='dateOfBirth' />} required
-                           />
-                  </Grid>
-      
-                <Grid item xs={2}>
-                <Field as = {TextField}
-                    select
-                      name="ethnicity"
-                      // value={props.ethnicity}
-                      // onChange={props.handleEthnicityChange}
-                      label="Ethnicity"
-                      variant="outlined"
-                      size="small" 
-                      InputLabelProps={{ shrink: true,}}
-                      error={props.errors.ethnicity && props.touched.ethnicity}
-                      helperText={<ErrorMessage name='ethnicity' />} 
-                      required >
-                     <MenuItem value=""><em>Select</em></MenuItem>
-                       {ethnicities.map((ethnicity) =>
-                     <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
-                    )}
-                    </Field>
-                      
-                </Grid >         
-               
-                 <Grid item xs={2}>   
-                  <Field as ={TextField}
-                    select
-                      name="religion"
-                      label= "Religion"
-                      // value={props.religion}
-                      // onChange={props.handleReligionChange}
-                      label="Religion"
-                      variant="outlined"
-                      size="small"
-                      InputLabelProps={{ shrink: true,}}
-                      error={props.errors.religion && props.touched.religion}
-                      helperText={<ErrorMessage name='religion' />} 
-                      required >
-
-                     <MenuItem value=""><em>Select</em></MenuItem>
-                       {religions.map((religion) =>
-                     <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
-                    )}                      
-                   </Field>
-                  </Grid>
-
-
-                <Grid item xs={2}>
-                  <Field as={TextField}
-                    select
-                      name="maritalStatus"
-                      label=" Marital Status"
-                      size="small"
-                      variant="outlined"
-                      // value={props.maritalStatus}
-                      // onChange={props.handleMaritalStatusChange}
-                      label="Marital Status"
-                      InputLabelProps={{ shrink: true,}}
-                      error={props.errors.maritalStatus && props.touched.maritalStatus}
-                      helperText={<ErrorMessage name='maritalStatus' />} 
-                      required
-                    >
-                      <MenuItem value=""><em>Select</em></MenuItem>
-                       {maritalStatuses.map((maritalStatus) =>
-                     <MenuItem key={maritalStatus.id} value={maritalStatus.id}>{maritalStatus.name}</MenuItem>
-                    )}
-                    </Field>
+                      <Grid item xs={2}>
+                        <Field as= {TextField }
+                          name="dateOfBirth" 
+                          label="Date of Birth" 
+                        //  value={props.dateOfBirth} 
+                        //  onChange={props.handleDoBChange} 
+                          variant="outlined"
+                          size="small" 
+                          type="date" 
+                          InputLabelProps={{ shrink: true,}} 
+                          error={props.errors.dateOfBirth && props.touched.dateOfBirth}
+                          helperText={<ErrorMessage name='dateOfBirth' />} required
+                        />
+                      </Grid>
+        
+                      <Grid item xs={2}>
+                        <Field as = {TextField}
+                          select
+                          name="ethnicity"
+                          // value={props.ethnicity}
+                          // onChange={props.handleEthnicityChange}
+                          label="Ethnicity"
+                          variant="outlined"
+                          size="small" 
+                          // InputLabelProps={{ shrink: true,}}
+                          error={props.errors.ethnicity && props.touched.ethnicity}
+                          helperText={<ErrorMessage name='ethnicity' />} 
+                          required 
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {ethnicities.map((ethnicity) =>
+                            <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
+                          )}
+                        </Field>                      
+                      </Grid >         
                 
-                  </Grid>
+                      <Grid item xs={2}>   
+                        <Field as ={TextField}
+                          select
+                          name="religion"
+                          label= "Religion"
+                          // value={props.religion}
+                          // onChange={props.handleReligionChange}
+                          label="Religion"
+                          variant="outlined"
+                          size="small"
+                          // InputLabelProps={{ shrink: true,}}
+                          error={props.errors.religion && props.touched.religion}
+                          helperText={<ErrorMessage name='religion' />} 
+                          required 
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {religions.map((religion) =>
+                            <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
+                          )}                      
+                        </Field>
+                      </Grid>
 
-                 <Grid item xs={2}>
-                  <FormControl variant="outlined" size="small" className={classes.formControl}>
-                    <InputLabel id="nationality-label" shrink="true">Nationality</InputLabel>
-                    <Select
-                      labelId="nationality-label"
-                      id="nationality"
-                      InputLabelProps={{ shrink: true,}}
-                      value={props.nationality}
-                      onChange={props.handleNationalityChange}
-                      label="Nationality"
-                      InputLabelProps={{ shrink: true,}}
-                      // value={props.nationality}
-                      // onChange={props.handleNationalityChange}
-                      variant="outlined"
-                      size="small"
-                      InputLabelProps={{ shrink: true,}}
-                      error={props.errors.nationality && props.touched.nationality}
-                      helperText={<ErrorMessage name='nationality' />} 
-                      required
-                      
-                    >
-                      <MenuItem value=""><em>Select</em></MenuItem>
-                       {nationalities.map((nationality) =>
-                     <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
-                    )}
-                    </Select>
-                  </FormControl>
-                </Grid >
-                
-            </React.Fragment>
-            </Form>
-            )}
-            </Formik>
+                      <Grid item xs={2}>
+                        <Field as={TextField}
+                          select
+                          name="maritalStatus"
+                          label=" Marital Status"
+                          size="small"
+                          variant="outlined"
+                          // value={props.maritalStatus}
+                          // onChange={props.handleMaritalStatusChange}
+                          label="Marital Status"
+                          // InputLabelProps={{ shrink: true,}}
+                          error={props.errors.maritalStatus && props.touched.maritalStatus}
+                          helperText={<ErrorMessage name='maritalStatus' />} 
+                          required
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {maritalStatuses.map((maritalStatus) =>
+                            <MenuItem key={maritalStatus.id} value={maritalStatus.id}>{maritalStatus.name}</MenuItem>
+                          )}
+                        </Field>                
+                      </Grid>
+
+                      <Grid item xs={2}>
+                        <FormControl variant="outlined" size="small" className={classes.formControl}>
+                          <InputLabel id="nationality-label" shrink="true">Nationality</InputLabel>
+                          <Select
+                            labelId="nationality-label"
+                            id="nationality"
+                            value={props.nationality}
+                            onChange={props.handleNationalityChange}
+                            label="Nationality"
+                            // InputLabelProps={{ shrink: true,}}
+                            // value={props.nationality}
+                            // onChange={props.handleNationalityChange}
+                            variant="outlined"
+                            size="small"                            
+                            error={props.errors.nationality && props.touched.nationality}
+                            helperText={<ErrorMessage name='nationality' />} 
+                            required                     
+                          >
+                            <MenuItem value=""><em>Select</em></MenuItem>
+                            {nationalities.map((nationality) =>
+                              <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
+                            )}
+                          </Select>
+                        </FormControl>
+                      </Grid >                
+                    </React.Fragment>
+                  </Form>
+                )}
+              </Formik>
+            </Grid>
           </Grid>
-        </Grid>
         )}
-     }}
+      }
+    }
   
   
 

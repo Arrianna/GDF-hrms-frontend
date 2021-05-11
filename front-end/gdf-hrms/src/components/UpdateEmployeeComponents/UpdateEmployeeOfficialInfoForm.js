@@ -85,100 +85,101 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
       <h4>Official Information</h4>
         <Grid container item xs={12} spacing={3}>
           <Formik initialValues={initialValues} validationSchema={validationSchema}>
-          {(props) => (
-          
-          <React.Fragment>
-              <Grid item xs={2}>
-                <Field as ={TextField} required 
-                label="Regimental Number" 
-                name="regimentalNumber" 
-                InputLabelProps={{ shrink: true,}}
-                value={props.regimentNumber} 
-                onChange={props.handleRegNumChange} 
-                variant="outlined" size="small" 
-                error={props.errors.regimentalNumber && props.touched.regimentalNumber}
-                helperText={<ErrorMessage name='regimentalNumber' />} 
-
-                />
-                {/* {errors.regimentalNumber && errors.regimentalNumber.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid regiment number</p>)} */}
-              </Grid>
-              <Grid item xs={2}>
-                <Field as ={TextField} 
-                    name="nationalIdNumber" 
-                    label=" National ID Number" 
-                    InputLabelProps={{ shrink: true,}} 
-                    // value={props.nationalIdNumber} 
-                    // onChange={props.handleNationalIdNumChange} 
-                    variant="outlined" 
-                    size="small"
-                    error={props.errors.nationalIdNumber && props.touched.nationalIdNumber}
-                    helperText={<ErrorMessage name='nationalIdNumber' />} required
+            {(props) => (          
+              <React.Fragment>
+                <div>
+                  <Grid item xs={2}>
+                    <Field as ={TextField} required 
+                    label="Regimental Number" 
+                    name="regimentalNumber" 
+                    // InputLabelProps={{ shrink: true,}}
+                    value={props.regimentNumber} 
+                    onChange={props.handleRegNumChange} 
+                    variant="outlined" size="small" 
+                    error={props.errors.regimentalNumber && props.touched.regimentalNumber}
+                    helperText={<ErrorMessage name='regimentalNumber' />}
+                  />
+                    {/* {errors.regimentalNumber && errors.regimentalNumber.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
+                    {errors.regimentalNumber && errors.regimentalNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
+                    {errors.regimentalNumber && errors.regimentalNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
+                    {errors.regimentalNumber && errors.regimentalNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid regiment number</p>)} */}
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <Field as ={TextField} 
+                      name="nationalIdNumber" 
+                      label=" National ID Number" 
+                      // InputLabelProps={{ shrink: true,}} 
+                      // value={props.nationalIdNumber} 
+                      // onChange={props.handleNationalIdNumChange} 
+                      variant="outlined" 
+                      size="small"
+                      error={props.errors.nationalIdNumber && props.touched.nationalIdNumber}
+                      helperText={<ErrorMessage name='nationalIdNumber' />} required
                     />
-                {/* {errors.identificationNumber && errors.identificationNumber.type === 'required' && (<p className={classes.paragraphColor}>National Identification Number is required</p>)}
-                {errors.identificationNumber && errors.identificationNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
-                {errors.identificationNumber && errors.identificationNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
-                {errors.identificationNumber && errors.identificationNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid ID Number</p>)} */}
-              </Grid>
-
-              <Grid item xs={2}>
-                <Field as ={TextField}  
-                       name="tinNumber" 
-                       label="TIN Number" 
-                       InputLabelProps={{ shrink: true,}} 
-                      //  value={props.tinNumber} 
-                      //  onChange={props.handleTinNumChange} 
-                       variant="outlined" 
-                       size="small" 
-                       error={props.errors.tinNumber && props.touched.tinNumber}
-                       helperText={<ErrorMessage name='tinNumber' />} required
-                       />
-                {/* {errors.tinNumber && errors.tinNumber.type === 'required' && (<p className={classes.paragraphColor}>Tin Number is required</p>)}
-                {errors.tinNumber && errors.tinNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
-                {errors.tinNumber && errors.tinNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
-                {errors.tinNumber && errors.tinNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Tin Number</p>)} */}
-              </Grid>  
-
-              <Grid item xs={2}>
-                <Field as={TextField}
-                       name="passportNumber"
-                       label="Passport Number" 
-                       InputLabelProps={{ shrink: true,}} 
-                      //  value={props.passportNumber} 
-                      //  onChange={props.handlePassportNumChange} 
-                       variant="outlined" 
-                       size="small" 
-                       error={props.errors.passportNumber && props.touched.passportNumber}
-                       helperText={<ErrorMessage name='passportNumber' />} required
-                       />
-                {/* {errors.passportNumber && errors.passportNumber.type === 'required' && (<p className={classes.paragraphColor}>Passport Number is required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 8 characters required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 8 characters required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Passport Number</p>)} */}
-              </Grid >
-
-              <Grid item xs={2}>
-                <Field as ={TextField}
-                       name="passportExpirationDate" 
-                       label="Passport Expiration Date" 
-                       InputLabelProps={{ shrink: true,}} 
-                      //  value={props.passportExpirationDate} 
-                      //  onChange={props.handlePassportExpDateChange} 
-                       variant="outlined" 
-                       size="small" 
-                       InputLabelProps={{ shrink: true,}} 
-                       type="date"
-                       error={props.errors.passportExpirationDate && props.touched.passportExpirationDate}
-                       helperText={<ErrorMessage name='passportExpirationDate' />} required
-                       />
-              
-              </Grid >
-                
-          </React.Fragment>
-         
-          )}
+                    {/* {errors.identificationNumber && errors.identificationNumber.type === 'required' && (<p className={classes.paragraphColor}>National Identification Number is required</p>)}
+                    {errors.identificationNumber && errors.identificationNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
+                    {errors.identificationNumber && errors.identificationNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
+                    {errors.identificationNumber && errors.identificationNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid ID Number</p>)} */}
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <Field as ={TextField}  
+                      name="tinNumber" 
+                      label="TIN Number" 
+                      // InputLabelProps={{ shrink: true,}} 
+                    //  value={props.tinNumber} 
+                    //  onChange={props.handleTinNumChange} 
+                      variant="outlined" 
+                      size="small" 
+                      error={props.errors.tinNumber && props.touched.tinNumber}
+                      helperText={<ErrorMessage name='tinNumber' />} required
+                    />
+                    {/* {errors.tinNumber && errors.tinNumber.type === 'required' && (<p className={classes.paragraphColor}>Tin Number is required</p>)}
+                    {errors.tinNumber && errors.tinNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 9 numbers required</p>)}
+                    {errors.tinNumber && errors.tinNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
+                    {errors.tinNumber && errors.tinNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Tin Number</p>)} */}
+                  </Grid>  
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <Field as={TextField}
+                      name="passportNumber"
+                      label="Passport Number" 
+                      // InputLabelProps={{ shrink: true,}} 
+                    //  value={props.passportNumber} 
+                    //  onChange={props.handlePassportNumChange} 
+                      variant="outlined" 
+                      size="small" 
+                      error={props.errors.passportNumber && props.touched.passportNumber}
+                      helperText={<ErrorMessage name='passportNumber' />} required
+                    />
+                    {/* {errors.passportNumber && errors.passportNumber.type === 'required' && (<p className={classes.paragraphColor}>Passport Number is required</p>)}
+                    {errors.passportNumber && errors.passportNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 8 characters required</p>)}
+                    {errors.passportNumber && errors.passportNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 8 characters required</p>)}
+                    {errors.passportNumber && errors.passportNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Passport Number</p>)} */}
+                  </Grid >
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <Field as ={TextField}
+                      name="passportExpirationDate" 
+                      label="Passport Expiration Date" 
+                      InputLabelProps={{ shrink: true,}} 
+                    //  value={props.passportExpirationDate} 
+                    //  onChange={props.handlePassportExpDateChange} 
+                      variant="outlined" 
+                      size="small" 
+                      type="date"
+                      error={props.errors.passportExpirationDate && props.touched.passportExpirationDate}
+                      helperText={<ErrorMessage name='passportExpirationDate' />} required
+                    />              
+                  </Grid>
+                </div>
+              </React.Fragment>         
+            )}
           </Formik>
         </Grid>
       </Grid>
