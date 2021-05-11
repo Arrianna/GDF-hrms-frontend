@@ -16,15 +16,15 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         width: '25ch',
         flexGrow: 1,
-    }, 
+    },
   },
-  
+
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  
+
    careerButton: {
      marginLeft: '20px,'
    }
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddEmployeeInformation() {
   const classes = useStyles();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-  
+
   const formik = useFormik ({
     initialValues: {
       nationalityId: '',
@@ -148,7 +148,7 @@ export default function AddEmployeeInformation() {
         .required("Country is Required"),
     }),
 
-    onSubmit: values => {    
+    onSubmit: values => {
       let Info = {
         nationalityId: parseInt(values.nationalityId, 10),
         religionId: parseInt(values.religionId, 10),
@@ -176,7 +176,7 @@ export default function AddEmployeeInformation() {
         region: parseInt(values.region, 10),
         country: parseInt(values.country, 10),
       }
-      
+
       if(Info){
         axios.post('PostInfo/AddAnEmployee', Info)
         .then(response => getNotification(response))
@@ -200,9 +200,9 @@ export default function AddEmployeeInformation() {
         message: 'An error occurred',
         type: 'error'
       })
-    }    
+    }
   }
-  
+
   return (
     <div className={classes.root}>
       <Grid container spacing={1} >
@@ -220,7 +220,7 @@ export default function AddEmployeeInformation() {
                 <Grid item xs={12}>
                   <AddEmployeeAddressForm formik={formik}></AddEmployeeAddressForm>
                 </Grid>
-    
+
                 <Grid item xs={12}>
                   <AddEmployeeContactForm formik={formik}></AddEmployeeContactForm>
                 </Grid >
@@ -233,7 +233,7 @@ export default function AddEmployeeInformation() {
                   <Button type="submit" variant="outlined" color="primary"> Add Employee </Button>
                 </Grid >
               </form>
-            </Grid>           
+            </Grid>
           </div>
         </Grid>
       </Grid>

@@ -39,8 +39,8 @@ export default function AddressForm(props) {
         return ( 
           <div className={classes.root}>
             <Grid container>        
-              <h4>Address</h4>
-              <Grid container xs={12} spacing={3}></Grid>
+              <h3>Address</h3>
+              <Grid container spacing={3}></Grid>
               <Grid item xs={12}>
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">

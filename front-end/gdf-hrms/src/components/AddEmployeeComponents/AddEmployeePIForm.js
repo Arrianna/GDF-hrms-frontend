@@ -11,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         width: '25ch',
         flexGrow: 1,
-    }, 
+    },
   },
 
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
   },
-  
+
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddEmployeePIForm(props) {
-  const classes = useStyles();  
+  const classes = useStyles();
   const [ethnicities, setEthnicities] = useState();
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
@@ -81,52 +81,52 @@ export default function AddEmployeePIForm(props) {
               <h3>Personal Information</h3>
               <Grid container justify="center" item xs={12} spacing={3}>
                 <Grid item xs={4}>
-                  <TextField 
-                    required 
-                    name="firstName" 
-                    label="First Name" 
-                    value={props.formik.values.firstName} 
-                    onChange={props.formik.handleChange} 
-                    variant="outlined" 
+                  <TextField
+                    required
+                    name="firstName"
+                    label="First Name"
+                    value={props.formik.values.firstName}
+                    onChange={props.formik.handleChange}
+                    variant="outlined"
                     size="small"
                     error={Boolean(props.formik.errors.firstName && props.formik.touched.firstName)}
                     helperText={props.formik.errors.firstName && props.formik.touched.firstName && String(props.formik.errors.firstName)}
-                  />                  
+                  />
                 </Grid>
                 <Grid item xs={4}>
-                  <TextField 
-                    name="otherName" 
-                    label="Middle Name" 
-                    value={props.formik.values.otherName} 
-                    onChange={props.formik.handleChange} 
-                    variant="outlined" 
-                    size="small" 
+                  <TextField
+                    name="otherName"
+                    label="Middle Name"
+                    value={props.formik.values.otherName}
+                    onChange={props.formik.handleChange}
+                    variant="outlined"
+                    size="small"
                     error={Boolean(props.formik.errors.otherName && props.formik.touched.otherName)}
                     helperText={props.formik.errors.otherName && props.formik.touched.otherName && String(props.formik.errors.otherName)}
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <TextField 
-                    required 
-                    name="lastName" 
-                    label="Last Name" 
-                    value={props.formik.values.lastName} 
-                    onChange={props.formik.handleChange} 
-                    variant="outlined" 
+                  <TextField
+                    required
+                    name="lastName"
+                    label="Last Name"
+                    value={props.formik.values.lastName}
+                    onChange={props.formik.handleChange}
+                    variant="outlined"
                     size="small"
                     error={Boolean(props.formik.errors.lastName && props.formik.touched.lastName)}
                     helperText={props.formik.errors.lastName && props.formik.touched.lastName && String(props.formik.errors.lastName)}
                   />
                 </Grid>
 
-                <Grid item xs={4}>                      
-                  <TextField 
-                    required 
+                <Grid item xs={4}>
+                  <TextField
+                    required
                     name="title"
-                    label="Title" 
-                    value={props.formik.values.title} 
-                    onChange={props.formik.handleChange} 
-                    variant="outlined" 
+                    label="Title"
+                    value={props.formik.values.title}
+                    onChange={props.formik.handleChange}
+                    variant="outlined"
                     size="small"
                     error={Boolean(props.formik.errors.title && props.formik.touched.title)}
                     helperText={props.formik.errors.title && props.formik.touched.title && String(props.formik.errors.title)}
@@ -143,13 +143,13 @@ export default function AddEmployeePIForm(props) {
                     onChange={props.formik.handleChange}
                     label="Sex"
                     error={Boolean(props.formik.errors.sex && props.formik.touched.sex)}
-                    helperText={props.formik.errors.sex && props.formik.touched.sex && String(props.formik.errors.sex)}      
+                    helperText={props.formik.errors.sex && props.formik.touched.sex && String(props.formik.errors.sex)}
                   >
                     <MenuItem value=""><em>Select</em></MenuItem>
                     <MenuItem value={"Male"}>Male</MenuItem>
                     <MenuItem value={"Female"}>Female</MenuItem>
                     <MenuItem value={"Other"}>Other</MenuItem>
-                  </TextField>                  
+                  </TextField>
                 </Grid>
                 <Grid item xs={4}>
                   <TextField
@@ -168,24 +168,24 @@ export default function AddEmployeePIForm(props) {
                     {maritalStatuses.map((maritalStatus) =>
                       <MenuItem key={maritalStatus.id} value={maritalStatus.id}>{maritalStatus.name}</MenuItem>
                     )}
-                  </TextField>                  
+                  </TextField>
                 </Grid>
 
                 <Grid item xs={4}>
-                  <TextField 
-                    required 
-                    name="dateOfBirth" 
-                    label="Date of Birth" 
+                  <TextField
+                    required
+                    name="dateOfBirth"
+                    label="Date of Birth"
                     value={props.formik.values.dateOfBirth}
                     onChange={props.formik.handleChange}
-                    variant="outlined" 
-                    InputLabelProps={{ shrink: true,}} 
-                    size="small" 
+                    variant="outlined"
+                    InputLabelProps={{ shrink: true,}}
+                    size="small"
                     type="date"
                     error={Boolean(props.formik.errors.dateOfBirth && props.formik.touched.dateOfBirth)}
                     helperText={props.formik.errors.dateOfBirth && props.formik.touched.dateOfBirth && String(props.formik.errors.dateOfBirth)}
                   />
-                </Grid>   
+                </Grid>
                 <Grid item xs={4}>
                   <TextField
                     required
@@ -203,7 +203,7 @@ export default function AddEmployeePIForm(props) {
                     {ethnicities.map((ethnicity) =>
                       <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
                     )}
-                  </TextField>                  
+                  </TextField>
                 </Grid >
                 <Grid item xs={4}>
                   <TextField
@@ -221,8 +221,8 @@ export default function AddEmployeePIForm(props) {
                     <MenuItem value=""><em>Select</em></MenuItem>
                     {religions.map((religion) =>
                       <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
-                    )}                    
-                  </TextField>                  
+                    )}
+                  </TextField>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -240,8 +240,8 @@ export default function AddEmployeePIForm(props) {
                     <MenuItem value=""><em>Select</em></MenuItem>
                     {nationalities.map((nationality) =>
                       <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
-                    )}                          
-                  </TextField>                  
+                    )}
+                  </TextField>
                 </Grid >
               </Grid>
             </Grid>
