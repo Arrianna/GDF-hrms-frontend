@@ -269,7 +269,7 @@ export default function ViewCareerHistory(props) {
                         fullWidth 
                         InputLabelProps={{ shrink: true,}}
                         error={props.errors.startDate && props.touched.startDate}
-                        helperText={<ErrorMessage name='startDate' />}
+                        helperText={<ErrorMessage name='startDate' />}  required
                       />
                       </div>
                         <br/>
@@ -282,7 +282,7 @@ export default function ViewCareerHistory(props) {
                         fullWidth 
                         InputLabelProps={{ shrink: true,}}
                         error={props.errors.endDate && props.touched.endDate}
-                        helperText={<ErrorMessage name='endDate' />} required />
+                        helperText={<ErrorMessage name='endDate' />}  />
                       </div>
                       </Form>
                     )}

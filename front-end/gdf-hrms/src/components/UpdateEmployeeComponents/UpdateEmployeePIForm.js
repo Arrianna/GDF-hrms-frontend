@@ -40,6 +40,7 @@ export default function UpdateEmployeePIForm(props) {
 
 
   useEffect(() => {
+   // console.log("heller");
     const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
       if(info.data != null){
@@ -64,7 +65,7 @@ export default function UpdateEmployeePIForm(props) {
         }
       }
     };
-    const getNationalitiess = async () => {
+    const getNationalities = async () => {
       const info = await Axios.get("GetInfo/GetAllNationalities");
       if(info.data != null){
         if(info.data.length > 0){
@@ -72,17 +73,24 @@ export default function UpdateEmployeePIForm(props) {
         }
       }
     };
+
     getEthnicities();
     getReligions();
     getMaritalStatuses();
-    getNationalitiess();
+    getNationalities();
+  
+
   }, []);
 
 
+
+
+
   const showInfo = () => {
-    console.log("working");
+
     if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
       if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
+
         return(
           <Grid container>
           <h4>Personal Information</h4>
@@ -120,7 +128,7 @@ export default function UpdateEmployeePIForm(props) {
       
                 <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
-                    <InputLabel id="ethnicity-label">Ethnicity</InputLabel>
+                    <InputLabel id="ethnicity-label" shrink="true">Ethnicity</InputLabel>
                     <Select
                       labelId="ethnicity-label"
                       id="ethnicity"
@@ -128,7 +136,6 @@ export default function UpdateEmployeePIForm(props) {
                       onChange={props.handleEthnicityChange}
                       label="Ethnicity"
                     >
-              
                      <MenuItem value=""><em>Select</em></MenuItem>
                        {ethnicities.map((ethnicity) =>
                      <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
@@ -139,7 +146,7 @@ export default function UpdateEmployeePIForm(props) {
                
                  <Grid item xs={2}>   
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
-                    <InputLabel id="religion-label">Religion</InputLabel>
+                    <InputLabel id="religion-label" shrink="true">Religion</InputLabel>
                     <Select
                       labelId="religion-label"
                       id="religion"
@@ -147,17 +154,17 @@ export default function UpdateEmployeePIForm(props) {
                       onChange={props.handleReligionChange}
                       label="Religion"
                     >
-                      <MenuItem value=""><em>Select</em></MenuItem>
-                      <MenuItem value={1}>Christian</MenuItem>
-                      <MenuItem value={2}>Muslim</MenuItem>
-                      <MenuItem value={3}>Hindu</MenuItem>
-                      <MenuItem value={4}>Other</MenuItem>                
+                     <MenuItem value=""><em>Select</em></MenuItem>
+                       {religions.map((religion) =>
+                     <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
+                    )}               
                     </Select>
                   </FormControl>
                   </Grid>
+
                 <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
-                    <InputLabel id="marital-status-label">Marital Status</InputLabel>
+                    <InputLabel id="marital-status-label" shrink="true">Marital Status</InputLabel>
                     <Select
                       labelId="marital-status-label"
                       id="marital-status"
@@ -166,40 +173,38 @@ export default function UpdateEmployeePIForm(props) {
                       label="Marital Status"
                     >
                       <MenuItem value=""><em>Select</em></MenuItem>
-                      <MenuItem value={1}>Single</MenuItem>
-                      <MenuItem value={2}>Married</MenuItem>
-                      <MenuItem value={3}>Divorced</MenuItem>
+                       {maritalStatuses.map((maritalStatus) =>
+                     <MenuItem key={maritalStatus.id} value={maritalStatus.id}>{maritalStatus.name}</MenuItem>
+                    )}
                     </Select>
                   </FormControl>
                   </Grid>
+
                  <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
-                    <InputLabel id="nationality-label">Nationality</InputLabel>
+                    <InputLabel id="nationality-label" shrink="true">Nationality</InputLabel>
                     <Select
                       labelId="nationality-label"
-                      id="Nationality"
+                      id="nationality"
                       InputLabelProps={{ shrink: true,}}
                       value={props.nationality}
                       onChange={props.handleNationalityChange}
                       label="Nationality"
                     >
                       <MenuItem value=""><em>Select</em></MenuItem>
-                      <MenuItem value={1}>Guyanese</MenuItem>
-                      <MenuItem value={2}>Surinamese</MenuItem>
-                      <MenuItem value={3}>Brazillian</MenuItem>
-                      <MenuItem value={4}>Venezuelan</MenuItem>
-                      <MenuItem value={5}>Trinidadian</MenuItem>
-                      <MenuItem value={6}>Barbadian</MenuItem>
+                       {nationalities.map((nationality) =>
+                     <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
+                    )}
                     </Select>
                   </FormControl>
                 </Grid >
             </React.Fragment>
           </Grid>
         </Grid>
-        )}  
-    }
+        )}
+     }}
   
-  }  
+  
 
   return (
     <div className={classes.root}>
