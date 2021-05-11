@@ -241,12 +241,11 @@ export default function UpdateEmployeePIForm(props) {
                       error={props.errors.religion && props.touched.religion}
                       helperText={<ErrorMessage name='religion' />} 
                       required >
-                    
-                      <MenuItem value=""><em>Select</em></MenuItem>
-                      <MenuItem value={1}>Christian</MenuItem>
-                      <MenuItem value={2}>Muslim</MenuItem>
-                      <MenuItem value={3}>Hindu</MenuItem>
-                      <MenuItem value={4}>Other</MenuItem>                
+
+                     <MenuItem value=""><em>Select</em></MenuItem>
+                       {religions.map((religion) =>
+                     <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
+                    )}                      
                    </Field>
                   </Grid>
 
