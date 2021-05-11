@@ -67,6 +67,10 @@ export default function UpdateEmployeeInformation() {
   const [passportNumber, setPassportNumber] = useState(null);
   const [passportExpirationDate, setPassportExpirationDate] = useState(null);
   const [tinNumber, setTinNumber] = useState(null);
+  const [nationalities, setNationalities] = useState();
+  const [religions, setReligions] = useState();
+  const [maritalStatuses, setMaritalStatuses] = useState();
+  const [ethnicities, setEthnicities] = useState();
 
 
   useEffect(() => {   
@@ -81,18 +85,86 @@ export default function UpdateEmployeeInformation() {
         setEmployeeAddress(addressInfo.data);
       } */
     };
+    
+    const getEthnicities = async () => {
+      const info = await Axios.get("GetInfo/GetAllEthnicities");
+      if(info.data != null){
+        if(info.data.length > 0){
+          setEthnicities(info.data);
+        }
+      }
+    };
+    const getReligions = async () => {
+      const info = await Axios.get("GetInfo/GetAllReligions");
+      if(info.data != null){
+        if(info.data.length > 0){
+          setReligions(info.data);
+        }
+      }
+    };
+    const getMaritalStatuses = async () => {
+      const info = await Axios.get("GetInfo/GetAllMaritalStaus");
+      if(info.data != null){
+        if(info.data.length > 0){
+          setMaritalStatuses(info.data);
+        }
+      }
+    };
+    const getNationalities = async () => {
+      const info = await Axios.get("GetInfo/GetAllNationalities");
+      if(info.data != null){
+        if(info.data.length > 0){
+          setNationalities(info.data);
+        }
+      }
+    };
+
+    getEthnicities();
+    getReligions();
+    getMaritalStatuses();
+    getNationalities();  
     getEmpInfo();
+
 
     setFirstName(empInfoGet.firstName);
     setLastName(empInfoGet.lastName);
     setOtherName(empInfoGet.otherName);
-    setOtherNameTwo(empInfoGet.otherNameTwo);
-    setMaritalStatus(empInfoGet.maritalStatus);
-    setEthnicity(empInfoGet.ethnicity);
-    setReligion(empInfoGet.religion);
+    //setOtherNameTwo(empInfoGet.otherNameTwo);
+
+    if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
+      if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
+
+         maritalStatuses.map((localMaritalStatus) => {
+           if( empInfoGet.maritalStatus == localMaritalStatus.name){
+             setMaritalStatus(parseInt(localMaritalStatus.id));
+             //props.maritalStatus = localMaritalStatus;
+             }
+           });
+
+         religions.map((localReligion) => {
+            if( empInfoGet.religion == localReligion.name){
+              setReligion(parseInt(localReligion.id));
+               }
+           });
+
+         nationalities.map((localNationality) => {
+          if( empInfoGet.nationality == localNationality.name){
+             setNationality(parseInt(localNationality.id));
+            }
+          });
+
+         ethnicities.map((localEthnicity) => {
+          if( empInfoGet.ethnicity == localEthnicity.name){
+            setEthnicity(parseInt(localEthnicity.id));
+            }
+          });
+
+        }
+      }
+
     setSex(empInfoGet.sex);
     setDateOfBirth(empInfoGet.dateOfBirth);
-    setNationality(empInfoGet.nationality);
+    // setNationality(empInfoGet.nationality);
     setHomeNumber(empInfoGet.homeNumber);
     setCellNumber(empInfoGet.cellNumber);
     setWorkNumber(empInfoGet.workNumber);
@@ -110,10 +182,7 @@ export default function UpdateEmployeeInformation() {
       empInfoGet.regimentNumber, empInfoGet.nationalIdNumber, empInfoGet.passportNumber, empInfoGet.passportExpirationDate,
       empInfoGet.tinNumber]);
 
-  //console.log(empInfoGet.firstName);
-  //console.log(empInfoGet);
-  //console.log(empInfoGet.firstName);
-  
+      console.log(sex);
   // AddEmployeePIForm INFORMATION
 
   const handleFirstNameChange = (event) => {
@@ -194,11 +263,11 @@ export default function UpdateEmployeeInformation() {
   const handleTinNumChange = (event) => {
     setTinNumber(event.target.value);
   }
-  console.log(maritalStatus);
-  console.log(religion);
-  console.log(nationality);
-  console.log(ethnicity);
-  console.log(firstName);
+   console.log(maritalStatus);
+  // console.log(religion);
+  // console.log(nationality);
+  // console.log(ethnicity);
+  // console.log(firstName);
 
   const getNotification = (option, notificationType) => {
     if(notificationType === 'success'){
