@@ -88,6 +88,7 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
           {(props) => (
           
           <React.Fragment>
+              <div>
               <Grid item xs={2}>
                 <Field as ={TextField} required 
                 label="Regimental Number" 
@@ -100,11 +101,10 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
                 helperText={<ErrorMessage name='regimentalNumber' />} 
 
                 />
-                {/* {errors.regimentalNumber && errors.regimentalNumber.type === 'required' && (<p className={classes.paragraphColor}>Regiment Number is required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 6 numbers required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 6 numbers required</p>)}
-                {errors.regimentalNumber && errors.regimentalNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid regiment number</p>)} */}
               </Grid>
+              </div>
+
+              <div>
               <Grid item xs={2}>
                 <Field as ={TextField} 
                     name="nationalIdNumber" 
@@ -122,7 +122,9 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
                 {errors.identificationNumber && errors.identificationNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
                 {errors.identificationNumber && errors.identificationNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid ID Number</p>)} */}
               </Grid>
+              </div>
 
+              <div>
               <Grid item xs={2}>
                 <Field as ={TextField}  
                        name="tinNumber" 
@@ -140,7 +142,10 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
                 {errors.tinNumber && errors.tinNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 9 numbers required</p>)}
                 {errors.tinNumber && errors.tinNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Tin Number</p>)} */}
               </Grid>  
+              </div>
 
+
+              <div>
               <Grid item xs={2}>
                 <Field as={TextField}
                        name="passportNumber"
@@ -153,12 +158,11 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
                        error={props.errors.passportNumber && props.touched.passportNumber}
                        helperText={<ErrorMessage name='passportNumber' />} required
                        />
-                {/* {errors.passportNumber && errors.passportNumber.type === 'required' && (<p className={classes.paragraphColor}>Passport Number is required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'minLength' && (<p className={classes.paragraphColor}>A minimum of 8 characters required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'maxLength' && (<p className={classes.paragraphColor}>A maximum of 8 characters required</p>)}
-                {errors.passportNumber && errors.passportNumber.type === 'pattern' && (<p className={classes.paragraphColor}>Invalid Passport Number</p>)} */}
+                
               </Grid >
-
+              </div>
+              
+              <div>
               <Grid item xs={2}>
                 <Field as ={TextField}
                        name="passportExpirationDate" 
@@ -173,11 +177,9 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
                        error={props.errors.passportExpirationDate && props.touched.passportExpirationDate}
                        helperText={<ErrorMessage name='passportExpirationDate' />} required
                        />
-              
               </Grid >
-                
+              </div> 
           </React.Fragment>
-         
           )}
           </Formik>
         </Grid>

@@ -26,27 +26,35 @@ export default function OfficialInformationForm(employeePI) {
   function FormRow() {
     return (
       <React.Fragment>
-       
+          <div>
           <Grid item xs={2}>
             <TextField id="RegimentalNumber" label="RegimentalNumber" variant="outlined" size="small" value={employeePI.employeeInfo.regimentNumber}/>
           </Grid>
+          </div>
        
+          <div>
           <Grid item xs={2}>
             <TextField id="IdentificationNumber" label="IdentificationNumber" variant="outlined" size="small" value={employeePI.employeeInfo.nationalIdNumber}/>
           </Grid>
+          </div>
         
-       
+          <div>
           <Grid item xs={2}>
             <TextField id="PassportNumber" label="PassportNumber" variant="outlined" size="small" value={employeePI.employeeInfo.passportNumber}/>
           </Grid >
+          </div>
        
+          <div>
           <Grid item xs={2}>
             <TextField id="PassportExpirationDate" label="Passport Expiration Date" variant="outlined" size="small" type="text" value={moment(employeePI.employeeInfo.passportExpirationDate).format('DD-MM-YYYY')}/>
           </Grid >
+          </div>
       
+          <div>
           <Grid item xs={2}>
             <TextField id="NISNumber" label="TIN Number" variant="outlined" size="small" value={employeePI.employeeInfo.tinNumber}/>
           </Grid>
+          </div>
        
       </React.Fragment>      
     );

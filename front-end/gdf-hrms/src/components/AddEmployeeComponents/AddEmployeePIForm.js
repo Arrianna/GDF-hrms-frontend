@@ -84,21 +84,25 @@ export default function AddEmployeePIForm(props) {
               <h4>Personal Information</h4>
               <Grid container xs={12} spacing={3}>
                 <React.Fragment>
-                 
+                    <div>
                     <Grid item xs={2}>
                       <TextField required name="firstName" label="First Name" value={props.employeeInfo && props.employeeInfo.firstName} onChange={props.handleChange} variant="outlined" size="small" />         
                     </Grid>
                     <Grid item xs={2}>       
                       <TextField name="otherName" label="Middle Name" value={props.employeeInfo && props.employeeInfo.otherName} onChange={props.handleChange} variant="outlined" size="small"  />
                     </Grid>
-                
+                    </div>
+
+                    <div>
                     <Grid item xs={2}>
                       <TextField required id="LastName" name="lastName" label="Last Name" value={props.employeeInfo && props.employeeInfo.lastName} onChange={props.handleChange} variant="outlined" size="small" />
                     </Grid>
                     <Grid item xs={2}>
                       <TextField id="MiddleNameTwo" label="Middle Name" value={props.employeeInfo && props.employeeInfo.otherName} onChange={props.handleChange} variant="outlined" size="small" />                      
                     </Grid >
-              
+                    </div>
+
+                    <div>
                     <Grid item xs={2}>
                         <FormControl variant="outlined" size="small" className={classes.formControl}>
                           <InputLabel id="sex-label">Sex</InputLabel>
@@ -117,12 +121,15 @@ export default function AddEmployeePIForm(props) {
                           </Select>
                         </FormControl>
                     </Grid> 
+                    </div>
 
+                    <div>
                     <Grid item xs={2}>
                         <TextField id="dateOfBirth" name="dateOfBirth" label="Date of Birth" value={props.employeeInfo && props.employeeInfo.dateOfBirth} onChange={props.handleChange} variant="outlined" InputLabelProps={{ shrink: true,}} size="small" type="date" />                        
                     </Grid >
+                    </div>
                  
-                
+                    <div>
                     <Grid item xs={2}>
                       <FormControl variant="outlined" size="small" className={classes.formControl}>
                         <InputLabel id="ethnicity-label">Ethnicity</InputLabel>
@@ -141,7 +148,9 @@ export default function AddEmployeePIForm(props) {
                         </Select>
                       </FormControl>
                     </Grid >
+                    </div>
                     
+                    <div>
                     <Grid item xs={2}>
                     <FormControl variant="outlined" size="small" className={classes.formControl}>
                       <InputLabel id="religion-label">Religion</InputLabel>
@@ -160,7 +169,9 @@ export default function AddEmployeePIForm(props) {
                       </Select>
                     </FormControl>
                     </Grid>
-               
+                    </div>
+                    
+                    <div>
                     <Grid item xs={2}>
                       <FormControl variant="outlined" size="small" className={classes.formControl}>
                         <InputLabel id="marital-status-label">Marital Status</InputLabel>
@@ -179,7 +190,9 @@ export default function AddEmployeePIForm(props) {
                         </Select>
                         </FormControl>
                     </Grid>
-
+                    </div>
+                    
+                  <div>
                    <Grid item xs={2}>
                       <FormControl variant="outlined" size="small" className={classes.formControl}>
                         <InputLabel id="nationality-label">Nationality</InputLabel>
@@ -198,6 +211,7 @@ export default function AddEmployeePIForm(props) {
                         </Select>
                       </FormControl>
                     </Grid>
+                    </div>
                 </React.Fragment>
               </Grid>
             </Grid>

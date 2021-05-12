@@ -118,24 +118,20 @@ export default function UpdateEmployeePIForm(props) {
 
   }, []);
 
-
-
-
-
   const showInfo = () => {
 
     if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
       if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
 
         return(
-          <Grid container spacing = {1}>
+          <Grid container>
           <h4>Personal Information</h4>
           <Grid container xs={12} spacing={3}>
             <Formik  initialValues={initialValues} validationSchema={validationSchema}>
             {(props) => (
-              <Form >
-            <React.Fragment>
               
+            <React.Fragment>
+              <div>
                 <Grid item xs={2}>
                   <TextField
                          name="firstName" 
@@ -148,11 +144,14 @@ export default function UpdateEmployeePIForm(props) {
                          error={props.errors.firstName && props.touched.firstName}
                          helperText={<ErrorMessage name='firstName' />} required />            
                   </Grid>
-
+                </div>
+                <div>
                  <Grid item xs={2}>
                   <TextField name="otherNameTwo" label="Middle Name" InputLabelProps={{ shrink: true,}} value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
                 </Grid>
+                </div>
 
+                <div>
                 <Grid item xs={2}>
                 <TextField 
                        name="lastName" 
@@ -167,6 +166,9 @@ export default function UpdateEmployeePIForm(props) {
                        helperText={<ErrorMessage name='lastName' />} required
                       />
                   </Grid>
+                  </div>
+
+                  <div>
                   <Grid item xs={2}>
                     <Field as={TextField}
                       select
@@ -189,8 +191,8 @@ export default function UpdateEmployeePIForm(props) {
                       
                       </Field>
                     </Grid>
-
-
+                    </div>
+                <div>
                  <Grid item xs={2}>
                     <Field as= {TextField }
                            name="dateOfBirth" 
@@ -205,7 +207,8 @@ export default function UpdateEmployeePIForm(props) {
                            helperText={<ErrorMessage name='dateOfBirth' />} required
                            />
                   </Grid>
-      
+                  </div>
+                <div>
                 <Grid item xs={2}>
                 <Field as = {TextField}
                     select
@@ -224,9 +227,10 @@ export default function UpdateEmployeePIForm(props) {
                      <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
                     )}
                     </Field>
-                      
-                </Grid >         
-               
+                </Grid >  
+                </div>       
+                
+                <div>
                  <Grid item xs={2}>   
                   <Field as ={TextField}
                     select
@@ -248,8 +252,9 @@ export default function UpdateEmployeePIForm(props) {
                     )}                      
                    </Field>
                   </Grid>
+                  </div>
 
-
+                <div>
                 <Grid item xs={2}>
                   <Field as={TextField}
                     select
@@ -272,7 +277,9 @@ export default function UpdateEmployeePIForm(props) {
                     </Field>
                 
                   </Grid>
-
+                  </div>
+                 
+                 <div>
                  <Grid item xs={2}>
                   <FormControl variant="outlined" size="small" className={classes.formControl}>
                     <InputLabel id="nationality-label" shrink="true">Nationality</InputLabel>
@@ -301,9 +308,9 @@ export default function UpdateEmployeePIForm(props) {
                     </Select>
                   </FormControl>
                 </Grid >
+                </div>
                 
             </React.Fragment>
-            </Form>
             )}
             </Formik>
           </Grid>
