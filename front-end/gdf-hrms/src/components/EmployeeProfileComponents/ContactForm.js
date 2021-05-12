@@ -27,30 +27,26 @@ export default function ContactForm(employeePI) {
   function FormRow() {
     return (
       <React.Fragment>
-          <div>
+        <div>
           <Grid item xs={2}>
             <TextField id="HomeNumber" label="Home Number" variant="outlined" size="small" value={employeePI.employeeInfo.homeNumber} />
           </Grid>
-          </div>
-
-          <div>
+        </div>
+        <div>
           <Grid item xs={2}>
             <TextField id="CellNumber" label="Cell Number" variant="outlined" size="small" value={employeePI.employeeInfo.cellNumber}/>
           </Grid>
-          </div>
-         
-         <div>
+        </div>
+        <div>
           <Grid item xs={2}>
             <TextField id="WorkNumber" label="Work Number" variant="outlined" size="small" value={employeePI.employeeInfo.workNumber}/>
           </Grid >
-          </div>
-        
+        </div>
         <div>
           <Grid item xs={2}>
             <TextField id="Email" label="Email" variant="outlined" size="small" value={employeePI.employeeInfo.email}/>
           </Grid >
         </div>
-       
       </React.Fragment>      
     );
   }
@@ -58,7 +54,7 @@ export default function ContactForm(employeePI) {
   return (
     <div className={classes.root}>
       <Grid container>
-      <h4>Contact Information</h4>
+      <h3>Contact Information</h3>
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>

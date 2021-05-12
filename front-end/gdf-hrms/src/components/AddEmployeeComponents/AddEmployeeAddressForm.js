@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { Grid, TextField } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
 import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -71,67 +67,109 @@ export default function AddEmployeeAddressForm(props) {
         return (
           <div className={classes.root}>
             <Grid container spacing={1}>
-              <h4>Address </h4>
+              <h3>Address </h3>
               <Grid container item xs={12} spacing={3}>
                 <React.Fragment>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="lot" label="Lot" value={props.employeeInfo && props.employeeInfo.lot} onChange={props.handleChange} variant="outlined" size="small" />
+                      <TextField 
+                        required
+                        name="lot" 
+                        label="Lot" 
+                        value={props.formik.values.lot} 
+                        onChange={props.formik.handleChange}
+                        variant="outlined" 
+                        size="small" 
+                        error={Boolean(props.formik.errors.lot && props.formik.touched.lot)}
+                        helperText={props.formik.errors.lot && props.formik.touched.lot && String(props.formik.errors.lot)}
+                      />                      
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="street" label="Street" value={props.employeeInfo && props.employeeInfo.street} onChange={props.handleChange} variant="outlined" size="small" />
+                      <TextField 
+                        required
+                        name="street" 
+                        label="Street" 
+                        value={props.formik.values.street} 
+                        onChange={props.formik.handleChange}
+                        variant="outlined" 
+                        size="small" 
+                        error={Boolean(props.formik.errors.street && props.formik.touched.street)}
+                        helperText={props.formik.errors.street && props.formik.touched.street && String(props.formik.errors.street)}
+                      />                      
                     </Grid>
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="area" label="Area/Section" value={props.employeeInfo && props.employeeInfo.area} onChange={props.handleChange} variant="outlined" size="small" />
+                      <TextField 
+                        required
+                        name="area" 
+                        label="Area/Section" 
+                        value={props.formik.values.area} 
+                        onChange={props.formik.handleChange}
+                        variant="outlined" 
+                        size="small" 
+                        error={Boolean(props.formik.errors.area && props.formik.touched.area)}
+                        helperText={props.formik.errors.area && props.formik.touched.area && String(props.formik.errors.area)}
+                      />                      
                     </Grid >
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <TextField name="village" label="Village" value={props.employeeInfo && props.employeeInfo.village} onChange={props.handleChange} variant="outlined" size="small" />
+                      <TextField 
+                        required
+                        name="village" 
+                        label="Village" 
+                        value={props.formik.values.village} 
+                        onChange={props.formik.handleChange}
+                        variant="outlined" 
+                        size="small" 
+                        error={Boolean(props.formik.errors.village && props.formik.touched.village)}
+                        helperText={props.formik.errors.village && props.formik.touched.village && String(props.formik.errors.village)}
+                      />                      
                     </Grid >
                   </div>
                   <div>
                     <Grid item xs={2}>
-                      <FormControl variant="outlined" size="small" className={classes.formControl}>
-                        <InputLabel id="region-label">Region</InputLabel>
-                        <Select
-                          labelId="region-label"
-                          id="region"
-                          name="region"
-                          value={props.employeeInfo && props.employeeInfo.region}
-                          onChange={props.handleChange}
-                          label="Region"
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {regions.map((region) =>
-                            <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
-                          )}
-                        </Select>
-                      </FormControl>
+                      <TextField
+                        required
+                        select
+                        name="region"
+                        variant="outlined"
+                        size="small"
+                        value={props.formik.values.region} 
+                        onChange={props.formik.handleChange}
+                        label="Region"
+                        error={Boolean(props.formik.errors.region && props.formik.touched.region)}
+                        helperText={props.formik.errors.region && props.formik.touched.region && String(props.formik.errors.region)}
+                      >
+                        <MenuItem value=""><em>Select</em></MenuItem>
+                        {regions.map((region) =>
+                          <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                        )}
+                      </TextField>                      
                     </Grid >
                   </div>
                   <div>
-                    <Grid item xs={2}>
-                      <FormControl variant="outlined" size="small" className={classes.formControl}>
-                        <InputLabel id="region-label">Country</InputLabel>
-                        <Select
-                          labelId="country-label"
-                          id="country"
-                          name="country"
-                          value={props.employeeInfo && props.employeeInfo.country}
-                          onChange={props.handleChange}
-                          label="Country"
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {countries.map((country) =>
-                            <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-                          )}
-                        </Select>
-                      </FormControl>
+                    <Grid item xs={2}>                      
+                      <TextField
+                        required
+                        select
+                        name="country"
+                        variant="outlined"
+                        size="small"
+                        value={props.formik.values.country} 
+                        onChange={props.formik.handleChange}
+                        label="Country"
+                        error={Boolean(props.formik.errors.country && props.formik.touched.country)}
+                        helperText={props.formik.errors.country && props.formik.touched.country && String(props.formik.errors.country)}
+                      >
+                        <MenuItem value=""><em>Select</em></MenuItem>
+                        {countries.map((country) =>
+                          <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+                        )}
+                      </TextField>                      
                     </Grid >
                   </div>
                 </React.Fragment>

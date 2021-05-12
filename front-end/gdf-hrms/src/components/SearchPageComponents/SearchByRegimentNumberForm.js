@@ -17,11 +17,8 @@ export default function SearchByRegimentNumberForm(submitFunction) {
       .typeError("Enter valid Regimental Number")
       .required("A Regimental Number is Required")
       .positive("A regimental number can't start with a minus")
-      .integer("A regimental number can't include a decimal point"),
-    regimentalNumber: Yup.string()
-      .required("A Regimental Number is Required")
-      .matches(/^[0-9]+$/, "Regimental Number must be digits only")
-      .min(6, 'Must be at least 6 digits')
+      .integer("A regimental number can't include a decimal point")
+      .test('len', 'Must be at least 6 numbers', (val) => { if(val) return val.toString().length >= 6; })
   })
 
   const onSubmit = (values, props) => {

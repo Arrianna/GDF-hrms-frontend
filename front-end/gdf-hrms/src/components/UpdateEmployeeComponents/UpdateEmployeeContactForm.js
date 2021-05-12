@@ -88,7 +88,7 @@ export default function UpdateEmployeeContactForm(props) {
                   label="Home Number"  
                   // value={props.homeNumber}
                   // onChange={props.handleHomeNumChange}  
-                  InputLabelProps={{ shrink: true,}}
+                  // InputLabelProps={{ shrink: true,}}
                   type="tel"                           
                   variant="outlined" 
                   size="small" 
@@ -107,7 +107,7 @@ export default function UpdateEmployeeContactForm(props) {
                   label="Cell Number"  
                   // value={props.cellNumber}
                   // onChange={props.handleCellNumChange} 
-                  InputLabelProps={{ shrink: true,}}
+                  // InputLabelProps={{ shrink: true,}}
                   type="tel"                
                   variant="outlined" 
                   size="small" 
@@ -126,7 +126,7 @@ export default function UpdateEmployeeContactForm(props) {
                   label="Work Number" 
                   value={props.workNumber}
                   onChange={props.handleWorkNumChange}  
-                  InputLabelProps={{ shrink: true,}}
+                  // InputLabelProps={{ shrink: true,}}
                   type="tel"                
                   variant="outlined" 
                   size="small" 
@@ -145,7 +145,7 @@ export default function UpdateEmployeeContactForm(props) {
                   type="email"              
                   // value={props.email}
                   // onChange={props.handleEmailChange}
-                  InputLabelProps={{ shrink: true,}}
+                  // InputLabelProps={{ shrink: true,}}
                   variant="outlined" 
                   size="small" 
                   error={props.errors.email && props.touched.email}

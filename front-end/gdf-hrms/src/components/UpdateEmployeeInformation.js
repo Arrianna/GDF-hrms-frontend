@@ -394,7 +394,7 @@ export default function UpdateEmployeeInformation() {
               </Grid >
               
               <Grid item xs={6}>
-                <Button type="submit" onClick={postDataHandler} variant="outlined" color="primary"> Update Employee </Button>
+                <Button type="submit" onClick={postDataHandler} variant="outlined" color="primary" style={{margin: '10'}}> Update Employee </Button>
                 <Notification  notify={notify} setNotify={setNotify}></Notification>
               </Grid >
               <Notification  notify={notify} setNotify={setNotify}></Notification>

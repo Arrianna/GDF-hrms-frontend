@@ -7,7 +7,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://localhost:5001/api/';
 axios.defaults.headers.post['Accept'] = 'application/json'
 
-axios.interceptors.request.use((request) => {
+/* axios.interceptors.request.use((request) => {
   console.log(request);
   return request;
 },
@@ -23,7 +23,7 @@ axios.interceptors.response.use((response) => {
 },
   (error) => {
     return Promise.reject(error);
-});
+}); */
 
 const client = new QueryClient();
 
