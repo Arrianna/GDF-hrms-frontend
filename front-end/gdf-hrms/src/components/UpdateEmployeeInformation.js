@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import axios from './UpdateEmployeeComponents/axios';
 import Notification from './Notification';
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 import UpdateEmployeePIForm from './UpdateEmployeeComponents/UpdateEmployeePIForm';
 //import UpdateEmployeeAddressForm from './UpdateEmployeeComponents/UpdateEmployeeAddressForm';
 import UpdateEmployeeContactForm from './UpdateEmployeeComponents/UpdateEmployeeContactForm';
@@ -42,7 +43,7 @@ export default function UpdateEmployeeInformation() {
   const eId = params.empId;
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
-
+  
   // AddEmployeePIForm INFORMATION
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
@@ -125,6 +126,7 @@ export default function UpdateEmployeeInformation() {
     getNationalities();  
     getEmpInfo();
 
+    console.log(empInfoGet);
 
     setFirstName(empInfoGet.firstName);
     setLastName(empInfoGet.lastName);
@@ -175,6 +177,8 @@ export default function UpdateEmployeeInformation() {
     setPassportExpirationDate(empInfoGet.passportExpirationDate);
     setTinNumber(empInfoGet.tinNumber);
 
+
+
     //getEmpAddress();
   }, [eId, empInfoGet.firstName, empInfoGet.lastName, empInfoGet.otherName, empInfoGet.otherNameTwo, 
       empInfoGet.maritalStatus, empInfoGet.ethnicity, empInfoGet.religion, empInfoGet.sex, empInfoGet.dateOfBirth,
@@ -182,7 +186,15 @@ export default function UpdateEmployeeInformation() {
       empInfoGet.regimentNumber, empInfoGet.nationalIdNumber, empInfoGet.passportNumber, empInfoGet.passportExpirationDate,
       empInfoGet.tinNumber]);
 
-      console.log(sex);
+    
+console.log(empInfoGet);
+
+
+
+
+
+
+
   // AddEmployeePIForm INFORMATION
 
   const handleFirstNameChange = (event) => {
@@ -323,19 +335,52 @@ export default function UpdateEmployeeInformation() {
          <h1>Update Employee Profile</h1>
         </Grid>
             <Grid container>          
-             
+              
               <Grid item xs={12}>
                 <UpdateEmployeePIForm 
+                //  formik={formik}
                   firstName={firstName}
                   lastName={lastName}
                   otherName={otherName}
                   otherNameTwo={otherNameTwo}
-                  maritalStatus={maritalStatus} 
-                  religion={religion}
+                  
+                  // if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
+                  //   if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
+              
+                  //      maritalStatuses.map((localMaritalStatus) => {
+                  //        if( empInfoGet.maritalStatus == localMaritalStatus.name){
+                  //          setMaritalStatus(parseInt(localMaritalStatus.id));
+                  //          //props.maritalStatus = localMaritalStatus;
+                  //          }
+                  //        });
+              
+                  //      religions.map((localReligion) => {
+                  //         if( empInfoGet.religion == localReligion.name){
+                  //           setReligion(parseInt(localReligion.id));
+                  //            }
+                  //        });
+              
+                  //      nationalities.map((localNationality) => {
+                  //       if( empInfoGet.nationality == localNationality.name){
+                  //          setNationality(parseInt(localNationality.id));
+                  //         }
+                  //       });
+              
+                  //      ethnicities.map((localEthnicity) => {
+                  //       if( empInfoGet.ethnicity == localEthnicity.name){
+                  //         setEthnicity(parseInt(localEthnicity.id));
+                  //         }
+                  //       });
+              
+                  //     }
+                  //   }
+                  maritalStatus={maritalStatus}
+                  nationality={nationality}
                   ethnicity={ethnicity}
+                  religion={religion}
+
                   sex={sex}
                   dateOfBirth={dateOfBirth}
-                  nationality={nationality}
                   handleFirstNameChange={handleFirstNameChange}
                   handleLastNameChange={handleLastNameChange}
                   handleOtherNameChange={handleOtherNameChange}
@@ -347,23 +392,9 @@ export default function UpdateEmployeeInformation() {
                   handleDoBChange={handleDoBChange}
                   handleNationalityChange={handleNationalityChange}>                    
                 </UpdateEmployeePIForm>
-              </Grid>
+              </Grid> 
 
-              {/*<Grid item xs={12}>
-                <AddEmployeeAddressForm 
-                  lot={lot}
-                  street={street}
-                  area={area}
-                  village={village}
-                  region={region}
-                  country={country}
-                  handleLotChange={handleLotChange}
-                  handleStreetChange={handleStreetChange}
-                  handleAreaChange={handleAreaChange}
-                  handleVillageChange={handleVillageChange}
-                  handleRegionChange={handleRegionChange}
-                  handleCountryChange={handleCountryChange}></AddEmployeeAddressForm>
-              </Grid>*/}
+       
 
               <Grid item xs={12}>
                 <UpdateEmployeeContactForm 
@@ -392,8 +423,8 @@ export default function UpdateEmployeeInformation() {
                   handleTinNumChange={handleTinNumChange}>
                 </UpdateEmployeeOfficialInfoForm>
               </Grid >
-              
-              <Grid item xs={6}>
+               
+              <Grid item xs={6} spacing={3}>
                 <Button type="submit" onClick={postDataHandler} variant="outlined" color="primary" style={{margin: '10'}}> Update Employee </Button>
                 <Notification  notify={notify} setNotify={setNotify}></Notification>
               </Grid >

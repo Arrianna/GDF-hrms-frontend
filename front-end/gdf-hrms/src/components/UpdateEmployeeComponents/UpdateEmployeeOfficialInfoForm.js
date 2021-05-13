@@ -77,13 +77,13 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
       passportExpirationDate:Yup.date()
       .required("Passport Expiration Date is Required")
     
-  })
+ })
  
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
       <h4>Official Information</h4>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container xs={12} spacing={3}>
           <Formik initialValues={initialValues} validationSchema={validationSchema}>
             {(props) => (          
               <React.Fragment>
@@ -93,8 +93,8 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
                     label="Regimental Number" 
                     name="regimentalNumber" 
                     // InputLabelProps={{ shrink: true,}}
-                    value={props.regimentNumber} 
-                    onChange={props.handleRegNumChange} 
+                 //   value={props.regimentNumber} 
+                  //  onChange={props.handleRegNumChange} 
                     variant="outlined" size="small" 
                     error={props.errors.regimentalNumber && props.touched.regimentalNumber}
                     helperText={<ErrorMessage name='regimentalNumber' />}

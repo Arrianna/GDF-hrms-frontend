@@ -39,16 +39,17 @@ export default function UpdateEmployeePIForm(props) {
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
   const [ethnicities, setEthnicities] = useState();
-
+  console.log(props);
+  
   const initialValues={
-    firstName:'',
-    lastName:'',
+    firstName: props.firstName,
+    lastName: props.lastName,
     sex:'',
     dateOfBirth:'',
     ethnicity:'',
     religion:'',
     maritalStatus:'',
-    nationality:''
+    nationality: props.nationality
   }
 
   const validationSchema = Yup.object().shape({
@@ -125,32 +126,36 @@ export default function UpdateEmployeePIForm(props) {
             <Grid container xs={12} spacing={3}>
               <Formik  initialValues={initialValues} validationSchema={validationSchema}>
                 {(props) => (
-                  <Form >
-                    <React.Fragment>              
+                 // <Form >
+                    <React.Fragment> 
+                    <div>             
                       <Grid item xs={2}>
-                        <TextField
+                        <Field as ={TextField}
                           name="firstName" 
                           label="First Name" 
-                          // InputLabelProps={{ shrink: true,}} 
-                        //  value={props.firstName} 
-                        //  onChange={props.handleFirstNameChange} 
+                          InputLabelProps={{ shrink: true,}} 
+                          value={props.firstName} 
+                         onChange={props.handleFirstNameChange} 
                           variant="outlined" 
                           size="small"
                           error={props.errors.firstName && props.touched.firstName}
                           helperText={<ErrorMessage name='firstName' />} required
                         />            
                       </Grid>
-
+                      
+                      </div>
+                      <div>
                       <Grid item xs={2}>
                         <TextField name="otherNameTwo" label="Middle Name" value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
                       </Grid>
-
+                      </div>
+                      <div>
                       <Grid item xs={2}>
-                        <TextField 
+                        <Field as ={TextField} 
                           name="lastName" 
                           name="lastName" 
                           label="Last Name" 
-                          //  InputLabelProps={{ shrink: true,}} 
+                          InputLabelProps={{ shrink: true,}} 
                           //  value={props.lastName}
                           //  onChange={props.handleLastNameChange} 
                           variant="outlined" 
@@ -159,6 +164,8 @@ export default function UpdateEmployeePIForm(props) {
                           helperText={<ErrorMessage name='lastName' />} required
                         />
                       </Grid>
+                      </div>
+                      <div>
                       <Grid item xs={2}>
                         <Field as={TextField}
                           select
@@ -180,7 +187,8 @@ export default function UpdateEmployeePIForm(props) {
                           <MenuItem value={"Other"}>Other</MenuItem>                      
                         </Field>
                       </Grid>
-
+                      </div>
+                      <div>
                       <Grid item xs={2}>
                         <Field as= {TextField }
                           name="dateOfBirth" 
@@ -195,7 +203,8 @@ export default function UpdateEmployeePIForm(props) {
                           helperText={<ErrorMessage name='dateOfBirth' />} required
                         />
                       </Grid>
-        
+                      </div>
+                      <div>
                       <Grid item xs={2}>
                         <Field as = {TextField}
                           select
@@ -216,7 +225,8 @@ export default function UpdateEmployeePIForm(props) {
                           )}
                         </Field>                      
                       </Grid >         
-                
+                      </div>
+                      <div>
                       <Grid item xs={2}>   
                         <Field as ={TextField}
                           select
@@ -238,7 +248,8 @@ export default function UpdateEmployeePIForm(props) {
                           )}                      
                         </Field>
                       </Grid>
-
+                      </div>
+                      <div>
                       <Grid item xs={2}>
                         <Field as={TextField}
                           select
@@ -260,7 +271,8 @@ export default function UpdateEmployeePIForm(props) {
                           )}
                         </Field>                
                       </Grid>
-
+                      </div>
+                      <div>
                       <Grid item xs={2}>
                         <FormControl variant="outlined" size="small" className={classes.formControl}>
                           <InputLabel id="nationality-label" shrink="true">Nationality</InputLabel>
@@ -285,9 +297,10 @@ export default function UpdateEmployeePIForm(props) {
                             )}
                           </Select>
                         </FormControl>
-                      </Grid >                
+                      </Grid >              
+                      </div>  
                     </React.Fragment>
-                  </Form>
+              //    </Form>
                 )}
               </Formik>
             </Grid>
