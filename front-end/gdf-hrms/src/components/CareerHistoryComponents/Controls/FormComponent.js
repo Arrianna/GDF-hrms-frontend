@@ -1,19 +1,18 @@
 import React from 'react';
-import { Grid, Paper, Button, Typography, InputLabel } from '@material-ui/core';
+import { Grid, Paper, Button } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-
-import FormControl from '@material-ui/core/FormControl';
+/* import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem'; */
 
 const FormComponent = () => {
     const paperStyle = { padding: '0 15px 40px 15px', width: 250, }
     const btnStyle = { marginTop: 10 }
     
-    const [value,setValue] = React.useState ('')
+    // const [value,setValue] = React.useState ('')
    
     const initialValues = {
         rank: '',

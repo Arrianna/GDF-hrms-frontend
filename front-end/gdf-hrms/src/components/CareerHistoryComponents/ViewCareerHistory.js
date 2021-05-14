@@ -7,21 +7,21 @@ import CareerHistoryTable from './CareerHistoryTable';
 import Axios from 'axios'; 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import Input from '@material-ui/core/InputLabel';
+// import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import { ErrorSharp, TouchAppRounded } from '@material-ui/icons';
+// import { ErrorSharp, TouchAppRounded } from '@material-ui/icons';
 
 import {Formik,Form,Field, ErrorMessage} from 'formik';
-import { useFormik } from 'formik'
+// import { useFormik } from 'formik'
 import * as Yup  from 'yup';
-import {Paper} from "@material-ui/core";
+// import {Paper} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,21 +91,21 @@ export default function ViewCareerHistory(props) {
     setOpen(false);
   };
 
-  const handlePositionChange = (event) => {
+  /* const handlePositionChange = (event) => {
     setNewPosition(event.target.value);
-  }
+  } */
  
-  const handleDepartmentChange = (event) => {
+  /* const handleDepartmentChange = (event) => {
     setNewDepartment(event.target.value);
-  }
+  } */
 
-  const handleStartDateChange = (event) => {
+  /* const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
-  }
+  } */
 
-  const handleEndDateChange = (event) => {
+  /* const handleEndDateChange = (event) => {
     setEndDate(event.target.value);
-  }
+  } */
 
   const getNotification = (option, notificationType) => {
     if(notificationType === 'success'){
@@ -115,7 +115,7 @@ export default function ViewCareerHistory(props) {
         type: 'success'
       })
   }
-    if(notificationType == 'error'){
+    if(notificationType === 'error'){
       setNotify({
         isOpen: true,
         message: 'An error was detected',

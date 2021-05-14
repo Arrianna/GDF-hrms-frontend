@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddEmployeeInformation() {
   const classes = useStyles();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-
+  
   const formik = useFormik ({
     initialValues: {
       nationalityId: '',

@@ -50,9 +50,7 @@ export default function UpdateEmployeeContactForm(props) {
       .typeError("Enter valid Home Number")
       .required("A Home Number is Required")
       .positive("A Home number can't start with a minus")
-      .integer("A Home number can't include a decimal point"),
-    homeNumber: Yup.string()
-      .required("A Home Number is Required")
+      .integer("A Home number can't include a decimal point")
       .matches(/^[0-9]+$/, "Home Number must be digits only")
       .min(7, 'Must be at least 7 digits'),
 
@@ -60,9 +58,7 @@ export default function UpdateEmployeeContactForm(props) {
       .typeError("Enter valid Cell Number")
       .required("A Cell Number is Required")
       .positive("A Cell number can't start with a minus")
-      .integer("A Cell number can't include a decimal point"),
-    cellNumber: Yup.string()
-      .required("A Cell Number is Required")
+      .integer("A Cell number can't include a decimal point")
       .matches(/^[0-9]+$/, "Celll Number must be digits only")
       .min(7, 'Must be at least 7 digits'),
 

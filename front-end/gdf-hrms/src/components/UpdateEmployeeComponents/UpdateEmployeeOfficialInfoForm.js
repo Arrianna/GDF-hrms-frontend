@@ -2,9 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { useForm } from 'react-hook-form';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UpdateEmployeeOfficialInfoForm(props) {
   const classes = useStyles();
-  const { register, errors } = useForm();
 
   const initialValues = {
     regimentalNumber: '',
@@ -43,9 +41,7 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
       .typeError("Enter valid Regimental Number")
       .required("A Regimental Number is Required")
       .positive("A regimental number can't start with a minus")
-      .integer("A regimental number can't include a decimal point"),
-    regimentalNumber: Yup.string()
-      .required("A Regimental Number is Required")
+      .integer("A regimental number can't include a decimal point")    
       .matches(/^[0-9]+$/, "Regimental Number must be digits only")
       .min(6, 'Must be at least 6 digits'),
 
@@ -53,9 +49,7 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
       .typeError("Enter valid National Identification Number")
       .required("A National Identification Number is Required")
       .positive("A National Identification Number can't start with a minus")
-      .integer("A National Identification Number can't include a decimal point"),
-    nationalIdNumber: Yup.string()
-      .required("A National Identification Number is Required")
+      .integer("A National Identification Number can't include a decimal point")
       .matches(/^[0-9]+$/, "National Identification Number must be digits only")
       .min(9, 'Must be at least 9 digits'),
 
@@ -63,9 +57,7 @@ export default function UpdateEmployeeOfficialInfoForm(props) {
       .typeError("Enter valid TIN Number")
       .required("A TIN Number is Required")
       .positive("A TIN  Number can't start with a minus")
-      .integer("A TIN  Number can't include a decimal point"),
-    tinNumber: Yup.string()
-      .required("A TIN  Number is Required")
+      .integer("A TIN  Number can't include a decimal point")
       .matches(/^[0-9]+$/, "TIN  Number must be digits only")
       .min(9, 'Must be at least 9 digits'),
 
