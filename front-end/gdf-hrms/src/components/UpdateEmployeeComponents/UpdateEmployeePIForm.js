@@ -7,7 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Axios from 'axios';
-import axios from './axios';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
@@ -138,11 +137,12 @@ export default function UpdateEmployeePIForm(props) {
                          onChange={props.handleFirstNameChange} 
                           variant="outlined" 
                           size="small"
-                          error={props.errors.firstName && props.touched.firstName}
-                          helperText={<ErrorMessage name='firstName' />} required
+                          error={props.errors.firstName && props.touched.firstName}                 
+                          helperText={<ErrorMessage name='firstName' />} 
+                          required
                         />            
                       </Grid>
-                      
+             
                       </div>
                       <div>
                       <Grid item xs={2}>
@@ -152,7 +152,6 @@ export default function UpdateEmployeePIForm(props) {
                       <div>
                       <Grid item xs={2}>
                         <Field as ={TextField} 
-                          name="lastName" 
                           name="lastName" 
                           label="Last Name" 
                           InputLabelProps={{ shrink: true,}} 
@@ -171,9 +170,8 @@ export default function UpdateEmployeePIForm(props) {
                           select
                           name="sex"
                           label="Sex"
-                          // value={props.sex}
-                          // onChange={props.handleSexChange}
-                          label="Sex" 
+                          value={props.sex}
+                          onChange={props.handleSexChange}
                           variant="outlined"  
                           size="small"                
                           // InputLabelProps={{ shrink: true,}}
@@ -193,8 +191,8 @@ export default function UpdateEmployeePIForm(props) {
                         <Field as= {TextField }
                           name="dateOfBirth" 
                           label="Date of Birth" 
-                        //  value={props.dateOfBirth} 
-                        //  onChange={props.handleDoBChange} 
+                         value={props.dateOfBirth} 
+                         onChange={props.handleDoBChange} 
                           variant="outlined"
                           size="small" 
                           type="date" 
@@ -209,8 +207,8 @@ export default function UpdateEmployeePIForm(props) {
                         <Field as = {TextField}
                           select
                           name="ethnicity"
-                          // value={props.ethnicity}
-                          // onChange={props.handleEthnicityChange}
+                          value={props.ethnicity}
+                          onChange={props.handleEthnicityChange}
                           label="Ethnicity"
                           variant="outlined"
                           size="small" 
@@ -232,14 +230,13 @@ export default function UpdateEmployeePIForm(props) {
                           select
                           name="religion"
                           label= "Religion"
-                          // value={props.religion}
-                          // onChange={props.handleReligionChange}
-                          label="Religion"
+                          value={props.religion}
+                          onChange={props.handleReligionChange}
                           variant="outlined"
                           size="small"
                           // InputLabelProps={{ shrink: true,}}
                           error={props.errors.religion && props.touched.religion}
-                          helperText={<ErrorMessage name='religion' />} 
+                          helperText={<ErrorMessage name='religion' />}  
                           required 
                         >
                           <MenuItem value=""><em>Select</em></MenuItem>
@@ -257,9 +254,8 @@ export default function UpdateEmployeePIForm(props) {
                           label=" Marital Status"
                           size="small"
                           variant="outlined"
-                          // value={props.maritalStatus}
-                          // onChange={props.handleMaritalStatusChange}
-                          label="Marital Status"
+                          value={props.maritalStatus}
+                          onChange={props.handleMaritalStatusChange}
                           // InputLabelProps={{ shrink: true,}}
                           error={props.errors.maritalStatus && props.touched.maritalStatus}
                           helperText={<ErrorMessage name='maritalStatus' />} 
@@ -279,6 +275,7 @@ export default function UpdateEmployeePIForm(props) {
                           <Select
                             labelId="nationality-label"
                             id="nationality"
+                            name="nationality"
                             value={props.nationality}
                             onChange={props.handleNationalityChange}
                             label="Nationality"

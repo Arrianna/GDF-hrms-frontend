@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid, Button, Modal } from '@material-ui/core';
+import { TextField, Grid, Paper, Typography, Button, Modal } from '@material-ui/core';
 import { Save, Cancel } from '@material-ui/icons';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import { MenuItem, InputLabel, FormControl, Select } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
      marginLeft: '20px,'
    },
 
+   textField: {
+     margin: 5,
+     width: 290,
+   },
+
    modal: {
     position: 'absolute',
     width: 400,
@@ -63,25 +68,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeProfileLayout(props) {
   const classes = useStyles();
+  const paperStyle = { padding: '40px 20px', width: 350, margin: '20px auto' }
   const params = useParams();
   const [employeeInfo, setEmployeeInfo] = useState({});
   const [employeeAddress, setEmployeeAddress] = useState();  
   const [open, setOpen] = useState(false);
   const [regions, setRegions] = useState();
   const [countries, setCountries] = useState();
+  const [rowRegions, setRowRegions] = useState();
+  const [rowCountries, setRowCountries] = useState();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-
-  const [newAddress, setNewAddress] = useState({
-    lot: '',
-    street: '',
-    area: '',
-    village: '',
-    region: '',
-    country: '',
-  })
-
+ 
+  // STATE VARIABLE FOR SELECTED ROW OF ADDRESS
   const [rowSelected, setRowSelected] = useState({
     id: '',
     lot:'',
@@ -93,6 +93,7 @@ export default function EmployeeProfileLayout(props) {
     employeeId: '',
   })
 
+  // INITIAL VALUES FOR FORMIK VALIDATION
   const initialValues = {
     lot: '',
     street: '',
@@ -102,6 +103,17 @@ export default function EmployeeProfileLayout(props) {
     country: '',
   }
 
+  // INITIAL VALUES FOR EDITING AN ADDRESS
+  const initialEditValues = {
+    lot: rowSelected.lot,
+    street: rowSelected.street,
+    area: rowSelected.area,
+    village: rowSelected.village,
+    region: rowSelected.regionId,
+    country: rowSelected.countryId
+  }
+   
+  // SCHEME FOR VALIDATING ADDRESS FIELDS
   const validationSchema = Yup.object().shape({
     lot: Yup.string()
     .required("Lot is Required"),
@@ -117,8 +129,8 @@ export default function EmployeeProfileLayout(props) {
       .required("Country is Required"),
   });
 
+  // SUBMIT FUNCTION FOR ADDING AN EMPLOYEE ADDRESS
   const onSubmit = (values, action) => {
-    console.log(values);
     let Address = {
       lot: values.lot,
       street: values.street,
@@ -128,7 +140,7 @@ export default function EmployeeProfileLayout(props) {
       ctry: values.country,
       eId: empId,
     }
-    console.log(Address);
+    
     if(Address){
       Axios.post('PostInfo/AddAnEmployeeAddress', Address)
       .then(response => {
@@ -154,23 +166,8 @@ export default function EmployeeProfileLayout(props) {
     setOpen(false);
     action.resetForm();
   }
-
-  const handleNewAddressChange = e => {
-    const {name, value} = e.target;
-    setNewAddress(prevState=>({
-      ...prevState,
-      [name]: value
-    }))
-  }
-
-  const handleChange = e => {
-    const {name, value} = e.target;
-    setRowSelected(prevState=>({
-      ...prevState,
-      [name]: value
-    }))
-  }
-
+  
+  // AXIOS DELETE REQUEST FOR DELETING AN ADDRESS
   const deleteRequest = async() => {
     await Axios.delete('DeleteInfo/DeleteAddress/' + rowSelected.id)
     .then(response=>{
@@ -194,21 +191,24 @@ export default function EmployeeProfileLayout(props) {
     })    
   }
 
-  const putRequest = async() => {
+  // FUNCTION FOR UPDATING AN EMPLOYEE ADDRESS
+  const putRequest = (values, action) => {
     let editedAddress = {
       id: rowSelected.id,
-      lot: rowSelected.lot,
-      street: rowSelected.street,
-      area: rowSelected.area,
-      village: rowSelected.village,
-      regionId: rowSelected.regionId,
-      countryId: rowSelected.countryId,
-      employeeId: rowSelected.eId,
+      lot: values.lot,
+      street: values.street,
+      area: values.area,
+      village: values.village,
+      regionId: values.region,
+      countryId: values.country,
+      employeeId: rowSelected.employeeId,
     }
-    await Axios.patch('UpdateInfo/update/employeePI/address/' + editedAddress.id, editedAddress)
+    // console.log(editedAddress);
+
+    Axios.patch('UpdateInfo/update/employeePI/address/' + editedAddress.id, editedAddress)
     .then(response=>{
       let newData = employeeAddress;
-      newData.map(row => {        
+      newData.forEach(row => {        
         if(rowSelected.id === row.id){
           row.id = editedAddress.id;
           row.lot = editedAddress.lot;
@@ -237,21 +237,86 @@ export default function EmployeeProfileLayout(props) {
         })
       }
     })
+    action.resetForm();
   }
  
+  // FUNCTION FOR OPENING & CLOSING THE DELETE MODAL
   const openCloseModalDelete = () => {
     setModalDelete(!modalDelete);
   }
 
+  // FUNCTION FOR OPENING & CLOSING THE EDIT MODAL
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   }
 
+  // FUNCTION FOR SELECTING EDIT OR DELETE MODAL
   const selectRow = (row, option) => {
-    setRowSelected(row);
-    (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
-  }
+    // setRowSelected(row);
+    // (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
+    if(option === 'Edit'){
+      const getRegions = async () => {
+        const info = await Axios.get("GetInfo/GetAllRegions");
+        if(info.data != null){
+          if(info.data.length > 0){
+            setRowRegions(info.data);
+          }
+        }
+      };
   
+      const getCountries = async () => {
+        const info = await Axios.get("GetInfo/GetAllCountries");
+        if(info.data != null){
+          if(info.data.length > 0){
+            setRowCountries(info.data);
+          }
+        }
+      };
+
+      getRegions();
+      getCountries();
+
+      if(rowRegions != null && rowCountries != null){
+        if(rowRegions.length > 0 && rowCountries.length > 0){
+          let regionId;
+          let countryId;
+
+          rowRegions.forEach((region) => {
+            if( row.region === region.name){
+              regionId = parseInt(region.id);
+            }
+          });
+
+          rowCountries.forEach((country) => {
+            if( row.country === country.name){
+              countryId = parseInt(country.id);
+            }
+          });
+
+          let selectedAddress = {
+            id: row.id,
+            lot: row.lot,
+            street: row.street,
+            area: row.area,
+            village: row.village,
+            regionId: regionId,
+            countryId: countryId,
+            employeeId: row.eId,
+          }
+          // console.log(selectedAddress);
+          if(selectedAddress){
+            setRowSelected(selectedAddress);
+          }
+        }
+      }
+      openCloseModalEdit()
+    }
+    else if(option === 'Delete'){
+      openCloseModalDelete()
+    }
+  }
+  // console.log(rowSelected);
+  // DELETE CONFIRMATION MODAL
   const bodyDelete = (
     <div className={classes.modal}>
       <p>Are you sure you want to delete this address?</p>
@@ -269,43 +334,7 @@ export default function EmployeeProfileLayout(props) {
   const handleCancel = () => {
     setOpen(false);
   };
-  
-  const handleSave = () => {
-    let Address = {
-      lot: newAddress.lot,
-      street: newAddress.street,
-      area: newAddress.area,
-      village: newAddress.village,
-      reg: parseInt(newAddress.region, 10),
-      ctry: parseInt(newAddress.country, 10),
-      eId: empId,
-    }
-    if(Address){
-      Axios.post('PostInfo/AddAnEmployeeAddress', Address)
-      .then(response => {
-        setEmployeeAddress(employeeAddress.concat(response.data))
-
-        if(response.status === 200){
-          setNotify({
-            isOpen: true,
-            message: 'Address Successfully Saved',
-            type: 'success'
-          })
-        }
-        else{
-          setNotify({
-            isOpen: true,
-            message: 'An error occurred',
-            type: 'error'
-          })
-        }
-      })
-      .catch(error => console.log(error))      
-    }
-    setEmployeeAddress([Address, ...employeeAddress]);
-    setOpen(false);    
-  };
-  
+    
   let regNumber = params.regNum;
   let empId;
 
@@ -349,160 +378,158 @@ export default function EmployeeProfileLayout(props) {
   }, [regNumber, employeeInfo.id]);
 
   empId = employeeInfo.id;
-
-  const bodyEdit = () => {
+  
+  // THE EDIT ADDRESS MODAL
+  const bodyEdit = () => {    
     if(regions != null && countries != null){
       if(regions.length > 0 && countries.length > 0){
-        return(
-          <div className={classes.modal}>
-            <h3>Edit Employee Address</h3>
-            {/* <TextField name="lot" className={classes.inputMaterial} label="Lot" onChange={handleChange} value={rowSelected && rowSelected.lot}/>
-            <br />
-            <TextField name="street" className={classes.inputMaterial} label="Street" onChange={handleChange} value={rowSelected && rowSelected.street}/>
-            <br />
-            <TextField name="area" className={classes.inputMaterial} label="Area" onChange={handleChange} value={rowSelected && rowSelected.area}/>
-            <br />
-            <TextField name="village" className={classes.inputMaterial} label="Village" onChange={handleChange} value={rowSelected && rowSelected.village}/>
-            <br />
-            <FormControl className={classes.formControl}>
-              <InputLabel id="region-label">Region</InputLabel>
-              <Select
-                labelId="region-label"
-                id="region"
-                name="regionId"
-                value={rowSelected && rowSelected.regionId}
-                onChange={handleChange}
-                label="Region"
+        return(          
+          <Grid>
+            <Paper elevation={5} style={paperStyle}>
+              <Grid align='center'>
+                <Typography variant='h6'>Edit Address</Typography>
+              </Grid>
+              <br />
+              <Formik 
+                initialValues={initialEditValues} 
+                validationSchema={validationSchema} 
+                onSubmit={putRequest}
+                enableReinitialize
+                validateOnChange={false}
+                validateOnBlur={false}
               >
-                <MenuItem value=""><em>Select</em></MenuItem>
-                {regions.map((region) =>
-                  <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                {(props) => (
+                  <Form>
+                    <div>
+                      <Grid item xs={2}>
+                        <Field as={TextField} 
+                          required 
+                          name='lot' 
+                          label='Lot' 
+                          size="small"
+                          variant='outlined'
+                          fullWidth
+                          className = {classes.textField}
+                          value={props.values.lot}
+                          onChange={props.handleChange}
+                          error={props.errors.lot && props.touched.lot}
+                          helperText={<ErrorMessage name='lot' />} 
+                        />
+                      </Grid>
+                    </div>
+                    
+                    <div>
+                      <Grid item xs={2}>
+                      <Field as={TextField} 
+                          required
+                          name='street' 
+                          label='Street' 
+                          size="small"
+                          variant='outlined'
+                          fullWidth
+                          className = {classes.textField}
+                          value={props.values.street}
+                          onChange={props.handleChange}
+                          error={props.errors.street && props.touched.street}
+                          helperText={<ErrorMessage name='street' />} 
+                        />
+                      </Grid>
+                    </div>
+                    
+                    <div>
+                      <Grid item xs={2}>
+                        <Field as={TextField} 
+                          required
+                          name='area' 
+                          label='Area' 
+                          size="small"
+                          variant='outlined'
+                          fullWidth
+                          className = {classes.textField}
+                          value={props.values.area}
+                          onChange={props.handleChange}
+                          error={props.errors.area && props.touched.area}
+                          helperText={<ErrorMessage name='area' />} 
+                        />
+                      </Grid >
+                    </div>
+                    
+                    <div>
+                      <Grid item xs={2}>
+                        <Field as={TextField} 
+                          required
+                          name='village' 
+                          label='Village' 
+                          size="small"
+                          variant='outlined'
+                          fullWidth
+                          className = {classes.textField}
+                          value={props.values.village}
+                          onChange={props.handleChange}
+                          error={props.errors.village && props.touched.village}
+                          helperText={<ErrorMessage name='village' />} 
+                        />
+                      </Grid >
+                    </div>
+                    
+                    <div>
+                      <Grid item xs={2}>
+                        <Field as={TextField} 
+                          select
+                          name='region' 
+                          label='Region' 
+                          size="small"
+                          fullWidth
+                          className = {classes.textField}
+                          variant='outlined'
+                          value={props.values.region}
+                          onChange={props.handleChange}
+                          error={props.errors.region && props.touched.region}
+                          helperText={<ErrorMessage name='region' />} 
+                          required 
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {regions.map((region) =>
+                            <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                          )}
+                        </Field>
+                      </Grid >
+                    </div>
+                    
+                    <div>
+                      <Grid item xs={2}>
+                        <Field as={TextField} 
+                          select
+                          name='country' 
+                          label='Country' 
+                          size="small"
+                          fullWidth
+                          className = {classes.textField}
+                          variant='outlined'
+                          value={props.values.country}
+                          onChange={props.handleChange}
+                          error={props.errors.country && props.touched.country}
+                          helperText={<ErrorMessage name='country' />} 
+                          required 
+                        >
+                          <MenuItem value=""><em>Select</em></MenuItem>
+                          {countries.map((country) =>
+                            <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+                          )}
+                        </Field>
+                      </Grid >
+                    </div>
+                    <div align="right">
+                      {/* <Button color="primary" onClick={()=>putRequest()}>Save</Button> */}
+                      <Button color="primary" type='submit'>Save</Button>
+                      <Button onClick={() => openCloseModalEdit()}>Cancel</Button>
+                    </div>
+                  </Form>
                 )}
-              </Select>
-            </FormControl>
-            <br />
-            <FormControl className={classes.formControl}>
-              <InputLabel id="region-label">Country</InputLabel>
-              <Select
-                labelId="country-label"
-                id="country"
-                name="countryId"
-                value={rowSelected && rowSelected.countryId}
-                onChange={handleChange}
-                label="Country"
-              >
-                <MenuItem value=""><em>Select</em></MenuItem>
-                {countries.map((country) =>
-                  <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-                )}                          
-              </Select>
-            </FormControl> */}
-            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-              {(props) => (
-                <Form>
-                  <div>
-                    <Grid item xs={2}>
-                      <Field as={TextField} 
-                        required
-                        name='lot' 
-                        label='Lot' 
-                        size="small"
-                        variant='outlined'
-                        fullWidth
-                        error={props.errors.lot && props.touched.lot}
-                        helperText={<ErrorMessage name='lot' />} 
-                      />
-                    </Grid>
-                  </div>
-                  <div>
-                    <Grid item xs={2}>
-                    <Field as={TextField} 
-                        required
-                        name='street' 
-                        label='Street' 
-                        size="small"
-                        variant='outlined'
-                        fullWidth
-                        error={props.errors.street && props.touched.street}
-                        helperText={<ErrorMessage name='street' />} 
-                      />
-                    </Grid>
-                  </div>
-                  <div>
-                    <Grid item xs={2}>
-                      <Field as={TextField} 
-                        required
-                        name='area' 
-                        label='Area' 
-                        size="small"
-                        variant='outlined'
-                        fullWidth
-                        error={props.errors.area && props.touched.area}
-                        helperText={<ErrorMessage name='area' />} 
-                      />
-                    </Grid >
-                  </div>
-                  <div>
-                    <Grid item xs={2}>
-                      <Field as={TextField} 
-                        required
-                        name='village' 
-                        label='Village' 
-                        size="small"
-                        variant='outlined'
-                        fullWidth
-                        error={props.errors.village && props.touched.village}
-                        helperText={<ErrorMessage name='village' />} 
-                      />
-                    </Grid >
-                  </div>
-                  <div>
-                    <Grid item xs={2}>
-                      <Field as={TextField} 
-                        select
-                        name='region' 
-                        label='Region' 
-                        fullWidth
-                        variant='outlined'
-                        error={props.errors.region && props.touched.region}
-                        helperText={<ErrorMessage name='region' />} 
-                        required 
-                      >
-                        <MenuItem value=""><em>Select</em></MenuItem>
-                        {regions.map((region) =>
-                          <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
-                        )}
-                      </Field>
-                    </Grid >
-                  </div>
-                  <div>
-                    <Grid item xs={2}>
-                      <Field as={TextField} 
-                        select
-                        name='country' 
-                        label='Country' 
-                        fullWidth
-                        variant='outlined'
-                        error={props.errors.country && props.touched.country}
-                        helperText={<ErrorMessage name='country' />} 
-                        required 
-                      >
-                        <MenuItem value=""><em>Select</em></MenuItem>
-                        {countries.map((country) =>
-                          <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-                        )}
-                      </Field>
-                    </Grid >
-                  </div>
-                </Form>
-              )}
-            </Formik>
-            <br /><br />
-            <div align="right">
-              <Button color="primary" onClick={()=>putRequest()}>Save</Button>
-              <Button onClick={() => openCloseModalEdit()}>Cancel</Button>
-            </div>
-          </div>
+              </Formik>
+              {/* </div> */}
+            </Paper>
+          </Grid>
         );
       }
     }
@@ -519,6 +546,7 @@ export default function EmployeeProfileLayout(props) {
               </Grid>
               <Grid item xs={6}>
                 <h1>
+                  {/* DIALOG FOR ADDING AN EMPLOYEE ADDRESS */}
                   <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                       {(props) => (
@@ -607,55 +635,11 @@ export default function EmployeeProfileLayout(props) {
                               {countries.map((country) =>
                                 <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
                               )}
-                            </Field>                          
-                      {/* <TextField margin="dense" id="lot" name="lot" label="Lot" type="text" variant="outlined" fullWidth value={newAddress.lot} onChange={handleNewAddressChange}/>
-                      <TextField margin="dense" id="street" name="street" label="Street" type="text" variant="outlined" fullWidth value={newAddress.street} onChange={handleNewAddressChange}/>
-                      <TextField margin="dense" id="area" name="area" label="Area" type="text" variant="outlined" fullWidth value={newAddress.area} onChange={handleNewAddressChange}/>
-                      <TextField margin="dense" id="village" name="village" label="Village" type="text" variant="outlined" fullWidth value={newAddress.village} onChange={handleNewAddressChange}/>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="region-label">Region</InputLabel>
-                        <Select
-                          labelId="region-label"
-                          id="region"
-                          name="region"
-                          variant="outlined"
-                          fullWidth
-                          defaultValue= ''
-                          value={newAddress.region}
-                          onChange={handleNewAddressChange}
-                          label="Region"
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {regions.map((region) =>
-                            <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
-                          )}
-                        </Select>
-                      </FormControl>
-                      <br />
-                      <FormControl className={classes.formControl}>
-                        <InputLabel shrink="true" id="region-label">Country</InputLabel>
-                        <Select
-                          labelId="country-label"
-                          id="country"
-                          name="country"
-                          variant="outlined"
-                          fullWidth
-                          defaultValue= ''
-                          value={newAddress.country}
-                          onChange={handleNewAddressChange}
-                          label="Country"
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {countries.map((country) =>
-                            <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-                          )}                          
-                        </Select>
-                      </FormControl> */}
+                            </Field>                      
                           </DialogContent>
                         <DialogActions>
-                          <Button onClick={handleCancel} variant="contained" color="primary" startIcon={<Cancel />}>Cancel</Button>
-                          {/* <Button onClick={handleSave} variant="contained" color="primary" startIcon={<Save />}>Save Address</Button> */}
-                          <Button type="submit" variant="contained" color="primary" startIcon={<Save />}>Save</Button>
+                          <Button onClick={handleCancel} startIcon={<Cancel />}>Cancel</Button>                          
+                          <Button type="submit" color="primary" startIcon={<Save />}>Save</Button>
                         </DialogActions>
                       </Form>
                       )}

@@ -13,7 +13,6 @@ import Axios from 'axios';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
@@ -25,7 +24,7 @@ import Notification from './Notification';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-import {Formik,Form,Field, ErrorMessage} from 'formik';
+import {Formik,Form, ErrorMessage} from 'formik';
 import * as Yup  from 'yup';
 
 
@@ -121,13 +120,11 @@ export default function CareerHistoryTable(props) {
   }
 
   const selectRow = (row)=> {
-    let i;
     setStartDate(row.startDate);
     setEndDate(row.endDate);
-
     
-    departments.map((department) => {
-      if( row.department == department.name){
+    departments.forEach((department) => {
+      if( row.department === department.name){
        // console.log(row.department + ' vs ' + department.name + ' and ' + department.id)
         setNewDepartment(department.id);
       }
@@ -135,8 +132,8 @@ export default function CareerHistoryTable(props) {
     }
     )
 
-    positions.map((position) => {
-      if( row.position == position.name){
+    positions.forEach((position) => {
+      if( row.position === position.name){
        // console.log(row.department + ' vs ' + department.name + ' and ' + department.id)
         setNewPosition(position.id);
       }
@@ -157,12 +154,10 @@ export default function CareerHistoryTable(props) {
     
 }
 
-
-
-  const handleClickOpen = () => {    
+  /* const handleClickOpen = () => {    
     setOpen(true);
     console.log(open);
-  };
+  }; */
   
   const handleCancel = () => {
     setOpen(false);
@@ -178,7 +173,7 @@ export default function CareerHistoryTable(props) {
       })
   //  }
   }
-    if(notificationType == 'error'){
+    if(notificationType === 'error'){
       setNotify({
         isOpen: true,
         message: 'An error was detected',
