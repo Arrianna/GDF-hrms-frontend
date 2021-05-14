@@ -75,8 +75,9 @@ export default function UpdateEmployeeContactForm(props) {
         <Grid container xs={12} spacing={3}>
           <Formik initialValues={initialValues} validationSchema={validationSchema}>
           {(props) => (
-            <Form>
+           
           <React.Fragment>
+            <div>
               <Grid item xs={2}>
                 <Field as= {TextField} 
                   name="homeNumber" 
@@ -93,6 +94,9 @@ export default function UpdateEmployeeContactForm(props) {
                     helperText={<ErrorMessage name='homeNumber' />} required
                 />                
               </Grid>
+            </div>
+            
+            <div>
               <Grid item xs={2}>
                 <Field as ={TextField }
                   name="cellNumber" 
@@ -109,6 +113,9 @@ export default function UpdateEmployeeContactForm(props) {
                     helperText={<ErrorMessage name='cellNumber' />} required
                 />
               </Grid>
+              </div>
+
+              <div>
               <Grid item xs={2}>
                 <TextField 
                   id="WorkNumber" 
@@ -123,6 +130,9 @@ export default function UpdateEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
                 />                
               </Grid >
+              </div>
+
+              <div>
               <Grid item xs={2}>
                 <Field as ={TextField}
                  
@@ -140,8 +150,8 @@ export default function UpdateEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><MailIcon color="primary"/></InputAdornment>,}}
                 />
               </Grid >
-          </React.Fragment>
-          </Form>
+              </div>
+          </React.Fragment> 
           )}
           </Formik>
         </Grid>

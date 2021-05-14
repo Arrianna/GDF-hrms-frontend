@@ -31,14 +31,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddEmployeeContactForm(props) {
   const classes = useStyles();
-
+ console.log(props.formik);
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
       <h3>Contact Information</h3>
         <Grid container item xs={12} spacing={3}>
           <React.Fragment>
-
+            <div>
               <Grid item xs={2}>
                 <TextField
                   name="homeNumber"
@@ -54,7 +54,9 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
                 />
               </Grid>
-
+              </div>
+              
+              <div>
               <Grid item xs={2}>
                 <TextField
                   name="cellNumber"
@@ -70,7 +72,9 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><PhoneAndroidIcon color="primary"/></InputAdornment>,}}
                 />
               </Grid>
-
+              </div>
+            
+              <div>
               <Grid item xs={2}>
                 <TextField
                   name="workNumber"
@@ -86,7 +90,9 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
                 />
               </Grid >
-
+              </div>
+              
+              <div>
               <Grid item xs={2}>
                 <TextField
                   name="email"
@@ -103,7 +109,7 @@ export default function AddEmployeeContactForm(props) {
                     endAdornment:<InputAdornment position="end"><MailIcon color="primary"/></InputAdornment>,}}
                 />
               </Grid >
-
+              </div> 
           </React.Fragment>
         </Grid>
       </Grid>
