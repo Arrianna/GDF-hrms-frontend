@@ -1,15 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { TextField, MenuItem } from '@material-ui/core';
+import moment from 'moment';
 import Axios from 'axios';
-
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         width: '25ch',
         flexGrow: 1,
-    }, 
+    },
   },
 
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
   },
-  
+
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -32,50 +26,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UpdateEmployeePIForm(props) {  
-  const classes = useStyles();  
+export default function UpdateEmployeePIForm(props) {
+  // const classes = useStyles();
   const [nationalities, setNationalities] = useState();
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
   const [ethnicities, setEthnicities] = useState();
-  console.log(props);
-  
-  const initialValues={
-    firstName: props.firstName,
-    lastName: props.lastName,
-    sex:'',
-    dateOfBirth:'',
-    ethnicity:'',
-    religion:'',
-    maritalStatus:'',
-    nationality: props.nationality
-  }
-
-  const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for First Name")
-    .required("First Name is required"),
-
-    lastName: Yup.string()
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for Last Name")
-    .required("Last Name is required"),
-
-    sex: Yup.string().required("Required"),
-
-    dateOfBirth:Yup.date()
-      .required("Date Of Birth is Required"),
-
-    ethnicity: Yup.string().required("Required"),
-
-    religion: Yup.string().required("Religion is Required"),
-
-    maritalStatus:Yup.string().required("Marital Status is Required"),
-
-    nationality:Yup.string().required("Nationality is Required")
-  });
-
+// console.log(props.formik.values);
+// console.log(props.formik.values.ethnicityId);
+// console.log(props.formik.values.religionId);
+// console.log(props.formik.values.nationalityId);
+// console.log(props.formik.values.maritalStatusId);
   useEffect(() => {
-   // console.log("heller");
     const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
       if(info.data != null){
@@ -84,6 +46,7 @@ export default function UpdateEmployeePIForm(props) {
         }
       }
     };
+
     const getReligions = async () => {
       const info = await Axios.get("GetInfo/GetAllReligions");
       if(info.data != null){
@@ -92,6 +55,7 @@ export default function UpdateEmployeePIForm(props) {
         }
       }
     };
+
     const getMaritalStatuses = async () => {
       const info = await Axios.get("GetInfo/GetAllMaritalStaus");
       if(info.data != null){
@@ -100,6 +64,7 @@ export default function UpdateEmployeePIForm(props) {
         }
       }
     };
+
     const getNationalities = async () => {
       const info = await Axios.get("GetInfo/GetAllNationalities");
       if(info.data != null){
@@ -108,209 +73,212 @@ export default function UpdateEmployeePIForm(props) {
         }
       }
     };
-
+ 
     getEthnicities();
     getReligions();
     getMaritalStatuses();
     getNationalities();
   }, []);
 
-  const showInfo = () => {
-
-    if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
-      if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
+  const showInfo = () => {    
+    if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
+      if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0 && nationalities.length > 0){        
         return(
           <Grid container spacing = {1}>
-            <h4>Personal Information</h4>
+            <h3>Personal Information</h3>
             <Grid container xs={12} spacing={3}>
-              <Formik  initialValues={initialValues} validationSchema={validationSchema}>
-                {(props) => (
-                 // <Form >
-                    <React.Fragment> 
-                    <div>             
-                      <Grid item xs={2}>
-                        <Field as ={TextField}
-                          name="firstName" 
-                          label="First Name" 
-                          InputLabelProps={{ shrink: true,}} 
-                          value={props.firstName} 
-                         onChange={props.handleFirstNameChange} 
-                          variant="outlined" 
-                          size="small"
-                          error={props.errors.firstName && props.touched.firstName}                 
-                          helperText={<ErrorMessage name='firstName' />} 
-                          required
-                        />            
-                      </Grid>
-             
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <TextField name="otherNameTwo" label="Middle Name" value={props.otherName} onChange={props.handleOtherNameChange} variant="outlined" size="small"  />
-                      </Grid>
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <Field as ={TextField} 
-                          name="lastName" 
-                          label="Last Name" 
-                          InputLabelProps={{ shrink: true,}} 
-                          //  value={props.lastName}
-                          //  onChange={props.handleLastNameChange} 
-                          variant="outlined" 
-                          size="small" 
-                          error={props.errors.lastName && props.touched.lastName}
-                          helperText={<ErrorMessage name='lastName' />} required
-                        />
-                      </Grid>
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <Field as={TextField}
-                          select
-                          name="sex"
-                          label="Sex"
-                          value={props.sex}
-                          onChange={props.handleSexChange}
-                          variant="outlined"  
-                          size="small"                
-                          // InputLabelProps={{ shrink: true,}}
-                          error={props.errors.sex && props.touched.sex}
-                          helperText={<ErrorMessage name='sex' />} 
-                          required 
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          <MenuItem value={"Male"}>Male</MenuItem>
-                          <MenuItem value={"Female"}>Female</MenuItem>
-                          <MenuItem value={"Other"}>Other</MenuItem>                      
-                        </Field>
-                      </Grid>
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <Field as= {TextField }
-                          name="dateOfBirth" 
-                          label="Date of Birth" 
-                         value={props.dateOfBirth} 
-                         onChange={props.handleDoBChange} 
-                          variant="outlined"
-                          size="small" 
-                          type="date" 
-                          InputLabelProps={{ shrink: true,}} 
-                          error={props.errors.dateOfBirth && props.touched.dateOfBirth}
-                          helperText={<ErrorMessage name='dateOfBirth' />} required
-                        />
-                      </Grid>
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <Field as = {TextField}
-                          select
-                          name="ethnicity"
-                          value={props.ethnicity}
-                          onChange={props.handleEthnicityChange}
-                          label="Ethnicity"
-                          variant="outlined"
-                          size="small" 
-                          // InputLabelProps={{ shrink: true,}}
-                          error={props.errors.ethnicity && props.touched.ethnicity}
-                          helperText={<ErrorMessage name='ethnicity' />} 
-                          required 
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {ethnicities.map((ethnicity) =>
-                            <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
-                          )}
-                        </Field>                      
-                      </Grid >         
-                      </div>
-                      <div>
-                      <Grid item xs={2}>   
-                        <Field as ={TextField}
-                          select
-                          name="religion"
-                          label= "Religion"
-                          value={props.religion}
-                          onChange={props.handleReligionChange}
-                          variant="outlined"
-                          size="small"
-                          // InputLabelProps={{ shrink: true,}}
-                          error={props.errors.religion && props.touched.religion}
-                          helperText={<ErrorMessage name='religion' />}  
-                          required 
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {religions.map((religion) =>
-                            <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
-                          )}                      
-                        </Field>
-                      </Grid>
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <Field as={TextField}
-                          select
-                          name="maritalStatus"
-                          label=" Marital Status"
-                          size="small"
-                          variant="outlined"
-                          value={props.maritalStatus}
-                          onChange={props.handleMaritalStatusChange}
-                          // InputLabelProps={{ shrink: true,}}
-                          error={props.errors.maritalStatus && props.touched.maritalStatus}
-                          helperText={<ErrorMessage name='maritalStatus' />} 
-                          required
-                        >
-                          <MenuItem value=""><em>Select</em></MenuItem>
-                          {maritalStatuses.map((maritalStatus) =>
-                            <MenuItem key={maritalStatus.id} value={maritalStatus.id}>{maritalStatus.name}</MenuItem>
-                          )}
-                        </Field>                
-                      </Grid>
-                      </div>
-                      <div>
-                      <Grid item xs={2}>
-                        <FormControl variant="outlined" size="small" className={classes.formControl}>
-                          <InputLabel id="nationality-label" shrink="true">Nationality</InputLabel>
-                          <Select
-                            labelId="nationality-label"
-                            id="nationality"
-                            name="nationality"
-                            value={props.nationality}
-                            onChange={props.handleNationalityChange}
-                            label="Nationality"
-                            // InputLabelProps={{ shrink: true,}}
-                            // value={props.nationality}
-                            // onChange={props.handleNationalityChange}
-                            variant="outlined"
-                            size="small"                            
-                            error={props.errors.nationality && props.touched.nationality}
-                            helperText={<ErrorMessage name='nationality' />} 
-                            required                     
-                          >
-                            <MenuItem value=""><em>Select</em></MenuItem>
-                            {nationalities.map((nationality) =>
-                              <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
-                            )}
-                          </Select>
-                        </FormControl>
-                      </Grid >              
-                      </div>  
-                    </React.Fragment>
-              //    </Form>
-                )}
-              </Formik>
+              <React.Fragment> 
+                <div>             
+                  <Grid item xs={2}>
+                    <TextField
+                      name="firstName" 
+                      label="First Name"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.firstName} 
+                      onChange={props.formik.handleChange} 
+                      variant="outlined" 
+                      size="small"
+                      error={Boolean(props.formik.errors.firstName && props.formik.touched.firstName)}
+                      helperText={props.formik.errors.firstName && props.formik.touched.firstName && String(props.formik.errors.firstName)}
+                    />            
+                  </Grid>       
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField 
+                      name="otherName" 
+                      label="Middle Name"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.otherName} 
+                      onChange={props.formik.handleChange} 
+                      variant="outlined" 
+                      size="small"
+                      error={Boolean(props.formik.errors.otherName && props.formik.touched.otherName)}
+                      helperText={props.formik.errors.otherName && props.formik.touched.otherName && String(props.formik.errors.otherName)}
+                    />
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField
+                      name="lastName" 
+                      label="Last Name"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.lastName}
+                      onChange={props.formik.handleChange} 
+                      variant="outlined" 
+                      size="small"error={Boolean(props.formik.errors.lastName && props.formik.touched.lastName)}
+                      helperText={props.formik.errors.lastName && props.formik.touched.lastName && String(props.formik.errors.lastName)}
+                    />
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={4}>
+                    <TextField
+                      required
+                      name="title"
+                      label="Title"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.title}
+                      onChange={props.formik.handleChange}
+                      variant="outlined"
+                      size="small"
+                      error={Boolean(props.formik.errors.title && props.formik.touched.title)}
+                      helperText={props.formik.errors.title && props.formik.touched.title && String(props.formik.errors.title)}
+                    />
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField
+                      select
+                      name="sex"
+                      label="Sex"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.sex}
+                      onChange={props.formik.handleChange}
+                      variant="outlined"  
+                      size="small"
+                      error={Boolean(props.formik.errors.sex && props.formik.touched.sex)}
+                      helperText={props.formik.errors.sex && props.formik.touched.sex && String(props.formik.errors.sex)}
+                    >
+                      <MenuItem value=""><em>Select</em></MenuItem>
+                      <MenuItem value={"Male"}>Male</MenuItem>
+                      <MenuItem value={"Female"}>Female</MenuItem>
+                      <MenuItem value={"Other"}>Other</MenuItem>                      
+                    </TextField>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField
+                      name="dateOfBirth" 
+                      label="Date of Birth"
+                      InputLabelProps={{ shrink: true,}}
+                      value={moment(props.formik.values.dateOfBirth).format('YYYY-MM-DD')} 
+                      onChange={props.formik.handleChange} 
+                      variant="outlined"
+                      size="small" 
+                      type="date" 
+                      error={Boolean(props.formik.errors.dateOfBirth && props.formik.touched.dateOfBirth)}
+                      helperText={props.formik.errors.dateOfBirth && props.formik.touched.dateOfBirth && String(props.formik.errors.dateOfBirth)}
+                    />
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField
+                      select
+                      name="ethnicity"
+                      value={props.formik.values.ethnicityId}
+                      onChange={props.formik.handleChange}
+                      label="Ethnicity"
+                      InputLabelProps={{ shrink: true,}}
+                      variant="outlined"
+                      size="small"
+                      error={Boolean(props.formik.errors.ethnicityId && props.formik.touched.ethnicityId)}
+                      helperText={props.formik.errors.ethnicityId && props.formik.touched.ethnicityId && String(props.formik.errors.ethnicityId)}
+                    >
+                      {/* <MenuItem value=""><em>Select</em></MenuItem> */}
+                      {ethnicities.map((ethnicity) => 
+                        <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
+                      )}
+                    </TextField>                      
+                  </Grid >         
+                </div>
+                <div>
+                  <Grid item xs={2}>   
+                    <TextField
+                      select
+                      name="religion"
+                      label= "Religion"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.religionId}
+                      onChange={props.formik.handleChange}
+                      variant="outlined"
+                      size="small"
+                      error={Boolean(props.formik.errors.religionId && props.formik.touched.religionId)}
+                      helperText={props.formik.errors.religionId && props.formik.touched.religionId && String(props.formik.errors.religionId)}
+                    >
+                      <MenuItem value=""><em>Select</em></MenuItem>
+                      {religions.map((religion) =>
+                        <MenuItem key={religion.id} value={religion.id}>{religion.name}</MenuItem>
+                      )}                      
+                    </TextField>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField
+                      select
+                      name="maritalStatus"
+                      label=" Marital Status"
+                      InputLabelProps={{ shrink: true,}}
+                      size="small"
+                      variant="outlined"
+                      value={props.formik.values.maritalStatusId}
+                      onChange={props.formik.handleChange}
+                      error={Boolean(props.formik.errors.maritalStatusId && props.formik.touched.maritalStatusId)}
+                      helperText={props.formik.errors.maritalStatusId && props.formik.touched.maritalStatusId && String(props.formik.errors.maritalStatusId)}
+                    >
+                      <MenuItem value=""><em>Select</em></MenuItem>
+                      {maritalStatuses.map((maritalStatus) =>
+                        <MenuItem key={maritalStatus.id} value={maritalStatus.id}>{maritalStatus.name}</MenuItem>
+                      )}
+                    </TextField>                
+                  </Grid>
+                </div>
+                <div>
+                  <Grid item xs={2}>
+                    <TextField
+                      select
+                      name="nationality"
+                      label="Nationality"
+                      InputLabelProps={{ shrink: true,}}
+                      value={props.formik.values.nationalityId}
+                      onChange={props.formik.handleChange}
+                      variant="outlined"
+                      size="small"
+                      error={Boolean(props.formik.errors.nationalityId && props.formik.touched.nationalityId)}
+                      helperText={props.formik.errors.nationalityId && props.formik.touched.nationalityId && String(props.formik.errors.nationalityId)}                
+                    >
+                      <MenuItem value=""><em>Select</em></MenuItem>
+                      {nationalities.map((nationality) =>
+                        <MenuItem key={nationality.id} value={nationality.id}>{nationality.name}</MenuItem>
+                      )}
+                    </TextField>
+                  </Grid >              
+                </div>  
+              </React.Fragment>
             </Grid>
           </Grid>
-        )}
+        )
       }
     }
-  
-  
-
+  }
   return (
-    <div className={classes.root}>
-    {showInfo()}
+    <div>
+      {showInfo()}
     </div>
   );
 }

@@ -62,6 +62,7 @@ export default function SearchByOtherCriteriaForm(submitFunction) {
                       label='First Name' 
                       fullWidth
                       variant='outlined'
+                      size='small'
                       error={props.errors.employeeFname && props.touched.employeeFname}
                       helperText={<ErrorMessage name='employeeFname' />} 
                       required 
@@ -72,6 +73,7 @@ export default function SearchByOtherCriteriaForm(submitFunction) {
                       label='Last Name' 
                       fullWidth
                       variant='outlined'
+                      size='small'
                       error={props.errors.employeeLname && props.touched.employeeLname}
                       helperText={<ErrorMessage name='employeeLname' />} 
                       required 
@@ -83,6 +85,7 @@ export default function SearchByOtherCriteriaForm(submitFunction) {
                       label='Rank' 
                       fullWidth
                       variant='outlined'
+                      size='small'
                       error={props.errors.employeePosition && props.touched.employeePosition}
                       helperText={<ErrorMessage name='employeePosition' />} 
                       required 

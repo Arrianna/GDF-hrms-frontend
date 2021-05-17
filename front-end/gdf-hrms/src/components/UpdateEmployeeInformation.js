@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { Grid, Button } from '@material-ui/core';
 import Axios from 'axios';
-import axios from './UpdateEmployeeComponents/axios';
 import Notification from './Notification';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import UpdateEmployeePIForm from './UpdateEmployeeComponents/UpdateEmployeePIForm';
 import UpdateEmployeeContactForm from './UpdateEmployeeComponents/UpdateEmployeeContactForm';
 import UpdateEmployeeOfficialInfoForm from './UpdateEmployeeComponents/UpdateEmployeeOfficialInfoForm';
@@ -35,51 +35,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UpdateEmployeeInformation() {
   const classes = useStyles();  
-  const [empInfoGet, setEmpInfoGet] = useState({});
- // const [error, setError] = useState();
- // const [employeeAddress, setEmployeeAddress] = useState({});
+  const [empInfoGet, setEmpInfoGet] = useState({});  
+  const [religions, setReligions] = useState([]);
+  const [maritalStatuses, setMaritalStatuses] = useState([]);
+  const [nationalities, setNationalities] = useState([]);
+  const [ethnicities, setEthnicities] = useState([]);
+  const [religion, setReligion] = useState();
+  const [maritalStatus, setMaritalStatus] = useState();
+  const [nationality, setNationality] = useState();
+  const [ethnicity, setEthnicity] = useState();
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const params = useParams();
   const eId = params.empId;
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-
-  
-  // AddEmployeePIForm INFORMATION
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [otherName, setOtherName] = useState(null);
-  const [otherNameTwo, setOtherNameTwo] = useState(null);
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [religion, setReligion] = useState("");
-  const [ethnicity, setEthnicity] = useState("");
-  const [sex, setSex] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState(null);
-  const [nationality, setNationality] = useState("");
-
-  // AddEmployeeContactForm Information
-  const [homeNumber, setHomeNumber] = useState(null);
-  const [cellNumber, setCellNumber] = useState(null);
-  const [workNumber, setWorkNumber] = useState(null);
-  const [email, setEmail] = useState(null);
-
-    // AddEmployeeOfficialInfoForm Information
-  const [regimentNumber, setRegimentNumber] = useState(null);
-  const [nationalIdNumber, setNationalIdNumber] = useState(null);
-  const [passportNumber, setPassportNumber] = useState(null);
-  const [passportExpirationDate, setPassportExpirationDate] = useState(null);
-  const [tinNumber, setTinNumber] = useState(null);
-  const [nationalities, setNationalities] = useState();
-  const [religions, setReligions] = useState();
-  const [maritalStatuses, setMaritalStatuses] = useState();
-  const [ethnicities, setEthnicities] = useState();
   
   useEffect(() => {   
     const getEmpInfo = async () => {
-      if(eId){
-        const info = await Axios.get("EmployeeInfo/Id/" + eId);
-        setEmpInfoGet(info.data);
-      }
+      const info = await Axios.get("EmployeeInfo/id/" + eId);
+      setEmpInfoGet(info.data);
     };
-    
+
     const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
       if(info.data != null){
@@ -88,6 +62,7 @@ export default function UpdateEmployeeInformation() {
         }
       }
     };
+
     const getReligions = async () => {
       const info = await Axios.get("GetInfo/GetAllReligions");
       if(info.data != null){
@@ -96,6 +71,7 @@ export default function UpdateEmployeeInformation() {
         }
       }
     };
+
     const getMaritalStatuses = async () => {
       const info = await Axios.get("GetInfo/GetAllMaritalStaus");
       if(info.data != null){
@@ -104,6 +80,7 @@ export default function UpdateEmployeeInformation() {
         }
       }
     };
+
     const getNationalities = async () => {
       const info = await Axios.get("GetInfo/GetAllNationalities");
       if(info.data != null){
@@ -112,166 +89,178 @@ export default function UpdateEmployeeInformation() {
         }
       }
     };
-
+ 
     getEthnicities();
     getReligions();
     getMaritalStatuses();
-    getNationalities();  
+    getNationalities();
     getEmpInfo();
 
-    console.log(empInfoGet);
-
-    setFirstName(empInfoGet.firstName);
-    setLastName(empInfoGet.lastName);
-    setOtherName(empInfoGet.otherName);
-    //setOtherNameTwo(empInfoGet.otherNameTwo);
-
-    if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
-      if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
-        maritalStatuses.forEach((localMaritalStatus) => {
-          if( empInfoGet.maritalStatus === localMaritalStatus.name){
-            setMaritalStatus(parseInt(localMaritalStatus.id));
-              //props.maritalStatus = localMaritalStatus;
+    if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
+      if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0 && nationalities.length > 0){
+        ethnicities.forEach((ethnicity) => {
+          if(empInfoGet.ethnicity === ethnicity.name){
+            setEthnicity(parseInt(ethnicity.id, 10));
           }
         });
 
-        religions.forEach((localReligion) => {
-          if( empInfoGet.religion === localReligion.name){
-            setReligion(parseInt(localReligion.id));
+        religions.forEach((religion) => {
+          if(empInfoGet.religion === religion.name){
+            setReligion(parseInt(religion.id, 10));
           }
         });
 
-        nationalities.forEach((localNationality) => {
-          if( empInfoGet.nationality === localNationality.name){
-            setNationality(parseInt(localNationality.id));
+        maritalStatuses.forEach((maritalStatus) => {
+          if(empInfoGet.maritalStatus === maritalStatus.name){
+            setMaritalStatus(parseInt(maritalStatus.id, 10));
           }
         });
 
-        ethnicities.forEach((localEthnicity) => {
-          if( empInfoGet.ethnicity === localEthnicity.name){
-            setEthnicity(parseInt(localEthnicity.id));
+        nationalities.forEach((nationality) => {
+          if(empInfoGet.nationality === nationality.name){
+            setNationality(parseInt(nationality.id, 10));
           }
         });
       }
     }
+  }, [eId]);
 
-    setSex(empInfoGet.sex);
-    setDateOfBirth(empInfoGet.dateOfBirth);
-    // setNationality(empInfoGet.nationality);
-    setHomeNumber(empInfoGet.homeNumber);
-    setCellNumber(empInfoGet.cellNumber);
-    setWorkNumber(empInfoGet.workNumber);
-    setEmail(empInfoGet.email);
-    setRegimentNumber(empInfoGet.regimentNumber);
-    setNationalIdNumber(empInfoGet.nationalIdNumber);
-    setPassportNumber(empInfoGet.passportNumber);
-    setPassportExpirationDate(empInfoGet.passportExpirationDate);
-    setTinNumber(empInfoGet.tinNumber);
+  const formik = useFormik ({
+    enableReinitialize: true,
+    
+    initialValues: {
+      nationalityId: nationality,
+      religionId: religion,
+      ethnicityId: ethnicity,
+      maritalStatusId: maritalStatus,
+      homeNumber: empInfoGet.homeNumber,
+      cellNumber: empInfoGet.cellNumber,
+      workNumber: empInfoGet.workNumber,
+      email: empInfoGet.email,
+      title: empInfoGet.title,
+      firstName: empInfoGet.firstName,
+      lastName: empInfoGet.lastName,
+      otherName: empInfoGet.otherName,
+      regimentNumber: empInfoGet.regimentNumber,
+      dateOfBirth: empInfoGet.dateOfBirth,
+      sex: empInfoGet.sex,
+      nationalIdNumber: empInfoGet.nationalIdNumber,
+      passportNumber: empInfoGet.passportNumber,
+      passportExpirationDate: empInfoGet.passportExpirationDate,
+      tinNumber: empInfoGet.tinNumber,
+    },
 
+    validationSchema: Yup.object().shape({
+      nationalityId: Yup.number()
+        .required("Nationality is Required")
+        .typeError("Select a nationality"),
+      religionId: Yup.number()
+        .required("Religion is Required")
+        .typeError("Select a religion"),
+      ethnicityId: Yup.number()
+        .required("Ethnicity is Required")
+        .typeError("Select an ethnicity"),
+      maritalStatusId: Yup.number()
+        .required("Marital Status is Required")
+        .typeError("Select a marital status"),
+      homeNumber: Yup.number()
+        .typeError("Enter a Valid Telephone Number")
+        .positive("A Telephone Number cannot start with a minus")
+        .integer("A Telephone Number cannot include a decimal point")
+        .test('len', 'Must be 7 digits', (val) => { if(val) return val.toString().length === 7; })
+        .required("A Telephone Number is Required"),
+      cellNumber: Yup.number()
+        .typeError("Enter a Valid Cell Number")
+        .positive("A Cell Number cannot start with a minus")
+        .integer("A Cell Number cannot include a decimal point")
+        .test('len', 'Must be 7 digits', (val) => { if(val) return val.toString().length === 7; })
+        .required("A Cell Number is Required"),
+      workNumber: Yup.number()
+        .typeError("Enter a Valid Telephone Number")
+        .positive("A Telephone Number cannot start with a minus")
+        .integer("A Telephone Number cannot include a decimal point")
+        .test('len', 'Must be 7 digits', (val) => { if(val) return val.toString().length === 7; })
+        .required("A Telephone Number is Required"),
+      email: Yup.string()
+        .email("Enter a valid email")
+        .required("Email is Required"),
+      title: Yup.string()
+      .matches(/^[A-Za-z ]*$/, 'Please enter valid Title'),
+      firstName: Yup.string()
+        .required("First Name is Required")
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid First Name'),
+      lastName: Yup.string()
+        .required("Last Name is Required")
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid Last Name'),
+      otherName: Yup.string()
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid name'),
+      regimentNumber: Yup.number()
+        .typeError("Enter a Valid Regimental Number")
+        .positive("A Regimental Number cannot start with a minus")
+        .integer("A Regimental Number cannot include a decimal point")
+        .test('len', 'Must be at least 6 digits', (val) => { if(val) return val.toString().length >= 6; })
+        .required("A Regimental Number is Required"),
+      dateOfBirth: Yup.date()
+        .required("Date of Birth is Required"),
+      sex: Yup.string()
+        .required("This is required"),
+      nationalIdNumber: Yup.number()
+        .typeError("Enter a Valid ID Number")
+        .positive("A ID Number cannot start with a minus")
+        .integer("A ID Number cannot include a decimal point")
+        .test('len', 'Must be 9 digits', (val) => { if(val) return val.toString().length === 9; })
+        .required("A ID Number is Required"),
+      passportNumber: Yup.string()
+        .length(8, "Must be 8 Characters")
+        .required("Passport Number is Required"),
+      passportExpirationDate: Yup.date()
+        .required("Passport Expiration Date is Required"),
+      tinNumber: Yup.number()
+        .typeError("Enter a Valid TIN Number")
+        .positive("A TIN Number cannot start with a minus")
+        .integer("A TIN Number cannot include a decimal point")
+        .test('len', 'Must be 9 digits', (val) => { if(val) return val.toString().length === 9; })
+        .required("A TIN Number is Required"),
+    }),
 
-
-    //getEmpAddress();
-  }, [eId, empInfoGet.firstName, empInfoGet.lastName, empInfoGet.otherName, empInfoGet.otherNameTwo, 
-    empInfoGet.maritalStatus, empInfoGet.ethnicity, empInfoGet.religion, empInfoGet.sex, empInfoGet.dateOfBirth,
-    empInfoGet.nationality, empInfoGet.homeNumber, empInfoGet.cellNumber, empInfoGet.workNumber, empInfoGet.email,
-    empInfoGet.regimentNumber, empInfoGet.nationalIdNumber, empInfoGet.passportNumber, empInfoGet.passportExpirationDate,
-    empInfoGet.tinNumber, ethnicities, maritalStatuses, nationalities, religions]);
-
-
-console.log(empInfoGet);
-
-
-
-
-
-
-
-  // AddEmployeePIForm INFORMATION
-
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handleOtherNameChange = (event) => {
-    setOtherName(event.target.value);
-  };
-
-  const handleOtherNameTwoChange = (event) => {
-    setOtherNameTwo(event.target.value);
-  };
-
-  const handleMaritalStatusChange = (event) => {
-    setMaritalStatus(event.target.value);
-  };
-
-  const handleReligionChange = (event) => {
-    setReligion(event.target.value);
-  };
-
-  const handleEthnicityChange = (event) => {
-    setEthnicity(event.target.value);
-  };
-
-  // DON'T LAUGH TOO MUCH, YOU MIGHT POP A VEIN
-  const handleSexChange = (event) => {
-    setSex(event.target.value);
-  }
-
-  const handleDoBChange = (event) => {
-    setDateOfBirth(event.target.value);
-  }
-
-  const handleNationalityChange = (event) => {
-    setNationality(event.target.value);
-  }
-
-  // AddEmployeeContactForm Information
-  const handleHomeNumChange = (event) => {      
-    setHomeNumber(event.target.value);
-  }
-
-  const handleCellNumChange = (event) => {    
-    setCellNumber(event.target.value);
-  }
-
-  const handleWorkNumChange = (event) => {       
-    setWorkNumber(event.target.value); 
-  }
-
-  const handleEmailChange = (event) => {    
-    setEmail(event.target.value);
-  }
-
-  // AddEmployeeOfficialInfoForm Information
-  const handleRegNumChange = (event) => {    
-    setRegimentNumber(event.target.value);
-  }
-
-  const handleNationalIdNumChange = (event) => {    
-    setNationalIdNumber(event.target.value);
-  }
-
-  const handlePassportNumChange = (event) => {    
-    setPassportNumber(event.target.value); 
-  }
-
-  const handlePassportExpDateChange = (event) => {
-    setPassportExpirationDate(event.target.value);
-  }
-
-  const handleTinNumChange = (event) => {
-    setTinNumber(event.target.value);
-  }
-  // console.log(maritalStatus);
+    onSubmit: values => {
+      /* let Info = {
+        nationalityId: parseInt(values.nationalityId, 10),
+        religionId: parseInt(values.religionId, 10),
+        ethnicityId: parseInt(values.ethnicityId, 10),
+        maritalStatusId: parseInt(values.maritalStatusId, 10),
+        homeNumber: parseInt(values.homeNumber, 10),
+        cellNumber: parseInt(values.cellNumber, 10),
+        workNumber: parseInt(values.workNumber, 10),
+        email: values.email,
+        title: values.title,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        otherName: values.otherName,
+        regimentNumber: parseInt(values.regimentNumber, 10),
+        dateOfBirth: values.dateOfBirth,
+        sex: values.sex,
+        nationalIdNumber: parseInt(values.nationalIdNumber, 10),
+        passportNumber: values.passportNumber,
+        passportExpirationDate: values.passportExpirationDate,
+        tinNumber: parseInt(values.tinNumber, 10),
+      } */
+      
+      /* if(Info){
+        axios.post('PostInfo/AddAnEmployee', Info)
+        .then(response => getNotification(response))
+        .catch(error => getNotification(error))
+      } */
+      console.log(values);
+      formik.resetForm();
+    }
+  })
+  
   // console.log(religion);
-  // console.log(nationality);
   // console.log(ethnicity);
-  // console.log(firstName);
-
+  // console.log(nationality);
+  // console.log(maritalStatus);
+  // console.log(formik.initialValues);
   const getNotification = (option, notificationType) => {
     if(notificationType === 'success'){
       setNotify({
@@ -289,139 +278,33 @@ console.log(empInfoGet);
     }
   }
 
-  const postDataHandler = () => {    
-    let employeeInfo = {
-      id: parseInt(eId),
-      nationalityId: nationality,
-      religionId: religion,
-      ethnicityId: ethnicity,
-      maritalStatusId: maritalStatus,
-      homeNumber: parseInt(homeNumber, 10),
-      cellNumber: parseInt(cellNumber, 10),
-      workNumber: parseInt(workNumber, 10),
-      email: email,
-      title: '',
-      firstName: firstName,
-      lastName: lastName,
-      otherName: otherName,
-      regimentNumber: parseInt(regimentNumber, 10),
-      dateOfBirth: dateOfBirth,
-      sex: sex,
-      nationalIdNumber: parseInt(nationalIdNumber, 10),
-      passportNumber: passportNumber,
-      passportExpirationDate: passportExpirationDate,
-      tinNumber: parseInt(tinNumber, 10),
-    };
-    //console.log(employeeInfo);
-    axios.patch('/employeePI/' + eId, employeeInfo)
-      .then(response => getNotification(response, 'success'))
-      .catch(error => getNotification(error, 'error'))
-  }
-
-  
-  return (
+  return (    
     <div className={classes.root}>
+      {/* {selectFieldsData()} */}
       <Grid container spacing={3}>
         <Grid item xs={6}>
          <h1>Update Employee Profile</h1>
         </Grid>
-            <Grid container>          
-              
-              <Grid item xs={12}>
-                <UpdateEmployeePIForm 
-                //  formik={formik}
-                  firstName={firstName}
-                  lastName={lastName}
-                  otherName={otherName}
-                  otherNameTwo={otherNameTwo}
-                  
-                  // if(nationalities != null && religions != null && ethnicities != null && maritalStatuses != null) {
-                  //   if(nationalities.length > 0 && religions.length > 0 && ethnicities.length > 0 && maritalStatuses.length > 0){
-              
-                  //      maritalStatuses.map((localMaritalStatus) => {
-                  //        if( empInfoGet.maritalStatus == localMaritalStatus.name){
-                  //          setMaritalStatus(parseInt(localMaritalStatus.id));
-                  //          //props.maritalStatus = localMaritalStatus;
-                  //          }
-                  //        });
-              
-                  //      religions.map((localReligion) => {
-                  //         if( empInfoGet.religion == localReligion.name){
-                  //           setReligion(parseInt(localReligion.id));
-                  //            }
-                  //        });
-              
-                  //      nationalities.map((localNationality) => {
-                  //       if( empInfoGet.nationality == localNationality.name){
-                  //          setNationality(parseInt(localNationality.id));
-                  //         }
-                  //       });
-              
-                  //      ethnicities.map((localEthnicity) => {
-                  //       if( empInfoGet.ethnicity == localEthnicity.name){
-                  //         setEthnicity(parseInt(localEthnicity.id));
-                  //         }
-                  //       });
-              
-                  //     }
-                  //   }
-                  maritalStatus={maritalStatus}
-                  nationality={nationality}
-                  ethnicity={ethnicity}
-                  religion={religion}
+        <Grid container>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid item xs={12}>
+              <UpdateEmployeePIForm formik={formik}></UpdateEmployeePIForm>
+            </Grid>       
 
-                  sex={sex}
-                  dateOfBirth={dateOfBirth}
-                  handleFirstNameChange={handleFirstNameChange}
-                  handleLastNameChange={handleLastNameChange}
-                  handleOtherNameChange={handleOtherNameChange}
-                  handleOtherNameTwoChange={handleOtherNameTwoChange}
-                  handleMaritalStatusChange={handleMaritalStatusChange}
-                  handleReligionChange={handleReligionChange}
-                  handleEthnicityChange={handleEthnicityChange}
-                  handleSexChange={handleSexChange}
-                  handleDoBChange={handleDoBChange}
-                  handleNationalityChange={handleNationalityChange}>                    
-                </UpdateEmployeePIForm>
-              </Grid> 
+            <Grid item xs={12}>
+              <UpdateEmployeeContactForm formik={formik}></UpdateEmployeeContactForm>
+            </Grid >
 
-       
-
-              <Grid item xs={12}>
-                <UpdateEmployeeContactForm 
-                  homeNumber={homeNumber}
-                  cellNumber={cellNumber}
-                  workNumber={workNumber}
-                  email={email}
-                  handleHomeNumChange={handleHomeNumChange}
-                  handleCellNumChange={handleCellNumChange}
-                  handleWorkNumChange={handleWorkNumChange}
-                  handleEmailChange={handleEmailChange}>
-                </UpdateEmployeeContactForm>
-              </Grid >
-
-              <Grid item xs={12}>
-                <UpdateEmployeeOfficialInfoForm 
-                  regimentNumber={regimentNumber}
-                  nationalIdNumber={nationalIdNumber}
-                  passportNumber={passportNumber}
-                  passportExpirationDate={passportExpirationDate}
-                  tinNumber={tinNumber}
-                  handleRegNumChange={handleRegNumChange}
-                  handleNationalIdNumChange={handleNationalIdNumChange}
-                  handlePassportNumChange={handlePassportNumChange}
-                  handlePassportExpDateChange={handlePassportExpDateChange}
-                  handleTinNumChange={handleTinNumChange}>
-                </UpdateEmployeeOfficialInfoForm>
-              </Grid >
+            <Grid item xs={12}>
+              <UpdateEmployeeOfficialInfoForm formik={formik}></UpdateEmployeeOfficialInfoForm>
+            </Grid >
                
-              <Grid item xs={6} spacing={3}>
-                <Button type="submit" onClick={postDataHandler} variant="outlined" color="primary" style={{margin: '10'}}> Update Employee </Button>
-                <Notification  notify={notify} setNotify={setNotify}></Notification>
-              </Grid >
-              <Notification  notify={notify} setNotify={setNotify}></Notification>
-            </Grid>           
-       
+            <Grid item xs={6}>
+              <Button type="submit" variant="outlined" color="primary" >Update Employee</Button>
+            </Grid >
+          </form>
+          <Notification  notify={notify} setNotify={setNotify}></Notification>
+        </Grid>       
       </Grid>
     </div>
   );

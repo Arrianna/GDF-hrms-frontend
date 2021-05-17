@@ -40,6 +40,7 @@ export default function SearchByRegimentNumberForm(submitFunction) {
                 name='regimentalNumber' 
                 label='Regimental Number' 
                 variant='outlined'
+                size='small'
                 fullWidth
                 error={props.errors.regimentalNumber && props.touched.regimentalNumber}
                 helperText={<ErrorMessage name='regimentalNumber' />} 
