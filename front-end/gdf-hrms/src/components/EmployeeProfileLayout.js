@@ -252,7 +252,7 @@ export default function EmployeeProfileLayout(props) {
 
   // FUNCTION FOR SELECTING EDIT OR DELETE MODAL
   const selectRow = (row, option) => {
-    // setRowSelected(row);
+    setRowSelected(row);
     // (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
     if(option === 'Edit'){
       const getRegions = async () => {
@@ -407,7 +407,7 @@ export default function EmployeeProfileLayout(props) {
                           name='lot' 
                           label='Lot' 
                           size="small"
-                          variant='outlined'
+                          //variant='outlined'
                           fullWidth
                           className = {classes.textField}
                           value={props.values.lot}
@@ -425,7 +425,7 @@ export default function EmployeeProfileLayout(props) {
                           name='street' 
                           label='Street' 
                           size="small"
-                          variant='outlined'
+                          //variant='outlined'
                           fullWidth
                           className = {classes.textField}
                           value={props.values.street}
@@ -443,7 +443,7 @@ export default function EmployeeProfileLayout(props) {
                           name='area' 
                           label='Area' 
                           size="small"
-                          variant='outlined'
+                          //variant='outlined'
                           fullWidth
                           className = {classes.textField}
                           value={props.values.area}
@@ -461,7 +461,7 @@ export default function EmployeeProfileLayout(props) {
                           name='village' 
                           label='Village' 
                           size="small"
-                          variant='outlined'
+                          //variant='outlined'
                           fullWidth
                           className = {classes.textField}
                           value={props.values.village}
@@ -481,7 +481,7 @@ export default function EmployeeProfileLayout(props) {
                           size="small"
                           fullWidth
                           className = {classes.textField}
-                          variant='outlined'
+                          //variant='outlined'
                           value={props.values.region}
                           onChange={props.handleChange}
                           error={props.errors.region && props.touched.region}
@@ -505,7 +505,7 @@ export default function EmployeeProfileLayout(props) {
                           size="small"
                           fullWidth
                           className = {classes.textField}
-                          variant='outlined'
+                          //variant='outlined'
                           value={props.values.country}
                           onChange={props.handleChange}
                           error={props.errors.country && props.touched.country}
@@ -551,12 +551,11 @@ export default function EmployeeProfileLayout(props) {
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                       {(props) => (
                         <Form>
-                          <DialogTitle id="form-dialog-title">Add Employee Address</DialogTitle>
+                          <DialogTitle id="form-dialog-title">Add Address</DialogTitle>
                           <DialogContent>                      
                             <Field as={TextField} 
                               name='lot' 
                               label='Lot'
-                              variant='outlined'
                               size='small'
                               margin='dense'
                               fullWidth
@@ -568,7 +567,6 @@ export default function EmployeeProfileLayout(props) {
                             <Field as={TextField} 
                               name='street' 
                               label='Street'
-                              variant='outlined'
                               size='small'
                               margin='dense'
                               fullWidth
@@ -580,7 +578,6 @@ export default function EmployeeProfileLayout(props) {
                             <Field as={TextField} 
                               name='area' 
                               label='Area'
-                              variant='outlined'
                               size='small'
                               margin='dense'
                               fullWidth
@@ -592,7 +589,6 @@ export default function EmployeeProfileLayout(props) {
                             <Field as={TextField} 
                               name='village' 
                               label='Village'
-                              variant='outlined'
                               size='small'
                               margin='dense'
                               fullWidth
@@ -605,7 +601,6 @@ export default function EmployeeProfileLayout(props) {
                               select
                               name='region' 
                               label='Region'
-                              variant='outlined'
                               size='small'
                               margin='dense'
                               fullWidth
@@ -623,7 +618,6 @@ export default function EmployeeProfileLayout(props) {
                               select
                               name='country' 
                               label='Country'
-                              variant='outlined'
                               size='small'
                               margin='dense'
                               fullWidth
@@ -637,9 +631,9 @@ export default function EmployeeProfileLayout(props) {
                               )}
                             </Field>                      
                           </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleCancel} startIcon={<Cancel />}>Cancel</Button>                          
+                        <DialogActions>                                                    
                           <Button type="submit" color="primary" startIcon={<Save />}>Save</Button>
+                          <Button onClick={handleCancel} startIcon={<Cancel />}>Cancel</Button>
                         </DialogActions>
                       </Form>
                       )}

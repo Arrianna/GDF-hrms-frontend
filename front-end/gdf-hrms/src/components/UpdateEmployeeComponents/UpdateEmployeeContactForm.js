@@ -6,10 +6,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import CallIcon from '@material-ui/icons/Call';
 import InputAdornment from '@material-ui/core/InputAdornment';
-// import { useForm } from 'react-hook-form';
-
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,123 +33,83 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UpdateEmployeeContactForm(props) {
   const classes = useStyles();
-  // const { register, errors } = useForm();
-
-  const initialValues={
-    homeNumber:'',
-    cellNumber:'',
-    email:''
-  }
-
-  const validationSchema=Yup.object().shape({
-    homeNumber: Yup.number()
-      .typeError("Enter valid Home Number")
-      .required("A Home Number is Required")
-      .positive("A Home number can't start with a minus")
-      .integer("A Home number can't include a decimal point")
-      .matches(/^[0-9]+$/, "Home Number must be digits only")
-      .min(7, 'Must be at least 7 digits'),
-
-    cellNumber: Yup.number()
-      .typeError("Enter valid Cell Number")
-      .required("A Cell Number is Required")
-      .positive("A Cell number can't start with a minus")
-      .integer("A Cell number can't include a decimal point")
-      .matches(/^[0-9]+$/, "Celll Number must be digits only")
-      .min(7, 'Must be at least 7 digits'),
-
-    email: Yup.string()
-      .label('Email')
-      .email('Enter a valid email')
-      .required('Please enter a registered email')
-  })
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-      <h4>Contact Information</h4>
+        <h3>Contact Information</h3>
         <Grid container xs={12} spacing={3}>
-          <Formik initialValues={initialValues} validationSchema={validationSchema}>
-          {(props) => (
-           
           <React.Fragment>
             <div>
               <Grid item xs={2}>
-                <Field as= {TextField} 
+                <TextField
                   name="homeNumber" 
-                  label="Home Number"  
-                  // value={props.homeNumber}
-                  // onChange={props.handleHomeNumChange}  
-                  // InputLabelProps={{ shrink: true,}}
-                  type="tel"                           
+                  label="Home Number"
+                  InputLabelProps={{ shrink: true,}}
+                  value={props.formik.values.homeNumber}
+                  onChange={props.formik.handleChange}
                   variant="outlined" 
                   size="small" 
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
-                    error={props.errors.homeNumber && props.touched.homeNumber}
-                    helperText={<ErrorMessage name='homeNumber' />} required
+                  error={Boolean(props.formik.errors.homeNumber && props.formik.touched.homeNumber)}
+                  helperText={props.formik.errors.homeNumber && props.formik.touched.homeNumber && String(props.formik.errors.homeNumber)}
                 />                
               </Grid>
-            </div>
-            
+            </div>            
             <div>
               <Grid item xs={2}>
-                <Field as ={TextField }
+                <TextField
                   name="cellNumber" 
-                  label="Cell Number"  
-                  // value={props.cellNumber}
-                  // onChange={props.handleCellNumChange} 
-                  // InputLabelProps={{ shrink: true,}}
-                  type="tel"                
+                  label="Cell Number"
+                  InputLabelProps={{ shrink: true,}}
+                  value={props.formik.values.cellNumber}
+                  onChange={props.formik.handleChange}
                   variant="outlined" 
                   size="small" 
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><PhoneAndroidIcon color="primary"/></InputAdornment>,}}
-                    error={props.errors.cellNumber && props.touched.cellNumber}
-                    helperText={<ErrorMessage name='cellNumber' />} required
+                  error={Boolean(props.formik.errors.cellNumber && props.formik.touched.cellNumber)}
+                  helperText={props.formik.errors.cellNumber && props.formik.touched.cellNumber && String(props.formik.errors.cellNumber)}
                 />
               </Grid>
-              </div>
-
-              <div>
+            </div>
+            <div>
               <Grid item xs={2}>
                 <TextField 
-                  id="WorkNumber" 
-                  label="Work Number" 
-                  value={props.workNumber}
-                  onChange={props.handleWorkNumChange}  
-                  // InputLabelProps={{ shrink: true,}}
-                  type="tel"                
+                  name="workNumber" 
+                  label="Work Number"
+                  InputLabelProps={{ shrink: true,}}
+                  value={props.formik.values.workNumber}
+                  onChange={props.formik.handleChange}
                   variant="outlined" 
                   size="small" 
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><CallIcon color="primary"/></InputAdornment>,}}
+                  error={Boolean(props.formik.errors.workNumber && props.formik.touched.workNumber)}
+                  helperText={props.formik.errors.workNumber && props.formik.touched.workNumber && String(props.formik.errors.workNumber)}
                 />                
               </Grid >
-              </div>
-
-              <div>
+            </div>
+            <div>
               <Grid item xs={2}>
-                <Field as ={TextField}
-                 
+                <TextField                 
                   name="email"
                   label="Email Address"
+                  InputLabelProps={{ shrink: true,}}
                   type="email"              
-                  // value={props.email}
-                  // onChange={props.handleEmailChange}
-                  // InputLabelProps={{ shrink: true,}}
+                  value={props.formik.values.email}
+                  onChange={props.formik.handleChange}
                   variant="outlined" 
-                  size="small" 
-                  error={props.errors.email && props.touched.email}
-                  helperText={<ErrorMessage name='email' />} required
+                  size="small"                  
                   InputProps={{
                     endAdornment:<InputAdornment position="end"><MailIcon color="primary"/></InputAdornment>,}}
+                  error={Boolean(props.formik.errors.email && props.formik.touched.email)}
+                  helperText={props.formik.errors.email && props.formik.touched.email && String(props.formik.errors.email)}
                 />
               </Grid >
-              </div>
+            </div>
           </React.Fragment> 
-          )}
-          </Formik>
         </Grid>
       </Grid>
     </div>
