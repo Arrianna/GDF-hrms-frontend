@@ -151,7 +151,7 @@ export default function UpdateEmployeeInformation() {
     },
 
     validationSchema: Yup.object().shape({
-      nationalityId: Yup.number()
+      nationalityId: Yup.string()
         .required("Nationality is Required")
         .typeError("Select a nationality"),
       religionId: Yup.number()

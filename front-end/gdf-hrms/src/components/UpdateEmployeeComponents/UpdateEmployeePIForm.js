@@ -32,11 +32,11 @@ export default function UpdateEmployeePIForm(props) {
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
   const [ethnicities, setEthnicities] = useState();
-// console.log(props.formik.values);
-// console.log(props.formik.values.ethnicityId);
-// console.log(props.formik.values.religionId);
-// console.log(props.formik.values.nationalityId);
-// console.log(props.formik.values.maritalStatusId);
+console.log(props.formik.values);
+console.log(props.formik.values.ethnicityId);
+console.log(props.formik.values.religionId);
+console.log(props.formik.values.nationalityId);
+console.log(props.formik.values.maritalStatusId);
   useEffect(() => {
     const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
@@ -201,7 +201,7 @@ export default function UpdateEmployeePIForm(props) {
                     >
                       {/* <MenuItem value=""><em>Select</em></MenuItem> */}
                       {ethnicities.map((ethnicity) => 
-                        <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
+                        <MenuItem key={ethnicity.id} value={ethnicity.id} selected>{ethnicity.name}</MenuItem>
                       )}
                     </TextField>                      
                   </Grid >         
