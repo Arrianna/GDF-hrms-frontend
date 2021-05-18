@@ -49,10 +49,10 @@ export default function ViewCareerHistory(props) {
   const params = useParams();  
   const [empData, setEmpData] = useState();
   const [employeeInfo, setEmployeeInfo] = useState();
-  const [newPosition, setNewPosition] = useState();
-  const [newDepartment, setNewDepartment] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  // const [newPosition, setNewPosition] = useState();
+  // const [newDepartment, setNewDepartment] = useState();
+  // const [startDate, setStartDate] = useState();
+  // const [endDate, setEndDate] = useState();
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState();
   const [departments, setDepartments] = useState();
@@ -124,26 +124,28 @@ export default function ViewCareerHistory(props) {
     }
     }
 
-  const handleSave = () => {
+  const handleSave = (values, props) => {
     let careerHistory = {
       eId: parseInt(eId),
-      posId: newPosition,
-      deptId: newDepartment,
-      startDate: startDate,
-      endDate: endDate
+      posId: values.newPosition,
+      deptId: values.newDepartment,
+      startDate: values.startDate,
+      endDate: values.endDate
     }
     if(careerHistory){
 
       const postRequest = async() => {
         Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
-        .then(response => getNotification(response, 'success'))
+        .then(response => {
+          setEmpData(empData.concat(response.data))
+          getNotification(response, 'success')})
      //   .then(response => setEmpData(empData.concat(response.data)))
         .catch(error => getNotification(error, 'error'))
       }
 
       postRequest();
     }
-   
+    setEmpData([careerHistory, ...empData]);
     setOpen(false);    
   };
 
@@ -215,7 +217,7 @@ export default function ViewCareerHistory(props) {
                     <DialogTitle id="form-dialog-title">Add Career History Record</DialogTitle>
                    
                     <DialogContent>
-                    <Formik initialValues={initialValues} validationSchema={validationSchema}>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSave}>
                     {(props)=>(
                       <Form className={classes.form}>
                       <div>
@@ -223,6 +225,7 @@ export default function ViewCareerHistory(props) {
                         select
                         name='newPosition'
                         label= 'Rank'
+                       // value={props.values.newPosition}
                         fullWidth
                         //variant='outlined'
                         InputLabelProps={{ shrink: true,}}
@@ -244,6 +247,7 @@ export default function ViewCareerHistory(props) {
                         select
                         name='newDepartment'
                         label='Department'
+                       // value={props.values.newDepartment}
                         fullWidth
                      //  variant='outlined'
                         InputLabelProps={{ shrink: true,}}
@@ -266,6 +270,7 @@ export default function ViewCareerHistory(props) {
                       <Field as ={TextField}
                         name='startDate' 
                         label='Start Date'
+                      //  value={props.value.startDate}
                     //    variant = 'outlined'
                         type='date' 
                         fullWidth 
@@ -279,6 +284,7 @@ export default function ViewCareerHistory(props) {
                       <Field as={TextField} 
                         name='endDate' 
                         label='End Date'
+                     //   value={props.value.endDate}
                      //   variant='outlined'
                         type='date' 
                         fullWidth 
@@ -286,20 +292,19 @@ export default function ViewCareerHistory(props) {
                         error={props.errors.endDate && props.touched.endDate}
                         helperText={<ErrorMessage name='endDate' />}  />
                       </div>
-                      </Form>
-                    )}
-                    </Formik>
                     <DialogActions>
                     <div>
                       <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
                     </div>
                     <div>
-                      <Button onClick={handleSave} variant="contained" color="primary" startIcon={<SaveIcon />}>Save Career History</Button>
+                      <Button type ="submit" variant="contained" color="primary" startIcon={<SaveIcon />}>Save Career History</Button>
                     </div>
                     </DialogActions>
-                    </DialogContent>
-                    
                    
+                      </Form>
+                    )}
+          </Formik>
+          </DialogContent>
                   </Dialog>
                 </React.Fragment>
               
