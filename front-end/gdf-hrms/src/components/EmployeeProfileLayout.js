@@ -73,16 +73,26 @@ export default function EmployeeProfileLayout(props) {
   const [employeeInfo, setEmployeeInfo] = useState({});
   const [employeeAddress, setEmployeeAddress] = useState();  
   const [open, setOpen] = useState(false);
-  const [regions, setRegions] = useState();
-  const [countries, setCountries] = useState();
-  const [rowRegions, setRowRegions] = useState();
-  const [rowCountries, setRowCountries] = useState();
+  const [regions, setRegions] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
  
   // STATE VARIABLE FOR SELECTED ROW OF ADDRESS
   const [rowSelected, setRowSelected] = useState({
+    id: '',
+    lot:'',
+    street: '',
+    area: '',
+    village: '',
+    regionId: '',
+    countryId: '',
+    employeeId: '',
+  })
+
+  // STATE VARIABLE FOR SELECTED ROW OF ADDRESS TO BE EDITED
+  const [editRowSelected, setEditRowSelected] = useState({
     id: '',
     lot:'',
     street: '',
@@ -105,14 +115,14 @@ export default function EmployeeProfileLayout(props) {
 
   // INITIAL VALUES FOR EDITING AN ADDRESS
   const initialEditValues = {
-    lot: rowSelected.lot,
-    street: rowSelected.street,
-    area: rowSelected.area,
-    village: rowSelected.village,
-    region: rowSelected.regionId,
-    country: rowSelected.countryId
+    lot: editRowSelected.lot,
+    street: editRowSelected.street,
+    area: editRowSelected.area,
+    village: editRowSelected.village,
+    region: editRowSelected.regionId,
+    country: editRowSelected.countryId
   }
-   console.log(rowSelected);
+   console.log(editRowSelected);
   // SCHEME FOR VALIDATING ADDRESS FIELDS
   const validationSchema = Yup.object().shape({
     lot: Yup.string()
@@ -194,14 +204,14 @@ export default function EmployeeProfileLayout(props) {
   // FUNCTION FOR UPDATING AN EMPLOYEE ADDRESS
   const putRequest = (values, action) => {
     let editedAddress = {
-      id: rowSelected.id,
+      id: editRowSelected.id,
       lot: values.lot,
       street: values.street,
       area: values.area,
       village: values.village,
       regionId: values.region,
       countryId: values.country,
-      employeeId: rowSelected.employeeId,
+      employeeId: editRowSelected.employeeId,
     }
     // console.log(editedAddress);
 
@@ -253,9 +263,10 @@ export default function EmployeeProfileLayout(props) {
   // FUNCTION FOR SELECTING EDIT OR DELETE MODAL
   const selectRow = (row, option) => {
     setRowSelected(row);
+    // setEditRowSelected(row)
     // (option === 'Edit') ? openCloseModalEdit() : openCloseModalDelete()
     if(option === 'Edit'){
-      const getRegions = async () => {
+      /* const getRegions = async () => {
         const info = await Axios.get("GetInfo/GetAllRegions");
         if(info.data != null){
           if(info.data.length > 0){
@@ -274,20 +285,20 @@ export default function EmployeeProfileLayout(props) {
       };
 
       getRegions();
-      getCountries();
+      getCountries(); */
 
-      if(rowRegions != null && rowCountries != null){
-        if(rowRegions.length > 0 && rowCountries.length > 0){
+      // if(rowRegions != null && rowCountries != null){
+      //   if(rowRegions.length > 0 && rowCountries.length > 0){
           let regionId;
           let countryId;
 
-          rowRegions.forEach((region) => {
+          regions.forEach((region) => {
             if( row.region === region.name){
               regionId = parseInt(region.id);
             }
           });
 
-          rowCountries.forEach((country) => {
+          countries.forEach((country) => {
             if( row.country === country.name){
               countryId = parseInt(country.id);
             }
@@ -305,10 +316,10 @@ export default function EmployeeProfileLayout(props) {
           }
           // console.log(selectedAddress);
           if(selectedAddress){
-            setRowSelected(selectedAddress);
+            setEditRowSelected(selectedAddress);
           }
-        }
-      }
+      //   }
+      // }
       openCloseModalEdit()
     }
     else if(option === 'Delete'){
