@@ -112,7 +112,7 @@ export default function EmployeeProfileLayout(props) {
     region: rowSelected.regionId,
     country: rowSelected.countryId
   }
-   
+   console.log(rowSelected);
   // SCHEME FOR VALIDATING ADDRESS FIELDS
   const validationSchema = Yup.object().shape({
     lot: Yup.string()
@@ -639,11 +639,11 @@ export default function EmployeeProfileLayout(props) {
                       )}
                     </Formik>
                   </Dialog>
-                  <Button variant="outlined" color="primary">
-                    <Link to={'/update-employee/' + empId}>Update Employee Record</Link>
+                  <Button variant="outlined">
+                    <Link to={'/update-employee/' + empId} underline='none'>Update Record</Link>
                   </Button>
-                  <Button variant="outlined" color="primary">
-                    <Link to={'/employee-history-view/' + empId}>View Career History</Link>
+                  <Button variant="outlined">
+                    <Link to={'/employee-history-view/' + empId} underline='none'>Career History</Link>
                   </Button>                  
                 </h1>
               </Grid>

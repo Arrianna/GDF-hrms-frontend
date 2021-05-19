@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddEmployeeContactForm(props) {
   const classes = useStyles();
- console.log(props.formik);
+ 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
