@@ -631,11 +631,11 @@ export default function EmployeeProfileLayout(props) {
                               )}
                             </Field>                      
                           </DialogContent>
-                        <DialogActions>                                                    
-                          <Button type="submit" color="primary" startIcon={<Save />}>Save</Button>
-                          <Button onClick={handleCancel} startIcon={<Cancel />}>Cancel</Button>
-                        </DialogActions>
-                      </Form>
+                          <DialogActions>                                                    
+                            <Button type="submit" color="primary" startIcon={<Save />}>Save</Button>
+                            <Button onClick={handleCancel} startIcon={<Cancel />}>Cancel</Button>
+                          </DialogActions>
+                        </Form>
                       )}
                     </Formik>
                   </Dialog>

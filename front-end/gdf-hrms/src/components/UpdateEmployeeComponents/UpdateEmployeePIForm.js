@@ -190,7 +190,7 @@ console.log(props.formik.values.maritalStatusId);
                     <TextField
                       select
                       name="ethnicity"
-                      value={props.formik.values.ethnicityId}
+                      value={props.formik.values.ethnicityId || ''}
                       onChange={props.formik.handleChange}
                       label="Ethnicity"
                       InputLabelProps={{ shrink: true,}}
@@ -199,9 +199,9 @@ console.log(props.formik.values.maritalStatusId);
                       error={Boolean(props.formik.errors.ethnicityId && props.formik.touched.ethnicityId)}
                       helperText={props.formik.errors.ethnicityId && props.formik.touched.ethnicityId && String(props.formik.errors.ethnicityId)}
                     >
-                      {/* <MenuItem value=""><em>Select</em></MenuItem> */}
+                      <MenuItem value=""><em>Select</em></MenuItem>
                       {ethnicities.map((ethnicity) => 
-                        <MenuItem key={ethnicity.id} value={ethnicity.id} selected>{ethnicity.name}</MenuItem>
+                        <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
                       )}
                     </TextField>                      
                   </Grid >         

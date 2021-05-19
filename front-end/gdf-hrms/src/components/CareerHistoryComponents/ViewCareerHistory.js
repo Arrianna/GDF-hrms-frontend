@@ -1,27 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import { Grid, TextField, Button, MenuItem } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import CareerHistoryTable from './CareerHistoryTable';
 import Axios from 'axios'; 
-import DialogTitle from '@material-ui/core/DialogTitle';
-import MenuItem from '@material-ui/core/MenuItem';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/InputLabel';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
+import { DialogTitle, Dialog, DialogActions, DialogContent } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-// import { ErrorSharp, TouchAppRounded } from '@material-ui/icons';
-
 import {Formik,Form,Field, ErrorMessage} from 'formik';
-// import { useFormik } from 'formik'
 import * as Yup  from 'yup';
-// import {Paper} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
   form: {
     minWidth: 400,
-  },
- 
-  
+  },  
 }));
 
 export default function ViewCareerHistory(props) {
@@ -49,10 +33,6 @@ export default function ViewCareerHistory(props) {
   const params = useParams();  
   const [empData, setEmpData] = useState();
   const [employeeInfo, setEmployeeInfo] = useState();
-  // const [newPosition, setNewPosition] = useState();
-  // const [newDepartment, setNewDepartment] = useState();
-  // const [startDate, setStartDate] = useState();
-  // const [endDate, setEndDate] = useState();
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState();
   const [departments, setDepartments] = useState();
@@ -79,7 +59,6 @@ export default function ViewCareerHistory(props) {
     
   
   });
-
   
   let eId = params.empId;
 
@@ -91,22 +70,6 @@ export default function ViewCareerHistory(props) {
     setOpen(false);
   };
 
-  /* const handlePositionChange = (event) => {
-    setNewPosition(event.target.value);
-  } */
- 
-  /* const handleDepartmentChange = (event) => {
-    setNewDepartment(event.target.value);
-  } */
-
-  /* const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  } */
-
-  /* const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
-  } */
-
   const getNotification = (option, notificationType) => {
     if(notificationType === 'success'){
       setNotify({
@@ -114,7 +77,8 @@ export default function ViewCareerHistory(props) {
         message: 'Career History Information Successfully AddedS',
         type: 'success'
       })
-  }
+    }
+
     if(notificationType === 'error'){
       setNotify({
         isOpen: true,
@@ -122,7 +86,7 @@ export default function ViewCareerHistory(props) {
         type: 'error'
       })
     }
-    }
+  }
 
   const handleSave = (values, props) => {
     let careerHistory = {
@@ -132,17 +96,15 @@ export default function ViewCareerHistory(props) {
       startDate: values.startDate,
       endDate: values.endDate
     }
-    if(careerHistory){
 
+    if(careerHistory){
       const postRequest = async() => {
         Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
         .then(response => {
           setEmpData(empData.concat(response.data))
           getNotification(response, 'success')})
-     //   .then(response => setEmpData(empData.concat(response.data)))
         .catch(error => getNotification(error, 'error'))
       }
-
       postRequest();
     }
     setEmpData([careerHistory, ...empData]);
@@ -187,160 +149,127 @@ export default function ViewCareerHistory(props) {
     getPosition();
     getDepartment();
   }, [eId]);
-
+ 
   const showInfo = () => {
     if(employeeInfo != null) {
       return(
         <div>
-         <h1>Career History for :   {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h1>  
+          <h1>Career History for : {employeeInfo.firstName} {employeeInfo.lastName} ({employeeInfo.regimentNumber})</h1>  
         </div>
       );
     }
   } 
 
   const showDialog = () => {
-  
-    console.log("working");
-    
     if(positions != null && departments != null) {
       if(positions.length > 0 && departments.length > 0){
         return(
-          <div className={classes.root}>
-         
-          <Grid container spacing={3}>
-         
-           
-              <React.Fragment>
-              
-                 <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
-
-                    <DialogTitle id="form-dialog-title">Add Career History Record</DialogTitle>
-                   
-                    <DialogContent>
+          <div className={classes.root}>         
+            <Grid container spacing={3}>           
+              <React.Fragment>              
+                <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
+                  <DialogTitle id="form-dialog-title">Add Career History Record</DialogTitle>                   
+                  <DialogContent>
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSave}>
-                    {(props)=>(
-                      <Form className={classes.form}>
-                      <div>
-                        <Field as = {TextField}
-                        select
-                        name='newPosition'
-                        label= 'Rank'
-                       // value={props.values.newPosition}
-                        fullWidth
-                        //variant='outlined'
-                        InputLabelProps={{ shrink: true,}}
-                        error={props.errors.newPosition && props.touched.newPosition}
-                        helperText={<ErrorMessage name='newPosition' />} 
-                        required>
-                          <MenuItem  value=""><em>Select</em></MenuItem>
-                           {positions.map((position) =>
-                             <MenuItem 
-                                key={position.id} 
-                                value={position.id}>{position.name}
-                          </MenuItem>)}  
-
-                        </Field>
-                      </div>
-                      <br/>
-                      <div>
-                        <Field as = {TextField}
-                        select
-                        name='newDepartment'
-                        label='Department'
-                       // value={props.values.newDepartment}
-                        fullWidth
-                     //  variant='outlined'
-                        InputLabelProps={{ shrink: true,}}
-                        error={props.errors.newDepartment && props.touched.newDepartment}
-                      helperText={<ErrorMessage name='newDepartment' />} 
-                      required >
-                       <MenuItem value=""><em>Select</em></MenuItem>
-                             {departments.map((department) =>
-                             <MenuItem 
-                                  key={department.id} 
-                                  value={department.id}>
-                                  {department.name}
-                              </MenuItem> )}  
-                         
-                        </Field>
-                      </div>
-
-                      <br/>
-                      <div>
-                      <Field as ={TextField}
-                        name='startDate' 
-                        label='Start Date'
-                      //  value={props.value.startDate}
-                    //    variant = 'outlined'
-                        type='date' 
-                        fullWidth 
-                        InputLabelProps={{ shrink: true,}}
-                        error={props.errors.startDate && props.touched.startDate}
-                        helperText={<ErrorMessage name='startDate' />} required
-                      />
-                      </div>
-                        <br/>
-                      <div>
-                      <Field as={TextField} 
-                        name='endDate' 
-                        label='End Date'
-                     //   value={props.value.endDate}
-                     //   variant='outlined'
-                        type='date' 
-                        fullWidth 
-                        InputLabelProps={{ shrink: true,}}
-                        error={props.errors.endDate && props.touched.endDate}
-                        helperText={<ErrorMessage name='endDate' />}  />
-                      </div>
-                    <DialogActions>
-                    <div>
-                      <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
-                    </div>
-                    <div>
-                      <Button type ="submit" variant="contained" color="primary" startIcon={<SaveIcon />}>Save Career History</Button>
-                    </div>
-                    </DialogActions>
-                   
-                      </Form>
-                    )}
-          </Formik>
-          </DialogContent>
-                  </Dialog>
-                </React.Fragment>
-              
-               
-              </Grid>
-             </div>  
+                      {(props)=>(
+                        <Form className={classes.form}>
+                          <div>
+                            <Field as = {TextField}
+                              select
+                              name='newPosition'
+                              label= 'Rank'
+                              fullWidth
+                              InputLabelProps={{ shrink: true,}}
+                              error={props.errors.newPosition && props.touched.newPosition}
+                              helperText={<ErrorMessage name='newPosition' />} 
+                              required
+                            >
+                              <MenuItem  value=""><em>Select</em></MenuItem>
+                              {positions.map((position) =>
+                                <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>)}
+                            </Field>
+                          </div>
+                          <br/>
+                          <div>
+                            <Field as = {TextField}
+                              select
+                              name='newDepartment'
+                              label='Department'
+                              fullWidth
+                              InputLabelProps={{ shrink: true,}}
+                              error={props.errors.newDepartment && props.touched.newDepartment}
+                              helperText={<ErrorMessage name='newDepartment' />} 
+                              required
+                            >
+                              <MenuItem value=""><em>Select</em></MenuItem>
+                                {departments.map((department) =>
+                                  <MenuItem key={department.id} value={department.id}>{department.name}</MenuItem> )}                         
+                            </Field>
+                          </div>
+                          <br/>
+                          <div>
+                            <Field as ={TextField}
+                              name='startDate' 
+                              label='Start Date'
+                              type='date' 
+                              fullWidth 
+                              InputLabelProps={{ shrink: true,}}
+                              error={props.errors.startDate && props.touched.startDate}
+                              helperText={<ErrorMessage name='startDate' />} required
+                            />
+                          </div>
+                          <br/>
+                          <div>
+                            <Field as={TextField} 
+                              name='endDate' 
+                              label='End Date'
+                              type='date' 
+                              fullWidth 
+                              InputLabelProps={{ shrink: true,}}
+                              error={props.errors.endDate && props.touched.endDate}
+                              helperText={<ErrorMessage name='endDate' />}
+                            />
+                          </div>
+                          <DialogActions>
+                            <div>
+                              <Button onClick={handleCancel} variant="contained" color="primary">Cancel</Button>
+                            </div>
+                            <div>
+                              <Button type ="submit" variant="contained" color="primary" startIcon={<SaveIcon />}>Save Career History</Button>
+                            </div>
+                          </DialogActions>                   
+                        </Form>
+                      )}
+                    </Formik>
+                  </DialogContent>
+                </Dialog>
+              </React.Fragment>               
+            </Grid>
+          </div>  
         )}  
-    }
-  }  
+      }
+    }  
 
   return (
     <div className={classes.root}>
       <Grid container xs={12} justify="center" alignItems="center" direction="column" spacing={3}>
-          <Grid item>
+        <Grid item>
           {showInfo()}
+        </Grid>          
+        <Grid item>
+          <Grid container spacing={1} direction="column">
+            <Button variant="contained" color="primary" size="medium" onClick={handleClickOpen}>
+              Add Career History Record
+            </Button>
           </Grid>
-          
-          <Grid item>
-            <Grid container spacing={1} direction="column">
-           <Button variant="contained" color="primary" size="medium" onClick={handleClickOpen}>
-             Add Career History Record
-          </Button>
-          </Grid>
-          </Grid>
-
-          <Grid>
-           {showDialog()}
-          </Grid>
-
-          <Grid item>
-          <CareerHistoryTable data={empData}></CareerHistoryTable>  
-          </Grid>
-
+        </Grid>
+        <Grid>
+          {showDialog()}
+        </Grid>
+        <Grid item>
+          <CareerHistoryTable data={empData} setEmpData={setEmpData}></CareerHistoryTable>  
+        </Grid>
       </Grid>
-
-      </div>
-    
+    </div>    
   );
 }
