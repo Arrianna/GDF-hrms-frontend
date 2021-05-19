@@ -29,7 +29,7 @@ export default function CareerHistoryLayout(props) {
   const [empData, setEmpData] = useState();
   
   let eId = params.employeeId;
-  console.log(params.employeeId);
+  // console.log(params.employeeId);
 
   useEffect(() => {    
     const getEmpCH = async () => {
