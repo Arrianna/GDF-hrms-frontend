@@ -155,7 +155,7 @@ console.log(props.formik.values.maritalStatusId);
                       name="sex"
                       label="Sex"
                       InputLabelProps={{ shrink: true,}}
-                      value={props.formik.values.sex}
+                      value={props.formik.values.sex || ''}
                       onChange={props.formik.handleChange}
                       variant="outlined"  
                       size="small"
@@ -213,7 +213,7 @@ console.log(props.formik.values.maritalStatusId);
                       name="religion"
                       label= "Religion"
                       InputLabelProps={{ shrink: true,}}
-                      value={props.formik.values.religionId}
+                      value={props.formik.values.religionId || ''}
                       onChange={props.formik.handleChange}
                       variant="outlined"
                       size="small"
@@ -236,7 +236,7 @@ console.log(props.formik.values.maritalStatusId);
                       InputLabelProps={{ shrink: true,}}
                       size="small"
                       variant="outlined"
-                      value={props.formik.values.maritalStatusId}
+                      value={props.formik.values.maritalStatusId || ''}
                       onChange={props.formik.handleChange}
                       error={Boolean(props.formik.errors.maritalStatusId && props.formik.touched.maritalStatusId)}
                       helperText={props.formik.errors.maritalStatusId && props.formik.touched.maritalStatusId && String(props.formik.errors.maritalStatusId)}
@@ -255,7 +255,7 @@ console.log(props.formik.values.maritalStatusId);
                       name="nationality"
                       label="Nationality"
                       InputLabelProps={{ shrink: true,}}
-                      value={props.formik.values.nationalityId}
+                      value={props.formik.values.nationalityId || ''}
                       onChange={props.formik.handleChange}
                       variant="outlined"
                       size="small"
