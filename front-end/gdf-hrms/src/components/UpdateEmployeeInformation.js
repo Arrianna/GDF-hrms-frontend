@@ -6,7 +6,7 @@ import Axios from 'axios';
 import Notification from './Notification';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 import UpdateEmployeePIForm from './UpdateEmployeeComponents/UpdateEmployeePIForm';
 import UpdateEmployeeContactForm from './UpdateEmployeeComponents/UpdateEmployeeContactForm';
@@ -36,14 +36,14 @@ const useStyles = makeStyles((theme) => ({
 export default function UpdateEmployeeInformation() {
   const classes = useStyles();  
   const [empInfoGet, setEmpInfoGet] = useState({});  
-  const [religions, setReligions] = useState([]);
-  const [maritalStatuses, setMaritalStatuses] = useState([]);
-  const [nationalities, setNationalities] = useState([]);
-  const [ethnicities, setEthnicities] = useState([]);
-  const [religion, setReligion] = useState();
-  const [maritalStatus, setMaritalStatus] = useState();
-  const [nationality, setNationality] = useState();
-  const [ethnicity, setEthnicity] = useState();
+  // const [religions, setReligions] = useState([]);
+  // const [maritalStatuses, setMaritalStatuses] = useState([]);
+  // const [nationalities, setNationalities] = useState([]);
+  // const [ethnicities, setEthnicities] = useState([]);
+  // const [religion, setReligion] = useState();
+  // const [maritalStatus, setMaritalStatus] = useState();
+  // const [nationality, setNationality] = useState();
+  // const [ethnicity, setEthnicity] = useState();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const params = useParams();
   const eId = params.empId;

@@ -482,7 +482,7 @@ export default function EmployeeProfileLayout(props) {
                           fullWidth
                           className = {classes.textField}
                           //variant='outlined'
-                          value={props.values.region}
+                          value={props.values.region || ''}
                           onChange={props.handleChange}
                           error={props.errors.region && props.touched.region}
                           helperText={<ErrorMessage name='region' />} 
@@ -506,7 +506,7 @@ export default function EmployeeProfileLayout(props) {
                           fullWidth
                           className = {classes.textField}
                           //variant='outlined'
-                          value={props.values.country}
+                          value={props.values.country || ''}
                           onChange={props.handleChange}
                           error={props.errors.country && props.touched.country}
                           helperText={<ErrorMessage name='country' />} 

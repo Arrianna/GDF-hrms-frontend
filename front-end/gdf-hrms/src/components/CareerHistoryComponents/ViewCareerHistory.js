@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button, MenuItem } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
-import CareerHistoryTable from './CareerHistoryTable';
 import Axios from 'axios'; 
 import { DialogTitle, Dialog, DialogActions, DialogContent } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import {Formik,Form,Field, ErrorMessage} from 'formik';
 import * as Yup  from 'yup';
+
+import Notification from './Notification';
+import CareerHistoryTable from './CareerHistoryTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -270,6 +272,7 @@ export default function ViewCareerHistory(props) {
           <CareerHistoryTable data={empData} setEmpData={setEmpData}></CareerHistoryTable>  
         </Grid>
       </Grid>
+      <Notification notify={notify} setNotify={setNotify}/>
     </div>    
   );
 }
