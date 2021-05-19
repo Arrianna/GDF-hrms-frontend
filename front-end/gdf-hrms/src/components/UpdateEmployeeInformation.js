@@ -253,7 +253,7 @@ export default function UpdateEmployeeInformation() {
         .catch(error => console.log(error))
       }
       
-      // formik.resetForm();
+      formik.resetForm();
     }
   })  
   
