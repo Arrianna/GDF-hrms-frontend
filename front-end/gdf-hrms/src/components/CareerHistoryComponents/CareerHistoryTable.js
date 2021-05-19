@@ -46,8 +46,8 @@ export default function CareerHistoryTable(props) {
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState([]);
   const [departments, setDepartments] = useState([]);
-  const [selectedPosition, setSelectedPosition] = useState();
-  const [selectedDepartment, setSelectedDepartment] = useState();
+  const [selectedPosition, setSelectedPosition] = useState(0);
+  const [selectedDepartment, setSelectedDepartment] = useState(0);
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [rowSelected, setRowSelected] = useState({
     id: '',
