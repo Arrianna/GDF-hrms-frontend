@@ -32,11 +32,11 @@ export default function UpdateEmployeePIForm(props) {
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
   const [ethnicities, setEthnicities] = useState();
-// console.log(props.formik.values);
-// console.log(props.formik.values.ethnicityId);
-// console.log(props.formik.values.religionId);
-// console.log(props.formik.values.nationalityId);
-// console.log(props.formik.values.maritalStatusId);
+console.log(props.formik.values);
+console.log(props.formik.values.ethnicityId);
+console.log(props.formik.values.religionId);
+console.log(props.formik.values.nationalityId);
+console.log(props.formik.values.maritalStatusId);
   useEffect(() => {
     const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
@@ -190,7 +190,7 @@ export default function UpdateEmployeePIForm(props) {
                     <TextField
                       select
                       name="ethnicity"
-                      value={props.formik.values.ethnicityId}
+                      value={props.formik.values.ethnicityId || ''}
                       onChange={props.formik.handleChange}
                       label="Ethnicity"
                       InputLabelProps={{ shrink: true,}}
@@ -199,7 +199,7 @@ export default function UpdateEmployeePIForm(props) {
                       error={Boolean(props.formik.errors.ethnicityId && props.formik.touched.ethnicityId)}
                       helperText={props.formik.errors.ethnicityId && props.formik.touched.ethnicityId && String(props.formik.errors.ethnicityId)}
                     >
-                      {/* <MenuItem value=""><em>Select</em></MenuItem> */}
+                      <MenuItem value=""><em>Select</em></MenuItem>
                       {ethnicities.map((ethnicity) => 
                         <MenuItem key={ethnicity.id} value={ethnicity.id}>{ethnicity.name}</MenuItem>
                       )}

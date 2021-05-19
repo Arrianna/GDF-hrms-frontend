@@ -54,7 +54,7 @@ export default function UpdateEmployeeInformation() {
       setEmpInfoGet(info.data);
     };
 
-    const getEthnicities = async () => {
+    /* const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
       if(info.data != null){
         if(info.data.length > 0){
@@ -93,10 +93,10 @@ export default function UpdateEmployeeInformation() {
     getEthnicities();
     getReligions();
     getMaritalStatuses();
-    getNationalities();
+    getNationalities(); */
     getEmpInfo();
 
-    if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
+    /* if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
       if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0 && nationalities.length > 0){
         ethnicities.forEach((ethnicity) => {
           if(empInfoGet.ethnicity === ethnicity.name){
@@ -122,17 +122,17 @@ export default function UpdateEmployeeInformation() {
           }
         });
       }
-    }
+    } */
   }, [eId]);
 
   const formik = useFormik ({
     enableReinitialize: true,
     
     initialValues: {
-      nationalityId: nationality,
-      religionId: religion,
-      ethnicityId: ethnicity,
-      maritalStatusId: maritalStatus,
+      nationalityId: empInfoGet.nationalityId,
+      religionId: empInfoGet.religionId,
+      ethnicityId: empInfoGet.ethnicityId,
+      maritalStatusId: empInfoGet.maritalStatusId,
       homeNumber: empInfoGet.homeNumber,
       cellNumber: empInfoGet.cellNumber,
       workNumber: empInfoGet.workNumber,
@@ -151,7 +151,7 @@ export default function UpdateEmployeeInformation() {
     },
 
     validationSchema: Yup.object().shape({
-      nationalityId: Yup.number()
+      nationalityId: Yup.string()
         .required("Nationality is Required")
         .typeError("Select a nationality"),
       religionId: Yup.number()
@@ -280,7 +280,6 @@ export default function UpdateEmployeeInformation() {
 
   return (    
     <div className={classes.root}>
-      {/* {selectFieldsData()} */}
       <Grid container spacing={3}>
         <Grid item xs={6}>
          <h1>Update Employee Profile</h1>
