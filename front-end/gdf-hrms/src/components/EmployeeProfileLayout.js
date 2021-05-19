@@ -122,7 +122,7 @@ export default function EmployeeProfileLayout(props) {
     region: editRowSelected.regionId,
     country: editRowSelected.countryId
   }
-   console.log(editRowSelected);
+  //  console.log(editRowSelected);
   // SCHEME FOR VALIDATING ADDRESS FIELDS
   const validationSchema = Yup.object().shape({
     lot: Yup.string()

@@ -111,7 +111,13 @@ export default function AddEmployeeInformation() {
         .test('len', 'Must be at least 6 digits', (val) => { if(val) return val.toString().length >= 6; })
         .required("A Regimental Number is Required"),
       dateOfBirth: Yup.date()
-        .required("Date of Birth is Required"),
+        .required("Date of Birth is Required")
+        .max(new Date(), "Are you a time traveler?!")
+        .test("age", "You must be 18 or older", function(dateOfBirth) {
+          const cutoff = new Date();
+          cutoff.setFullYear(cutoff.getFullYear() - 18);      
+          return dateOfBirth <= cutoff;
+        }),
       sex: Yup.string()
         .required("This is required"),
       nationalIdNumber: Yup.number()
