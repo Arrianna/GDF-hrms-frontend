@@ -189,7 +189,7 @@ export default function UpdateEmployeePIForm(props) {
                   <Grid item xs={2}>
                     <TextField
                       select
-                      name="ethnicity"
+                      name="ethnicityId"
                       value={props.formik.values.ethnicityId || ''}
                       onChange={props.formik.handleChange}
                       label="Ethnicity"
@@ -210,7 +210,7 @@ export default function UpdateEmployeePIForm(props) {
                   <Grid item xs={2}>   
                     <TextField
                       select
-                      name="religion"
+                      name="religionId"
                       label= "Religion"
                       InputLabelProps={{ shrink: true,}}
                       value={props.formik.values.religionId || ''}
@@ -231,7 +231,7 @@ export default function UpdateEmployeePIForm(props) {
                   <Grid item xs={2}>
                     <TextField
                       select
-                      name="maritalStatus"
+                      name="maritalStatusId"
                       label=" Marital Status"
                       InputLabelProps={{ shrink: true,}}
                       size="small"
@@ -252,7 +252,7 @@ export default function UpdateEmployeePIForm(props) {
                   <Grid item xs={2}>
                     <TextField
                       select
-                      name="nationality"
+                      name="nationalityId"
                       label="Nationality"
                       InputLabelProps={{ shrink: true,}}
                       value={props.formik.values.nationalityId || ''}
