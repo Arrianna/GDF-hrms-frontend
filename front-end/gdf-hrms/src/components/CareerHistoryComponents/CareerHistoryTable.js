@@ -6,7 +6,7 @@ import moment from 'moment';
 import Edit from '@material-ui/icons/Edit';
 import Axios from 'axios'; 
 import { DialogTitle, Dialog, DialogActions, DialogContent } from '@material-ui/core';
-import { MenuItem, InputLabel, FormControl, Select, Button, Grid, TextField }  from '@material-ui/core';
+import { MenuItem, Button, Grid, TextField }  from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import Notification from './Notification';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
@@ -46,8 +46,6 @@ export default function CareerHistoryTable(props) {
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState([]);
   const [departments, setDepartments] = useState([]);
-  const [selectedPosition, setSelectedPosition] = useState(0);
-  const [selectedDepartment, setSelectedDepartment] = useState(0);
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [rowSelected, setRowSelected] = useState({
     id: '',
@@ -85,13 +83,12 @@ export default function CareerHistoryTable(props) {
   }, []);
 
   const initialValues = {
-    position: rowSelected.position,
-    department: rowSelected.department,
+    position: rowSelected.positionId,
+    department: rowSelected.departmentId,
     startDate: rowSelected.startDate,
     endDate: rowSelected.endDate,
   }
-// console.log(initialValues);
-// console.log(rowSelected);
+
   const validationSchema = Yup.object().shape({
     position: Yup.string().required("Required"),
     department: Yup.string().required("Required"),
@@ -146,39 +143,33 @@ export default function CareerHistoryTable(props) {
   };
 
   const selectRow = (row)=> {
-    console.log(departments);
-    console.log(positions);
-    departments.forEach((department) => {
-      if(row.department === department.name){
-        setSelectedDepartment(department.id);
-      }
-    })
-
-    positions.forEach((position) => {
-      if(row.position === position.name){
-        setSelectedPosition(position.id);
-      }
-    })
-console.log(selectedPosition);
-console.log(selectedDepartment);
-    let selectedCareerHistory = {
-      id: row.id,
-      eId: row.eId,
-      position: selectedPosition,
-      department: selectedDepartment,
-      startDate: row.startDate,
-      endDate: row.endDate,
-    }
-
-    if(selectedCareerHistory){
-      setRowSelected(selectedCareerHistory);
-    }
+    setRowSelected(row);
     setOpen(true);
   }
 
   const handleCancel = () => {
     setOpen(false);
   };
+
+  const getPositionName = (rowPositionId) => {
+    let positionName;
+    positions.forEach((position) => {
+      if(rowPositionId === position.id){
+        positionName = position.name;
+      }      
+    })
+    return positionName;
+  }
+
+  const getDepartmentName = (rowDepartmentId) => {
+    let departmentName;
+    departments.forEach((department) => {
+      if(rowDepartmentId === department.id){
+        departmentName = department.name;
+      }      
+    })
+    return departmentName;
+  }
 
   const showResults = () => {
     if(data != null) {
@@ -196,11 +187,12 @@ console.log(selectedDepartment);
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row) => {            
+                {data.map((row) => {
+                  // console.log(row);
                   return(
                     <StyledTableRow key={row.id}>
-                      <StyledTableCell align="center">{row.position}</StyledTableCell>
-                      <StyledTableCell align="center">{row.department}</StyledTableCell>
+                      <StyledTableCell align="center">{getPositionName(row.positionId)}</StyledTableCell>
+                      <StyledTableCell align="center">{getDepartmentName(row.departmentId)}</StyledTableCell>
                       <StyledTableCell align="center">{moment(row.startDate).format('DD-MM-YYYY')}</StyledTableCell>
                       <StyledTableCell align="center">{moment(row.endDate).format('DD-MM-YYYY')}</StyledTableCell>
                       <StyledTableCell align="center">
@@ -241,7 +233,7 @@ console.log(selectedDepartment);
                               InputLabelProps={{shrink : true}}
                               fullwidth
                               margin="normal"
-                              value={props.values.position}
+                              value={props.values.position || ''}
                               onChange={props.handleChange}
                               error={props.errors.position && props.touched.position}
                               helperText={<ErrorMessage name='position' />}
@@ -260,7 +252,7 @@ console.log(selectedDepartment);
                               InputLabelProps={{shrink : true}}
                               fullwidth
                               margin="normal"
-                              value={props.values.department}
+                              value={props.values.department || ''}
                               onChange={props.handleChange}
                               error={props.errors.department && props.touched.department}
                               helperText={<ErrorMessage name='department' />}

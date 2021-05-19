@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { TextField, MenuItem } from '@material-ui/core';
 import moment from 'moment';
 import Axios from 'axios';
 
-const useStyles = makeStyles((theme) => ({
+/* const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
         margin: theme.spacing(1),
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-}));
+})); */
 
 export default function UpdateEmployeePIForm(props) {
   // const classes = useStyles();
@@ -32,11 +32,11 @@ export default function UpdateEmployeePIForm(props) {
   const [religions, setReligions] = useState();
   const [maritalStatuses, setMaritalStatuses] = useState();
   const [ethnicities, setEthnicities] = useState();
-console.log(props.formik.values);
-console.log(props.formik.values.ethnicityId);
-console.log(props.formik.values.religionId);
-console.log(props.formik.values.nationalityId);
-console.log(props.formik.values.maritalStatusId);
+// console.log(props.formik.values);
+// console.log(props.formik.values.ethnicityId);
+// console.log(props.formik.values.religionId);
+// console.log(props.formik.values.nationalityId);
+// console.log(props.formik.values.maritalStatusId);
   useEffect(() => {
     const getEthnicities = async () => {
       const info = await Axios.get("GetInfo/GetAllEthnicities");
