@@ -224,52 +224,48 @@ export default function UpdateEmployeeInformation() {
     }),
 
     onSubmit: values => {
-      /* let Info = {
-        nationalityId: parseInt(values.nationalityId, 10),
-        religionId: parseInt(values.religionId, 10),
-        ethnicityId: parseInt(values.ethnicityId, 10),
-        maritalStatusId: parseInt(values.maritalStatusId, 10),
-        homeNumber: parseInt(values.homeNumber, 10),
-        cellNumber: parseInt(values.cellNumber, 10),
-        workNumber: parseInt(values.workNumber, 10),
+      let Info = {
+        id: parseInt(eId, 10),
+        nationalityId: values.nationalityId,
+        religionId: values.religionId,
+        ethnicityId: values.ethnicityId,
+        maritalStatusId: values.maritalStatusId,
+        homeNumber: values.homeNumber,
+        cellNumber: values.cellNumber,
+        workNumber: values.workNumber,
         email: values.email,
         title: values.title,
         firstName: values.firstName,
         lastName: values.lastName,
         otherName: values.otherName,
-        regimentNumber: parseInt(values.regimentNumber, 10),
+        regimentNumber: values.regimentNumber,
         dateOfBirth: values.dateOfBirth,
         sex: values.sex,
-        nationalIdNumber: parseInt(values.nationalIdNumber, 10),
+        nationalIdNumber: values.nationalIdNumber,
         passportNumber: values.passportNumber,
         passportExpirationDate: values.passportExpirationDate,
         tinNumber: parseInt(values.tinNumber, 10),
-      } */
+      }
       
-      /* if(Info){
-        axios.post('PostInfo/AddAnEmployee', Info)
+      if(Info){
+        Axios.patch('UpdateInfo/update/employeePI/' + eId, Info)
         .then(response => getNotification(response))
-        .catch(error => getNotification(error))
-      } */
-      console.log(values);
-      formik.resetForm();
+        .catch(error => console.log(error))
+      }
+      
+      // formik.resetForm();
     }
-  })
+  })  
   
-  // console.log(religion);
-  // console.log(ethnicity);
-  // console.log(nationality);
-  // console.log(maritalStatus);
-  // console.log(formik.initialValues);
-  const getNotification = (option, notificationType) => {
-    if(notificationType === 'success'){
+  const getNotification = (response) => {
+    if(response.status === 204){
       setNotify({
         isOpen: true,
-        message: 'Career History Information Successfully Added',
+        message: 'Employee Information Successfully Saved',
         type: 'success'
       })
     }
-    if(notificationType === 'error'){
+    if(response === 'error'){
       setNotify({
         isOpen: true,
         message: 'An error was detected',
