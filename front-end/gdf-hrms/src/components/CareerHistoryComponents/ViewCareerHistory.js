@@ -76,7 +76,7 @@ export default function ViewCareerHistory(props) {
     if(notificationType === 'success'){
       setNotify({
         isOpen: true,
-        message: 'Career History Information Successfully AddedS',
+        message: 'Career History Information Successfully Added',
         type: 'success'
       })
     }
@@ -101,15 +101,18 @@ export default function ViewCareerHistory(props) {
 
     if(careerHistory){
       const postRequest = async() => {
-        Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
+        await Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
         .then(response => {
-          setEmpData(empData.concat(response.data))
+          Axios.get("EmployeeInfo/GetEmployeeCareerHistoryByTheirId?employeeId=" + eId)
+          .then(response => {
+            setEmpData(response.data)
+          })
           getNotification(response, 'success')})
         .catch(error => getNotification(error, 'error'))
-      }
+      };
+      
       postRequest();
     }
-    setEmpData([careerHistory, ...empData]);
     setOpen(false);    
   };
 
