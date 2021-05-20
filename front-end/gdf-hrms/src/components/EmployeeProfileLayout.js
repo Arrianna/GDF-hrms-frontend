@@ -154,7 +154,11 @@ export default function EmployeeProfileLayout(props) {
     if(Address){
       Axios.post('PostInfo/AddAnEmployeeAddress', Address)
       .then(response => {
-        setEmployeeAddress(employeeAddress.concat(response.data))
+        Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=" + employeeInfo.id)
+        .then(response => {
+          setEmployeeAddress(response.data)
+        })
+        // setEmployeeAddress(employeeAddress.concat(response.data))
         if(response.status === 200){
           setNotify({
             isOpen: true,
