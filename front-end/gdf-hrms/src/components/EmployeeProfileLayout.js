@@ -217,24 +217,13 @@ export default function EmployeeProfileLayout(props) {
       countryId: values.country,
       employeeId: editRowSelected.employeeId,
     }
-    // console.log(editedAddress);
 
     Axios.patch('UpdateInfo/update/employeePI/address/' + editedAddress.id, editedAddress)
     .then(response=>{
-      let newData = employeeAddress;
-      newData.forEach(row => {        
-        if(rowSelected.id === row.id){
-          row.id = editedAddress.id;
-          row.lot = editedAddress.lot;
-          row.street = editedAddress.street;
-          row.area = editedAddress.area;
-          row.village = editedAddress.village;
-          row.regionId = editedAddress.regionId;
-          row.countryId = editedAddress.countryId;
-          row.employeeId = editedAddress.employeeId;
-        }
-      })      
-      setEmployeeAddress(newData);
+      Axios.get("EmployeeInfo/GetEmployeeAddressByTheirId?employeeId=" + employeeInfo.id)
+        .then(response => {
+          setEmployeeAddress(response.data)
+        })
       openCloseModalEdit();
       if(response.status === 204){
         setNotify({
@@ -251,7 +240,6 @@ export default function EmployeeProfileLayout(props) {
         })
       }
     })
-    action.resetForm();
   }
  
   // FUNCTION FOR OPENING & CLOSING THE DELETE MODAL
