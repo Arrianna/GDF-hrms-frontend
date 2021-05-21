@@ -6,7 +6,6 @@ import Axios from 'axios';
 import Notification from './Notification';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-// import CircularProgress from '@material-ui/core/CircularProgress';
 
 import UpdateEmployeePIForm from './UpdateEmployeeComponents/UpdateEmployeePIForm';
 import UpdateEmployeeContactForm from './UpdateEmployeeComponents/UpdateEmployeeContactForm';
@@ -249,11 +248,14 @@ export default function UpdateEmployeeInformation() {
       
       if(Info){
         Axios.patch('UpdateInfo/update/employeePI/' + eId, Info)
-        .then(response => getNotification(response))
-        .catch(error => console.log(error))
+        .then(response => {
+          getNotification(response)
+          if(response.status === 204){
+            window.location = "/employee-profile/" + values.regimentNumber;
+          }
+        })
+        .catch(error => console.log(error))     
       }
-      
-      formik.resetForm();
     }
   })  
   
