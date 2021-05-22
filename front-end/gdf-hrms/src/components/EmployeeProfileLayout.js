@@ -683,7 +683,7 @@ export default function EmployeeProfileLayout(props) {
                       <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
                     </Grid >                    
                   </Grid>
-                  : <CircularProgress style={{ marginTop: "120px" }}/> }
+                  : <CircularProgress size={65} style={{ marginTop: "120px" }}/> }
                 </div> 
               </Grid>
             </Grid>
