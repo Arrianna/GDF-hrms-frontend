@@ -6,7 +6,7 @@ import moment from 'moment';
 import Edit from '@material-ui/icons/Edit';
 import Axios from 'axios'; 
 import { DialogTitle, Dialog, DialogActions, DialogContent } from '@material-ui/core';
-import { MenuItem, Button, Grid, TextField, CircularProgress }  from '@material-ui/core';
+import { MenuItem, Button, Grid, TextField }  from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import Notification from './Notification';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
@@ -315,7 +315,7 @@ export default function CareerHistoryTable(props) {
 
   return (
     <div>
-      {data ? showResults() : <CircularProgress style={{marginTop: '100px'}}/>}
+      {showResults()}
       {showDialog()}
       <Notification notify={notify} setNotify={setNotify}/>
     </div>

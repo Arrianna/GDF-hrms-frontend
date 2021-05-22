@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button, MenuItem } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios'; 
-import { DialogTitle, Dialog, DialogActions, DialogContent } from '@material-ui/core';
+import { DialogTitle, Dialog, DialogActions, DialogContent, CircularProgress } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import {Formik,Form,Field, ErrorMessage} from 'formik';
 import * as Yup  from 'yup';
@@ -258,7 +258,8 @@ export default function ViewCareerHistory(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container xs={12} justify="center" alignItems="center" direction="column" spacing={3}>
+      {employeeInfo ?
+      <Grid container xs={12} justify="center" alignItems="center" direction="column" spacing={3}>        
         <Grid item>
           {showInfo()}
         </Grid>          
@@ -275,7 +276,7 @@ export default function ViewCareerHistory(props) {
         <Grid item>
           <CareerHistoryTable data={empData} setEmpData={setEmpData}></CareerHistoryTable>  
         </Grid>
-      </Grid>
+      </Grid> : <CircularProgress size={65} style={{marginTop: '150px'}}/> }
       <Notification notify={notify} setNotify={setNotify}/>
     </div>    
   );
