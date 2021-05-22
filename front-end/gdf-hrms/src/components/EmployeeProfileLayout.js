@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Paper, Typography, Button, Modal } from '@material-ui/core';
 import { Save, Cancel } from '@material-ui/icons';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
+import { MenuItem, CircularProgress } from '@material-ui/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Axios from 'axios';
@@ -22,6 +22,13 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
         flexGrow: 1,
     }, 
+  },
+
+  circularLoader: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
   },
 
   formControl: {
@@ -652,6 +659,7 @@ export default function EmployeeProfileLayout(props) {
               </Grid>
               <Grid container item xs={12} spacing={3}>
                 <div>
+                  {employeeInfo && employeeAddress ?
                   <Grid container spacing={1}>
                     <Grid item xs={12}>
                       <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>
@@ -668,7 +676,8 @@ export default function EmployeeProfileLayout(props) {
                     <Grid item xs={12}>
                       <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
                     </Grid >                    
-                  </Grid>           
+                  </Grid>
+                  : <CircularProgress className = {classes.circularLoader}/> }
                 </div> 
               </Grid>
             </Grid>

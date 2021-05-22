@@ -40,7 +40,9 @@ export default function ViewCareerHistory(props) {
   const [departments, setDepartments] = useState();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
-  //Define object schema and its validation
+  let eId = params.empId;
+  
+  // INITIAL FORM VALUES FOR FORMIK
   const initialValues = {
     newPosition:'',
     newDepartment: '',
@@ -48,21 +50,20 @@ export default function ViewCareerHistory(props) {
     endDate:''
   }
 
-  //Create validator object using Yup with expected schema and validation
+  // YUP VALIDATION SCHEMA
   const validationSchema = Yup.object().shape({
     newPosition:Yup.string()
       .required("Employee Rank is Required"),
     newDepartment:Yup.string()
       .required("Department is Required"),
     startDate:Yup.date()
+      .max(new Date(), "Are you a time traveler?!")
       .required("Required"),
     endDate: Yup.date()
       .min(Yup.ref('startDate'),"End date can't be before Start date")
     
   
-  });
-  
-  let eId = params.empId;
+  });  
 
   const handleClickOpen = () => {    
     setOpen(true);
@@ -184,7 +185,7 @@ export default function ViewCareerHistory(props) {
                               name='newPosition'
                               label= 'Rank'
                               fullWidth
-                              InputLabelProps={{ shrink: true,}}
+                              // InputLabelProps={{ shrink: true,}}
                               error={props.errors.newPosition && props.touched.newPosition}
                               helperText={<ErrorMessage name='newPosition' />} 
                               required
@@ -201,7 +202,7 @@ export default function ViewCareerHistory(props) {
                               name='newDepartment'
                               label='Department'
                               fullWidth
-                              InputLabelProps={{ shrink: true,}}
+                              // InputLabelProps={{ shrink: true,}}
                               error={props.errors.newDepartment && props.touched.newDepartment}
                               helperText={<ErrorMessage name='newDepartment' />} 
                               required

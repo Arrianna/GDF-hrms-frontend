@@ -82,6 +82,7 @@ export default function CareerHistoryTable(props) {
     getDepartment();
   }, []);
 
+  // INITIAL FORM VALUES FOR FORMIK
   const initialValues = {
     position: rowSelected.positionId,
     department: rowSelected.departmentId,
@@ -89,11 +90,12 @@ export default function CareerHistoryTable(props) {
     endDate: rowSelected.endDate,
   }
 
+  // YUP VALIDATION SCHEMA
   const validationSchema = Yup.object().shape({
     position: Yup.string().required("Required"),
     department: Yup.string().required("Required"),
-    startDate: Yup.date().required("Required"),
-    endDate: Yup.date().required("Required"),
+    startDate: Yup.date().required("Required").max(new Date(), "Are you a time traveler?!"),
+    endDate: Yup.date().min(Yup.ref('startDate'), "End date can't be before Start date").required("Required"),
   })
 
   const onSubmit = (values, props) => {
