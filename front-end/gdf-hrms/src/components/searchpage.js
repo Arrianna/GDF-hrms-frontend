@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, CircularProgress } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import Axios from 'axios';
 
 import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentNumberForm';
@@ -25,11 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchPage() {
   const classes = useStyles();
-  const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
 
   const getDataByRegNum = data => {
-    setIsLoading(true);
     Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber).then((response) => {        
       let resultArray = [];        
       if(response.data !== ""){
@@ -37,11 +35,9 @@ export default function SearchPage() {
       }
       setSearchResults(resultArray);
     });
-    setIsLoading(false);
   }
   
   const getDataByOtherCriteria = data => {
-    setIsLoading(true);
     let employeePosition = parseInt(data.employeePosition)
     Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition).then((response) => {
       let resultArray = [];
@@ -50,7 +46,6 @@ export default function SearchPage() {
       }
       setSearchResults(resultArray);
     });
-    setIsLoading(false);
   }
 
   const showTable = () => {
@@ -83,8 +78,7 @@ export default function SearchPage() {
           </CardContent>
         </Card>
       </div>
-      {!isLoading && showTable()}
-      {isLoading && <CircularProgress />}
+      {showTable()}
     </div>
   );
 }

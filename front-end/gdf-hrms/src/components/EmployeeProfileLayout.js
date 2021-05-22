@@ -24,12 +24,18 @@ const useStyles = makeStyles((theme) => ({
     }, 
   },
 
-  circularLoader: {
+  /* circularLoader: {
     display: 'flex',
     '& > * + *': {
-      marginLeft: theme.spacing(2),
+      marginLeft: '50%',
     },
   },
+
+  contentDisplay: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+  }, */
 
   formControl: {
     margin: theme.spacing(1),
@@ -657,8 +663,8 @@ export default function EmployeeProfileLayout(props) {
                   </Button>                  
                 </h1>
               </Grid>
-              <Grid container item xs={12} spacing={3}>
-                <div>
+              <Grid container spacing={3} justify='center'>
+                <div style={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
                   {employeeInfo && employeeAddress ?
                   <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -677,7 +683,7 @@ export default function EmployeeProfileLayout(props) {
                       <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
                     </Grid >                    
                   </Grid>
-                  : <CircularProgress className = {classes.circularLoader}/> }
+                  : <CircularProgress style={{ marginTop: "120px" }}/> }
                 </div> 
               </Grid>
             </Grid>
