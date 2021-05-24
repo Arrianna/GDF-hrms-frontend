@@ -38,9 +38,9 @@ export default function SearchPage() {
     })
     .catch((error) => {
       if (error.response) {
-        // console.log('Error.response.data', error.response.data);
-        // console.log('Error.response.status', error.response.status);
-        // console.log('Error.response.headers', error.response.headers);
+        console.log('Error.response.data', error.response.data);
+        console.log('Error.response.status', error.response.status);
+        console.log('Error.response.headers', error.response.headers);
         if(error.response.data.title === 'Not Found'){
           alert(JSON.stringify('No employee found matching that regimental number'), null, 2)
         }
@@ -64,9 +64,9 @@ export default function SearchPage() {
     })
     .catch((error) => {
       if (error.response) {
-        // console.log('Error.response.data', error.response.data);
-        // console.log('Error.response.status', error.response.status);
-        // console.log('Error.response.headers', error.response.headers);
+        console.log('Error.response.data', error.response.data);
+        console.log('Error.response.status', error.response.status);
+        console.log('Error.response.headers', error.response.headers);
         if(error.response.data.title === 'Not Found'){
           alert(JSON.stringify('No employee found matching the search paramters'), null, 2)
         }
