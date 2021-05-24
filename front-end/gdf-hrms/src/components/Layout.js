@@ -85,11 +85,9 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button><HomeIcon style={iconMargin}/><Link to="/" color="primary" variant="body2" underline="none"><ListItemText primary='Home'/></Link></ListItem>
         <ListItem button><PersonAddRounded style={iconMargin}/><Link to="/add-employee" color="primary" variant="body2" underline="none"><ListItemText primary='Add Employee'/></Link></ListItem>
-        <ListItem button><HourglassEmptyTwoTone style={iconMargin}/><Link to="/employee-history" color="primary" variant="body2" underline="none"><ListItemText primary='Employee History'/></Link></ListItem>
         <ListItem button><SearchIcon style={iconMargin}/><Link to='/search-page' color="primary" variant="body2" underline='none'><ListItemText primary='Employee Search'/></Link></ListItem>
-        <ListItem button><PersonRounded style={iconMargin}/><Link to="/employee-profile" color="primary" variant="body2" underline='none'><ListItemText primary='Employee Profile'/></Link></ListItem>
       </List>
-      <Divider />
+      <Divider />{/* 
       <List>
         {['Something Else', 'More', 'Something More'].map((text, index) => (
           <ListItem button key={text}>
@@ -97,7 +95,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   );
 
