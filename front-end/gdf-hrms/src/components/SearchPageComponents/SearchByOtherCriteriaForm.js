@@ -33,7 +33,7 @@ export default function SearchByOtherCriteriaForm(submitFunction) {
       const info = await Axios.get("GetInfo/GetAllPositions");
       if(info.data != null){
         if(info.data.length > 0){
-          setPositions(info.data);
+          setPositions(info.data);          
         }
       }
     };

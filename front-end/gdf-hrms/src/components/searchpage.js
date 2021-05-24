@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent } from "@material-ui/core";
 import Axios from 'axios';
@@ -28,24 +28,54 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState(null);
 
   const getDataByRegNum = data => {
-    Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber).then((response) => {        
+    Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber)
+    .then((response) => {        
       let resultArray = [];        
       if(response.data !== ""){
         resultArray.push(response.data);
       }
       setSearchResults(resultArray);
-    });
+    })
+    .catch((error) => {
+      if (error.response) {
+        // console.log('Error.response.data', error.response.data);
+        // console.log('Error.response.status', error.response.status);
+        // console.log('Error.response.headers', error.response.headers);
+        if(error.response.data.title === 'Not Found'){
+          alert(JSON.stringify('No employee found matching that regimental number'), null, 2)
+        }
+      } else if (error.request) {
+        console.log('Error.resquest', error.request);
+      } else {
+        console.log('Error.message', error.message);
+      }
+    })
   }
   
   const getDataByOtherCriteria = data => {
     let employeePosition = parseInt(data.employeePosition)
-    Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition).then((response) => {
+    Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition)
+    .then((response) => {
       let resultArray = [];
       if(response.data !== ""){
         resultArray.push(response.data);
       }
       setSearchResults(resultArray);
-    });
+    })
+    .catch((error) => {
+      if (error.response) {
+        // console.log('Error.response.data', error.response.data);
+        // console.log('Error.response.status', error.response.status);
+        // console.log('Error.response.headers', error.response.headers);
+        if(error.response.data.title === 'Not Found'){
+          alert(JSON.stringify('No employee found matching the search paramters'), null, 2)
+        }
+      } else if (error.request) {
+        console.log('Error.resquest', error.request);
+      } else {
+        console.log('Error.message', error.message);
+      }
+    })
   }
 
   const showTable = () => {
@@ -57,7 +87,7 @@ export default function SearchPage() {
       }
       else{
         return(
-          <div>
+          <div style={{alignItems:'center', justifyContent:'center'}}>
             <p>No results found!</p>
           </div>
         );
@@ -72,7 +102,6 @@ export default function SearchPage() {
           <CardContent className={classes.cardcontents}>
             <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
           </CardContent>
-
           <CardContent className={classes.cardcontents}>
             <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)}> </SearchByOtherCriteriaForm>
           </CardContent>
