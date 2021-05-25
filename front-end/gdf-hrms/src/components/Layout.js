@@ -3,15 +3,14 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { AppBar, CssBaseline, Divider, Drawer, Hidden, Toolbar }   from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import { List, ListItem, ListItemIcon, ListItemText }  from '@material-ui/core';
-import MailIcon from '@material-ui/icons/Mail';
+import { List, ListItem, ListItemText }  from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import gdfLogo from '../assets/gdfLogo.png';
-import { HourglassEmptyTwoTone, PersonAddRounded, PersonRounded } from '@material-ui/icons';
+import { PersonAddRounded } from '@material-ui/icons';
 
 const drawerWidth = 240;
 
