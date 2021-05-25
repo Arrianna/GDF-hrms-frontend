@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function AddressForm(props) {
+export default function AddressForm(props) {  
   const classes = useStyles();
   const data = props.employeeInfo;
   
@@ -83,8 +83,53 @@ export default function AddressForm(props) {
           </div>
         );
       }
+      else{
+        return ( 
+          <div className={classes.root}>
+            <Grid container>        
+              <h3>Address</h3>
+              <Grid container spacing={3}></Grid>
+              <Grid item xs={12}>
+              <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="center">Lot</StyledTableCell>
+                      <StyledTableCell align="center">Street</StyledTableCell>
+                      <StyledTableCell align="center">Area</StyledTableCell>
+                      <StyledTableCell align="center">Village</StyledTableCell>
+                      <StyledTableCell align="center">Region</StyledTableCell>
+                      <StyledTableCell align="center">Country</StyledTableCell>
+                      <StyledTableCell align="center">Actions</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  
+                  <TableBody>
+                    <StyledTableRow>              
+                      <StyledTableCell align="center"></StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                      <StyledTableCell align="center">                            
+                        <ButtonGroup>
+                          <Button disabled variant="text"><Edit color="primary" className={classes.icon} /></Button>
+                          <Button disabled variant="text"><Delete color="secondary" className={classes.icon} /></Button>
+                        </ButtonGroup>
+                      </StyledTableCell>                     
+                    </StyledTableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>   
+              </Grid>     
+            </Grid>
+          </div>
+        );
+      }
     }
   }
+
   return (
     <div>
       {showResults()}      
