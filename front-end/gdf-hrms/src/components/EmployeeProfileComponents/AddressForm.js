@@ -77,7 +77,10 @@ export default function AddressForm(props) {
                     })}
                   </TableBody>
                 </Table>
-              </TableContainer>   
+              </TableContainer>
+              <Button variant="contained" color="primary" onClick={props.handleClickOpen}  style={{margin: '10px'}}>
+                Add Address
+              </Button>
               </Grid>     
             </Grid>
           </div>

@@ -563,7 +563,7 @@ export default function EmployeeProfileLayout(props) {
               <Grid item xs={6}>
                 <h1>
                   {/* DIALOG FOR ADDING AN EMPLOYEE ADDRESS */}
-                  <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title">
+                  <Dialog open={open} onClose={handleCancel} aria-labelledby="form-dialog-title" fullWidth maxWidth="sm">
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                       {(props) => (
                         <Form>
@@ -674,10 +674,10 @@ export default function EmployeeProfileLayout(props) {
                       <ContactForm employeeInfo={employeeInfo}></ContactForm>
                     </Grid >
                     <Grid item xs={12}>
-                      <AddressForm employeeInfo={employeeAddress} selectRow={selectRow}></AddressForm>
-                      <Button variant="contained" color="primary" onClick={handleClickOpen}  style={{margin: '10px'}}>
+                      <AddressForm employeeInfo={employeeAddress} selectRow={selectRow} handleClickOpen={handleClickOpen}></AddressForm>
+                      {/* <Button variant="contained" color="primary" onClick={handleClickOpen}  style={{margin: '10px'}}>
                         Add Address
-                      </Button>
+                      </Button> */}
                     </Grid>
                     <Grid item xs={12}>
                       <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
