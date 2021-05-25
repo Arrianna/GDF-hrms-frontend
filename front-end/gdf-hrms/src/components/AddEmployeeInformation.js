@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom'
 import { Grid, Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddEmployeeInformation() {
   const classes = useStyles();
+  const history = useHistory();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   
   const formik = useFormik ({
@@ -185,7 +187,12 @@ export default function AddEmployeeInformation() {
 
       if(Info){
         axios.post('PostInfo/AddAnEmployee', Info)
-        .then(response => getNotification(response))
+        .then(response => {
+          getNotification(response)
+          if(response.status === 200){
+            history.push('/employee-profile/' + Info.regimentNumber);
+          }
+        })
         .catch(error => getNotification(error))
       }
       formik.resetForm();
