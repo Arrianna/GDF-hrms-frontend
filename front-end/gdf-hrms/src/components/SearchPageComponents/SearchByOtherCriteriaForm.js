@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Grid, Paper, Typography, TextField, MenuItem } from "@material-ui/core";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import SearchIcon from '@material-ui/icons/Search';
-import Axios from 'axios';
 import * as Yup from 'yup'
 
 export default function SearchByOtherCriteriaForm(submitFunction) {
-  const [positions, setPositions] = useState();
   
   const initialValues = {
     employeeFname: '',
@@ -27,26 +25,13 @@ export default function SearchByOtherCriteriaForm(submitFunction) {
     submitFunction.onSubmit(values);
     props.resetForm()
   }
-  
-  useEffect(() => {
-    const getPositions = async () => {
-      const info = await Axios.get("GetInfo/GetAllPositions");
-      if(info.data != null){
-        if(info.data.length > 0){
-          setPositions(info.data);          
-        }
-      }
-    };
-    
-    getPositions();
-  }, []);
 
   const showInfo = () => {
     const paperStyle = { padding: '40px 20px', width: 350, margin: '20px auto' }
     const btnStyle = { marginTop: 20 }    
 
-    if(positions != null){
-      if(positions.length > 0){
+    if(submitFunction.positions != null){
+      if(submitFunction.positions.length > 0){
         return (
           <Grid>
             <Paper elevation={5} style={paperStyle}>
@@ -91,7 +76,7 @@ export default function SearchByOtherCriteriaForm(submitFunction) {
                       required 
                     >
                       <MenuItem value=""><em>Select</em></MenuItem>
-                      {positions.map((position) => (
+                      {submitFunction.positions.map((position) => (
                         <MenuItem key={position.id} value={position.id}>{position.name}</MenuItem>
                       ))}
                     </Field>

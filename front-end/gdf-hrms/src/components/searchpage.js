@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent, CircularProgress } from "@material-ui/core";
 import Axios from 'axios';
 
 import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentNumberForm';
@@ -26,6 +26,20 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPage() {
   const classes = useStyles();
   const [searchResults, setSearchResults] = useState(null);
+  const [positions, setPositions] = useState();
+
+  useEffect(() => {
+    const getPositions = async () => {
+      const info = await Axios.get("GetInfo/GetAllPositions");
+      if(info.data != null){
+        if(info.data.length > 0){
+          setPositions(info.data);          
+        }
+      }
+    };
+    
+    getPositions();
+  }, []);
 
   const getDataByRegNum = data => {
     Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber)
@@ -98,14 +112,16 @@ export default function SearchPage() {
   return (
     <div>
       <div className={classes.root}>
-        <Card>
-          <CardContent className={classes.cardcontents}>
-            <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
-          </CardContent>
-          <CardContent className={classes.cardcontents}>
-            <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)}> </SearchByOtherCriteriaForm>
-          </CardContent>
-        </Card>
+        { positions ?
+          <Card>
+            <CardContent className={classes.cardcontents}>
+              <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
+            </CardContent>
+            <CardContent className={classes.cardcontents}>
+              <SearchByOtherCriteriaForm onSubmit={data => getDataByOtherCriteria(data)} positions={positions}> </SearchByOtherCriteriaForm>
+            </CardContent>
+          </Card>
+        : <CircularProgress size={65} style={{ marginTop: "120px" }} /> }
       </div>
       {showTable()}
     </div>
