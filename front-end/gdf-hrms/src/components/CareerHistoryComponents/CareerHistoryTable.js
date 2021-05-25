@@ -199,6 +199,34 @@ export default function CareerHistoryTable(props) {
           </TableContainer>         
         );
       }
+      else{
+        return (          
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">Position</StyledTableCell>
+                  <StyledTableCell align="center">Department</StyledTableCell>
+                  <StyledTableCell align="center">Start Date</StyledTableCell>
+                  <StyledTableCell align="center">End Date</StyledTableCell>
+                  <StyledTableCell align="center">Action</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>                
+                <StyledTableRow>
+                  <StyledTableCell align="center"></StyledTableCell>
+                  <StyledTableCell align="center"></StyledTableCell>
+                  <StyledTableCell align="center"></StyledTableCell>
+                  <StyledTableCell align="center"></StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Button disabled variant="text"><Edit color="primary" className={classes.icon}/></Button>
+                  </StyledTableCell>   
+                </StyledTableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>         
+        );
+      }
     }
   }
 
