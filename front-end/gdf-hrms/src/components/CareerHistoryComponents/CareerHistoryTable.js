@@ -110,19 +110,11 @@ export default function CareerHistoryTable(props) {
     
     const patchRequest = async() => {
       Axios.patch('UpdateInfo/update/employeeCH/' + careerHistory.id, careerHistory)
-      .then(response => {
-        let newData = data;
-        newData.forEach(row => {
-          if(rowSelected.id === row.id){
-            row.id = careerHistory.id;
-            row.eId = careerHistory.employeeId;
-            row.position = careerHistory.positionId;
-            row.department = careerHistory.departmentId;
-            row.startDate = careerHistory.startDate;
-            row.endDate = careerHistory.endDate;
-          }
-        })
-        setData(newData);
+        .then(response => {
+          Axios.get('EmployeeInfo/GetEmployeeCareerHistoryByTheirId?employeeId=' + careerHistory.employeeId)
+            .then(response => {
+              setData(response.data)
+          })
         if(response.status === 204){
           setNotify({
             isOpen: true,
