@@ -64,13 +64,13 @@ export default function MatPaginationTable(props) {
         <Table stickyHeader aria-label="customized table" >{/*rowEvents={rowEvents}>*/}
           <TableHead>
             <TableRow>
+              <StyledTableCell align="center">Title</StyledTableCell>
               <StyledTableCell align="center">First Name</StyledTableCell>
               <StyledTableCell align="center">Last Name</StyledTableCell>
-              <StyledTableCell align="center">Rank</StyledTableCell>
               <StyledTableCell align="center">Regiment Number</StyledTableCell>
               <StyledTableCell align="center">Date of Birth</StyledTableCell>
-              <StyledTableCell align="center">Cell Number</StyledTableCell>
-              <StyledTableCell align="center"></StyledTableCell>
+              <StyledTableCell align="center">Gender</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
 
@@ -78,12 +78,12 @@ export default function MatPaginationTable(props) {
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
               return (
                 <StyledTableRow key={row.regimentNumber}>
+                  <StyledTableCell align="center">{row.title}</StyledTableCell>
                   <StyledTableCell align="center">{row.firstName}</StyledTableCell>
                   <StyledTableCell align="center">{row.lastName}</StyledTableCell>
-                  <StyledTableCell align="center">{row.position}</StyledTableCell>
                   <StyledTableCell align="center">{row.regimentNumber}</StyledTableCell>
                   <StyledTableCell align="center">{Moment(row.dateOfBirth).format('DD-MM-YYYY')}</StyledTableCell>
-                  <StyledTableCell align="center">{row.cellNumber}</StyledTableCell>
+                  <StyledTableCell align="center">{row.sex}</StyledTableCell>
                   <StyledTableCell align="center"><Link to={'/employee-profile/' + row.regimentNumber}><Button variant="contained">View</Button></Link></StyledTableCell>
                 </StyledTableRow>
               );
