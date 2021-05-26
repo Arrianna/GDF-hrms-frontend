@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, CircularProgress } from '@material-ui/core';
 import Axios from 'axios';
 import Notification from './Notification';
 import { useFormik } from 'formik';
@@ -35,15 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function UpdateEmployeeInformation() {
   const classes = useStyles();
   const history = useHistory();
-  const [empInfoGet, setEmpInfoGet] = useState({});  
-  // const [religions, setReligions] = useState([]);
-  // const [maritalStatuses, setMaritalStatuses] = useState([]);
-  // const [nationalities, setNationalities] = useState([]);
-  // const [ethnicities, setEthnicities] = useState([]);
-  // const [religion, setReligion] = useState();
-  // const [maritalStatus, setMaritalStatus] = useState();
-  // const [nationality, setNationality] = useState();
-  // const [ethnicity, setEthnicity] = useState();
+  const [empInfoGet, setEmpInfoGet] = useState({});
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const params = useParams();
   const eId = params.empId;
@@ -53,76 +45,7 @@ export default function UpdateEmployeeInformation() {
       const info = await Axios.get("EmployeeInfo/id/" + eId);
       setEmpInfoGet(info.data);
     };
-
-    /* const getEthnicities = async () => {
-      const info = await Axios.get("GetInfo/GetAllEthnicities");
-      if(info.data != null){
-        if(info.data.length > 0){
-          setEthnicities(info.data);
-        }
-      }
-    };
-
-    const getReligions = async () => {
-      const info = await Axios.get("GetInfo/GetAllReligions");
-      if(info.data != null){
-        if(info.data.length > 0){
-          setReligions(info.data);
-        }
-      }
-    };
-
-    const getMaritalStatuses = async () => {
-      const info = await Axios.get("GetInfo/GetAllMaritalStaus");
-      if(info.data != null){
-        if(info.data.length > 0){
-          setMaritalStatuses(info.data);
-        }
-      }
-    };
-
-    const getNationalities = async () => {
-      const info = await Axios.get("GetInfo/GetAllNationalities");
-      if(info.data != null){
-        if(info.data.length > 0){
-          setNationalities(info.data);
-        }
-      }
-    };
- 
-    getEthnicities();
-    getReligions();
-    getMaritalStatuses();
-    getNationalities(); */
     getEmpInfo();
-
-    /* if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
-      if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0 && nationalities.length > 0){
-        ethnicities.forEach((ethnicity) => {
-          if(empInfoGet.ethnicity === ethnicity.name){
-            setEthnicity(parseInt(ethnicity.id, 10));
-          }
-        });
-
-        religions.forEach((religion) => {
-          if(empInfoGet.religion === religion.name){
-            setReligion(parseInt(religion.id, 10));
-          }
-        });
-
-        maritalStatuses.forEach((maritalStatus) => {
-          if(empInfoGet.maritalStatus === maritalStatus.name){
-            setMaritalStatus(parseInt(maritalStatus.id, 10));
-          }
-        });
-
-        nationalities.forEach((nationality) => {
-          if(empInfoGet.nationality === nationality.name){
-            setNationality(parseInt(nationality.id, 10));
-          }
-        });
-      }
-    } */
   }, [eId]);
 
   const formik = useFormik ({
@@ -279,31 +202,33 @@ export default function UpdateEmployeeInformation() {
 
   return (    
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-         <h1>Update Employee Profile</h1>
+      {empInfoGet ?
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+          <h1>Update Employee Profile</h1>
+          </Grid>
+          <Grid container>
+            <form onSubmit={formik.handleSubmit}>
+              <Grid item xs={12}>
+                <UpdateEmployeePIForm formik={formik}></UpdateEmployeePIForm>
+              </Grid>       
+
+              <Grid item xs={12}>
+                <UpdateEmployeeContactForm formik={formik}></UpdateEmployeeContactForm>
+              </Grid >
+
+              <Grid item xs={12}>
+                <UpdateEmployeeOfficialInfoForm formik={formik}></UpdateEmployeeOfficialInfoForm>
+              </Grid >
+                
+              <Grid item xs={6}>
+                <Button type="submit" variant="outlined" color="primary" >Update Employee</Button>
+              </Grid >
+            </form>
+            <Notification  notify={notify} setNotify={setNotify}></Notification>
+          </Grid>       
         </Grid>
-        <Grid container>
-          <form onSubmit={formik.handleSubmit}>
-            <Grid item xs={12}>
-              <UpdateEmployeePIForm formik={formik}></UpdateEmployeePIForm>
-            </Grid>       
-
-            <Grid item xs={12}>
-              <UpdateEmployeeContactForm formik={formik}></UpdateEmployeeContactForm>
-            </Grid >
-
-            <Grid item xs={12}>
-              <UpdateEmployeeOfficialInfoForm formik={formik}></UpdateEmployeeOfficialInfoForm>
-            </Grid >
-               
-            <Grid item xs={6}>
-              <Button type="submit" variant="outlined" color="primary" >Update Employee</Button>
-            </Grid >
-          </form>
-          <Notification  notify={notify} setNotify={setNotify}></Notification>
-        </Grid>       
-      </Grid>
+      : <CircularProgress size={65} style={{ marginTop: "120px" }} />}
     </div>
   );
 }
