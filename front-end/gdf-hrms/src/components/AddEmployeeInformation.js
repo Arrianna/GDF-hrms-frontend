@@ -222,9 +222,9 @@ export default function AddEmployeeInformation() {
         <Grid item xs={6}>
          <h1>Add Employee Information</h1>
         </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <div>
-            <Grid container spacing={3}>
+        <Grid container>
+          {/* <div>
+            <Grid container spacing={3}> */}
               <form onSubmit={formik.handleSubmit}>
                 <Grid item xs={12}>
                   <AddEmployeePIForm formik={formik}></AddEmployeePIForm>
@@ -241,13 +241,13 @@ export default function AddEmployeeInformation() {
                 <Grid item xs={12}>
                   <AddEmployeeOfficialInfoForm formik={formik}></AddEmployeeOfficialInfoForm>
                 </Grid >
-
+              <br></br>
                 <Grid item xs={12}>
                   <Button type="submit" variant="outlined" color="primary"> Add Employee </Button>
                 </Grid >
               </form>
-            </Grid>
-          </div>
+            {/* </Grid>
+          </div> */}
         </Grid>
       </Grid>
       <Notification notify={notify} setNotify={setNotify}/>

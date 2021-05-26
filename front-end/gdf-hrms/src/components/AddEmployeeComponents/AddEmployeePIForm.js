@@ -13,12 +13,6 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
   },
-
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 200,
-  },
-
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -76,11 +70,11 @@ export default function AddEmployeePIForm(props) {
     if(ethnicities != null && religions != null && maritalStatuses != null && nationalities != null){
       if(ethnicities.length > 0 && religions.length > 0 && maritalStatuses.length > 0 && nationalities.length > 0){
         return (
-          <div className={classes.root}>
+          <div>
             <Grid container spacing={1}>
               <h3>Personal Information</h3>
-              <Grid container justify="center" item xs={12} spacing={3}>
-                <Grid item xs={4}>
+              <Grid container item xs={12} spacing={3}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     name="firstName"
@@ -93,7 +87,7 @@ export default function AddEmployeePIForm(props) {
                     helperText={props.formik.errors.firstName && props.formik.touched.firstName && String(props.formik.errors.firstName)}
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     name="otherName"
                     label="Middle Name"
@@ -105,7 +99,7 @@ export default function AddEmployeePIForm(props) {
                     helperText={props.formik.errors.otherName && props.formik.touched.otherName && String(props.formik.errors.otherName)}
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     name="lastName"
@@ -119,7 +113,7 @@ export default function AddEmployeePIForm(props) {
                   />
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     name="title"
@@ -132,7 +126,7 @@ export default function AddEmployeePIForm(props) {
                     helperText={props.formik.errors.title && props.formik.touched.title && String(props.formik.errors.title)}
                   />
                 </Grid >
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     select
@@ -151,7 +145,7 @@ export default function AddEmployeePIForm(props) {
                     <MenuItem value={"Other"}>Other</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     select
@@ -171,7 +165,7 @@ export default function AddEmployeePIForm(props) {
                   </TextField>
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     name="dateOfBirth"
@@ -186,7 +180,7 @@ export default function AddEmployeePIForm(props) {
                     helperText={props.formik.errors.dateOfBirth && props.formik.touched.dateOfBirth && String(props.formik.errors.dateOfBirth)}
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     select
@@ -205,7 +199,7 @@ export default function AddEmployeePIForm(props) {
                     )}
                   </TextField>
                 </Grid >
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     select
@@ -224,7 +218,7 @@ export default function AddEmployeePIForm(props) {
                     )}
                   </TextField>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={2}>
                   <TextField
                     required
                     select
@@ -251,7 +245,7 @@ export default function AddEmployeePIForm(props) {
     }
   }
   return (
-    <div>
+    <div className={classes.root}>
       {showInfo()}
     </div>
   );
