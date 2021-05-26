@@ -220,7 +220,7 @@ export default function UpdateEmployeeInformation() {
               <Grid item xs={12}>
                 <UpdateEmployeeOfficialInfoForm formik={formik}></UpdateEmployeeOfficialInfoForm>
               </Grid >
-                
+                <br></br>
               <Grid item xs={6}>
                 <Button type="submit" variant="outlined" color="primary" >Update Employee</Button>
               </Grid >
