@@ -95,7 +95,7 @@ export default function CareerHistoryTable(props) {
     position: Yup.string().required("Required"),
     department: Yup.string().required("Required"),
     startDate: Yup.date().required("Required").max(new Date(), "Are you a time traveler?!"),
-    endDate: Yup.date().min(Yup.ref('startDate'), "End date can't be before Start date").required("Required"),
+    endDate: Yup.date().min(Yup.ref('startDate'), "End date can't be before Start date"),
   })
 
   const onSubmit = (values, props) => {
@@ -164,7 +164,7 @@ export default function CareerHistoryTable(props) {
     })
     return departmentName;
   }
-
+  
   const showResults = () => {
     if(data != null) {
       if(data.length > 0) {  
@@ -187,7 +187,7 @@ export default function CareerHistoryTable(props) {
                       <StyledTableCell align="center">{getPositionName(row.positionId)}</StyledTableCell>
                       <StyledTableCell align="center">{getDepartmentName(row.departmentId)}</StyledTableCell>
                       <StyledTableCell align="center">{moment(row.startDate).format('DD-MM-YYYY')}</StyledTableCell>
-                      <StyledTableCell align="center">{moment(row.endDate).format('DD-MM-YYYY')}</StyledTableCell>
+                      <StyledTableCell align="center">{!row.endDate ? '' : moment(row.endDate).format('DD-MM-YYYY')}</StyledTableCell>
                       <StyledTableCell align="center">
                         <Button variant="text"><Edit color="primary" className={classes.icon} onClick={() => selectRow(row)}/></Button>
                       </StyledTableCell>   
