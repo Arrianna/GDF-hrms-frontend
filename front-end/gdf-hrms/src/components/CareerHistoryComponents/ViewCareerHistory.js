@@ -60,9 +60,7 @@ export default function ViewCareerHistory(props) {
       .max(new Date(), "Are you a time traveler?!")
       .required("Required"),
     endDate: Yup.date()
-      .min(Yup.ref('startDate'),"End date can't be before Start date")
-    
-  
+      .min(Yup.ref('startDate'),"End date can't be before Start date")  
   });  
 
   const handleClickOpen = () => {    
@@ -92,27 +90,52 @@ export default function ViewCareerHistory(props) {
   }
 
   const handleSave = (values, props) => {
-    let careerHistory = {
-      eId: parseInt(eId),
-      posId: values.newPosition,
-      deptId: values.newDepartment,
-      startDate: values.startDate,
-      endDate: values.endDate
-    }
+    if(values.endDate){
+      let careerHistory = {
+        eId: parseInt(eId),
+        posId: values.newPosition,
+        deptId: values.newDepartment,
+        startDate: values.startDate,
+        endDate: values.endDate
+      }
 
-    if(careerHistory){
-      const postRequest = async() => {
-        await Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
-        .then(response => {
-          Axios.get("EmployeeInfo/GetEmployeeCareerHistoryByTheirId?employeeId=" + eId)
+      if(careerHistory){
+        const postRequest = async() => {
+          await Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
           .then(response => {
-            setEmpData(response.data)
-          })
-          getNotification(response, 'success')})
-        .catch(error => getNotification(error, 'error'))
-      };
+            Axios.get("EmployeeInfo/GetEmployeeCareerHistoryByTheirId?employeeId=" + eId)
+            .then(response => {
+              setEmpData(response.data)
+            })
+            getNotification(response, 'success')})
+          .catch(error => getNotification(error, 'error'))
+        };
       
-      postRequest();
+        postRequest();
+      }
+    }
+    else{
+      let careerHistory = {
+        eId: parseInt(eId),
+        posId: values.newPosition,
+        deptId: values.newDepartment,
+        startDate: values.startDate
+      }
+
+      if(careerHistory){
+        const postRequest = async() => {
+          await Axios.post('PostInfo/AddAnEmployeeCareerHistory', careerHistory)
+          .then(response => {
+            Axios.get("EmployeeInfo/GetEmployeeCareerHistoryByTheirId?employeeId=" + eId)
+            .then(response => {
+              setEmpData(response.data)
+            })
+            getNotification(response, 'success')})
+          .catch(error => getNotification(error, 'error'))
+        };
+      
+        postRequest();
+      }
     }
     setOpen(false);    
   };

@@ -6,7 +6,6 @@ import CareerHistoryForm  from './CareerHistoryComponents/CareerHistoryForm';
 import CareerHistoryTable from './CareerHistoryComponents/CareerHistoryTable';
 import Axios from 'axios';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -28,7 +27,6 @@ export default function AddCareerHistoryForm(props) {
   const params = useParams();  
   const [empData, setEmpData] = useState();
   
-
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
