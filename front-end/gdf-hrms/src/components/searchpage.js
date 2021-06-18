@@ -37,14 +37,14 @@ export default function SearchPage() {
         }
       }
     };
-    
+
     getPositions();
   }, []);
 
   const getDataByRegNum = data => {
     Axios.get("GetInfo/RegimentNumber/" + data.regimentalNumber)
-    .then((response) => {        
-      let resultArray = [];        
+    .then((response) => {
+      let resultArray = [];
       if(response.data !== ""){
         resultArray.push(response.data);
       }
@@ -65,7 +65,7 @@ export default function SearchPage() {
       }
     })
   }
-  
+
   const getDataByOtherCriteria = data => {
     let employeePosition = parseInt(data.employeePosition)
     Axios.get("GetInfo/OtherCriteria/" + data.employeeFname + '/'+ data.employeeLname + '/' + employeePosition)
