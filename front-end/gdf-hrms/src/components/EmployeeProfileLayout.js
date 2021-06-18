@@ -15,9 +15,6 @@ import ContactForm from './EmployeeProfileComponents/ContactForm';
 import OfficialInformationForm from './EmployeeProfileComponents/OfficialInformationForm';
 import Notification from './Notification';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { uiActions } from '../store/ui-slice';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -94,10 +91,6 @@ export default function EmployeeProfileLayout(props) {
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-
-  const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.ui.isLoading);
-
  
   // STATE VARIABLE FOR SELECTED ROW OF ADDRESS
   const [rowSelected, setRowSelected] = useState({
@@ -338,7 +331,7 @@ export default function EmployeeProfileLayout(props) {
       openCloseModalDelete()
     }
   }
-  // console.log(rowSelected);
+  
   // DELETE CONFIRMATION MODAL
   const bodyDelete = (
     <div className={classes.modal}>
@@ -398,12 +391,6 @@ export default function EmployeeProfileLayout(props) {
     getEmpAddress();
     getRegions();
     getCountries();
-
-    if(employeeInfo != null && employeeAddress != null){
-      if(employeeInfo.length > 0 && employeeAddress.length > 0){
-        dispatch(uiActions.toggle());
-      }
-    }
   }, [regNumber, employeeInfo.id]);
 
   empId = employeeInfo.id;
@@ -678,7 +665,7 @@ export default function EmployeeProfileLayout(props) {
               </Grid>
               <Grid container spacing={3} justify='center'>
                 <div style={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
-                  { !isLoading ?
+                  {employeeInfo && employeeAddress ?
                   <Grid container spacing={1}>
                     <Grid item xs={12}>
                       <PersonalInformationForm employeeInfo={employeeInfo}></PersonalInformationForm>

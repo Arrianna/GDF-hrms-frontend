@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom'; 
 import App from './App';
-// import {QueryClient, QueryClientProvider } from 'react-query';
-import { Provider } from 'react-redux';
-import store from './store/index';
+import {QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -27,7 +25,7 @@ axios.interceptors.response.use((response) => {
     return Promise.reject(error);
 }); */
 
-// const client = new QueryClient();
+const client = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
