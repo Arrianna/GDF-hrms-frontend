@@ -7,9 +7,6 @@ import SearchByRegimentNumberForm from './SearchPageComponents/SearchByRegimentN
 import SearchByOtherCriteriaForm from './SearchPageComponents/SearchByOtherCriteriaForm';
 import MatPaginationTable from './SearchPageComponents/SearchResultsTable';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { uiActions } from '../store/ui-slice';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -31,25 +28,15 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState(null);
   const [positions, setPositions] = useState();
 
-  const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.ui.isLoading);
-
   useEffect(() => {
     const getPositions = async () => {
       const info = await Axios.get("GetInfo/GetAllPositions");
       if(info.data != null){
         if(info.data.length > 0){
-          setPositions(info.data);
-          dispatch(uiActions.toggle());
+          setPositions(info.data);          
         }
-      }      
+      }
     };
-
-    // if(positions != null) {
-    //   if(positions.length > 0){
-    //     dispatch(uiActions.toggle());
-    //   }
-    // }
     
     getPositions();
   }, []);
@@ -125,7 +112,7 @@ export default function SearchPage() {
   return (
     <div>
       <div className={classes.root}>
-        { !isLoading ?
+        { positions ?
           <Card>
             <CardContent className={classes.cardcontents}>
               <SearchByRegimentNumberForm onSubmit={data => getDataByRegNum(data)}> </SearchByRegimentNumberForm>
