@@ -1,4 +1,3 @@
-//import { useState, useEffect } from 'react';
 import ResponsiveDrawer from './components/Layout';
 import React from "react";
 import { Route } from 'react-router';
@@ -13,13 +12,11 @@ import HomePage from './components/Home';
 import UpdateEmployeeInformation from './components/UpdateEmployeeInformation';
 
 const App = () => {
-
   return (
     <div className="App">
       <BrowserRouter>
         <ResponsiveDrawer>
           <Route path="/" exact component={HomePage}/>
-          {/*<Route path="/" exact render={(props) => (<><EmployeeProfileLayout employeePIs={employeePI}/></>)}/>*/}
           <Route path="/add-employee" exact component={AddEmployeeInformation} />
           <Route path="/employee-profile" exact component={EmployeeProfileLayout} />
           <Route path="/employee-history" exact component={CareerHistoryLayout} />

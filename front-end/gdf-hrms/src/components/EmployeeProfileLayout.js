@@ -331,7 +331,7 @@ export default function EmployeeProfileLayout(props) {
       openCloseModalDelete()
     }
   }
-  // console.log(rowSelected);
+  
   // DELETE CONFIRMATION MODAL
   const bodyDelete = (
     <div className={classes.modal}>
