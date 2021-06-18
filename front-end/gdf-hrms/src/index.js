@@ -30,13 +30,10 @@ axios.interceptors.response.use((response) => {
 // const client = new QueryClient();
 
 ReactDOM.render(
-  // <React.StrictMode>
-  //   <QueryClientProvider client={client}>
-  //     <App />
-  //   </QueryClientProvider>    
-  // </React.StrictMode>,
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <QueryClientProvider client={client}>
+      <App />
+    </QueryClientProvider>    
+  </React.StrictMode>,
   document.getElementById('root')
 );
