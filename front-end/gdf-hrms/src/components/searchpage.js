@@ -35,7 +35,7 @@ export default function SearchPage() {
         if(info.data.length > 0){
           setPositions(info.data);
         }
-      }      
+      }
     };
     
     getPositions();

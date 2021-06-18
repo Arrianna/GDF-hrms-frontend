@@ -674,7 +674,10 @@ export default function EmployeeProfileLayout(props) {
                       <ContactForm employeeInfo={employeeInfo}></ContactForm>
                     </Grid >
                     <Grid item xs={12}>
-                      <AddressForm employeeInfo={employeeAddress} selectRow={selectRow} handleClickOpen={handleClickOpen}></AddressForm>                      
+                      <AddressForm employeeInfo={employeeAddress} selectRow={selectRow} handleClickOpen={handleClickOpen}></AddressForm>
+                      {/* <Button variant="contained" color="primary" onClick={handleClickOpen}  style={{margin: '10px'}}>
+                        Add Address
+                      </Button> */}
                     </Grid>
                     <Grid item xs={12}>
                       <OfficialInformationForm employeeInfo={employeeInfo}></OfficialInformationForm>
@@ -689,7 +692,6 @@ export default function EmployeeProfileLayout(props) {
       }
     }
   }
-  
   return(
     <div>
       {showInfo()}
