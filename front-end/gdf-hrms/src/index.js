@@ -30,8 +30,10 @@ const client = new QueryClient();
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={client}>
-      <App />
-    </QueryClientProvider>    
+
+    <App />
+    </QueryClientProvider>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
